@@ -15,13 +15,13 @@ namespace adminconsole.Models
         {
         }
 
-        public virtual DbSet<Contact> Contact { get; set; }
-        public virtual DbSet<Locations> Locations { get; set; }
-        public virtual DbSet<SpecialQualities> SpecialQualities { get; set; }
+        public virtual DbSet<ContactsModel> Contact { get; set; }
+        public virtual DbSet<LocationsModel> LocationsModel { get; set; }
+        public virtual DbSet<SpecialQualitiesModel> SpecialQualities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Contact>(entity =>
+            modelBuilder.Entity<ContactsModel>(entity =>
             {
                 entity.HasKey(e => e.LocationId)
                     .HasName("PK__Contact__E7FEA477A5E98A57");
@@ -45,11 +45,11 @@ namespace adminconsole.Models
 
                 entity.HasOne(d => d.Location)
                     .WithOne(p => p.Contact)
-                    .HasForeignKey<Contact>(d => d.LocationId)
+                    .HasForeignKey<ContactsModel>(d => d.LocationId)
                     .HasConstraintName("FK__Contact__Locatio__5165187F");
             });
 
-            modelBuilder.Entity<Locations>(entity =>
+            modelBuilder.Entity<LocationsModel>(entity =>
             {
                 entity.HasKey(e => e.LocationId)
                     .HasName("PK__Location__E7FEA47765EF14A1");
@@ -102,7 +102,7 @@ namespace adminconsole.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<SpecialQualities>(entity =>
+            modelBuilder.Entity<SpecialQualitiesModel>(entity =>
             {
                 entity.HasKey(e => e.LocationId)
                     .HasName("PK__SpecialQ__E7FEA477BD8D499F");
@@ -120,7 +120,7 @@ namespace adminconsole.Models
 
                 entity.HasOne(d => d.Location)
                     .WithOne(p => p.SpecialQualities)
-                    .HasForeignKey<SpecialQualities>(d => d.LocationId)
+                    .HasForeignKey<SpecialQualitiesModel>(d => d.LocationId)
                     .HasConstraintName("FK__SpecialQu__Locat__5441852A");
             });
 
