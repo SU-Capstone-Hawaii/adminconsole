@@ -1,7 +1,10 @@
-﻿@model adminconsole.Models.Locations
+﻿@model adminconsole.Models.LocationsContactSpecialQualitiesViewModel
 
 @{
     ViewData["Title"] = "Details";
+    var location = Model.locations.First();
+    var contact = Model.contacts.First();
+    var specialQualities = Model.specialQualities.First();
 }
 
 <h1>Details</h1>
@@ -10,69 +13,153 @@
     <h4>Locations</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.InstitutionName)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InstitutionName)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(l => location.InstitutionName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.TypeName)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TypeName)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(l => location.TypeName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Street)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Street)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(l => location.Street)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.City)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.City)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(l => location.City)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.State)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.State)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(l => location.State)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Zipcode)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Zipcode)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(l => location.Zipcode)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Lat)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Lat)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(l => location.Lat)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Long)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Long)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(l => location.Long)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.RetailOutlet)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RetailOutlet)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(l => location.RetailOutlet)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Hours)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Hours)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(l => location.Hours)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(c => contact.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fax)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(c => c.Fax)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Terminal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(c => c.Terminal)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AcceptsCash)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(s => s.AcceptsCash)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cashless)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(s => s.Cashless)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DepositTaking)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(s => s.DepositTaking)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HandicapAccess)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(s => s.HandicapAccess)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LimitedTransactions)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(s => s.LimitedTransactions)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MilitaryIdrequired)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(s => s.MilitaryIdrequired)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OnMilitaryBase)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(s => s.OnMilitaryBase)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RestrictedAccess)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(s => s.RestrictedAccess)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SelfServiceOnly)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(s => s.SelfServiceOnly)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Surcharge)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(s => s.Surcharge)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AdditionalDetail)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(s => s.AdditionalDetail)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.LocationId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@location.LocationId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
