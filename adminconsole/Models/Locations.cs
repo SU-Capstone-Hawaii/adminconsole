@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace adminconsole.Models
 {
-    public partial class LocationsModel
+    public partial class Locations
     {
         public string LocationId { get; set; }
         public string InstitutionName { get; set; }
@@ -17,7 +17,7 @@ namespace adminconsole.Models
         public string RetailOutlet { get; set; }
         public string Hours { get; set; }
 
-        public virtual ContactsModel Contact { get; set; }
-        public virtual SpecialQualitiesModel SpecialQualities { get; set; }
+        public virtual Contact Contact { get; set; }
+        public virtual SpecialQualities SpecialQualities { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace adminconsole.Models
 {
-    public partial class SpecialQualitiesModel
+    public partial class SpecialQualities
     {
         public string LocationId { get; set; }
         public bool? RestrictedAccess { get; set; }
@@ -18,6 +18,6 @@ namespace adminconsole.Models
         public bool? MilitaryIdrequired { get; set; }
         public string AdditionalDetail { get; set; }
 
-        public virtual LocationsModel Location { get; set; }
+        public virtual Locations Location { get; set; }
     }
 }

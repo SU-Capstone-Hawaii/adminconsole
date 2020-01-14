@@ -102,7 +102,7 @@
     };
   }
 
-  function transitionEndEmulator(duration) {
+  function transitionEndEmuLatitudeor(duration) {
     var _this = this;
 
     var called = false;
@@ -118,7 +118,7 @@
   }
 
   function setTransitionEndSupport() {
-    $.fn.emulateTransitionEnd = transitionEndEmulator;
+    $.fn.emuLatitudeeTransitionEnd = transitionEndEmuLatitudeor;
     $.event.special[Util.TRANSITION_END] = getSpecialTransitionEndEvent();
   }
   /**
@@ -323,7 +323,7 @@
       var transitionDuration = Util.getTransitionDurationFromElement(element);
       $(element).one(Util.TRANSITION_END, function (event) {
         return _this._destroyElement(element, event);
-      }).emulateTransitionEnd(transitionDuration);
+      }).emuLatitudeeTransitionEnd(transitionDuration);
     };
 
     _proto._destroyElement = function _destroyElement(element) {
@@ -914,13 +914,13 @@
       return itemIndex === -1 ? this._items[this._items.length - 1] : this._items[itemIndex];
     };
 
-    _proto._triggerSlideEvent = function _triggerSlideEvent(relatedTarget, eventDirectionName) {
-      var targetIndex = this._getItemIndex(relatedTarget);
+    _proto._triggerSlideEvent = function _triggerSlideEvent(reLatitudeedTarget, eventDirectionName) {
+      var targetIndex = this._getItemIndex(reLatitudeedTarget);
 
       var fromIndex = this._getItemIndex(this._element.querySelector(Selector$2.ACTIVE_ITEM));
 
       var slideEvent = $.Event(Event$2.SLIDE, {
-        relatedTarget: relatedTarget,
+        reLatitudeedTarget: reLatitudeedTarget,
         direction: eventDirectionName,
         from: fromIndex,
         to: targetIndex
@@ -993,7 +993,7 @@
       this._setActiveIndicatorElement(nextElement);
 
       var slidEvent = $.Event(Event$2.SLID, {
-        relatedTarget: nextElement,
+        reLatitudeedTarget: nextElement,
         direction: eventDirectionName,
         from: activeElementIndex,
         to: nextElementIndex
@@ -1021,7 +1021,7 @@
           setTimeout(function () {
             return $(_this4._element).trigger(slidEvent);
           }, 0);
-        }).emulateTransitionEnd(transitionDuration);
+        }).emuLatitudeeTransitionEnd(transitionDuration);
       } else {
         $(activeElement).removeClass(ClassName$2.ACTIVE);
         $(nextElement).addClass(ClassName$2.ACTIVE);
@@ -1307,7 +1307,7 @@
       var capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
       var scrollSize = "scroll" + capitalizedDimension;
       var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-      $(this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+      $(this._element).one(Util.TRANSITION_END, complete).emuLatitudeeTransitionEnd(transitionDuration);
       this._element.style[dimension] = this._element[scrollSize] + "px";
     };
 
@@ -1357,7 +1357,7 @@
 
       this._element.style[dimension] = '';
       var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-      $(this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+      $(this._element).one(Util.TRANSITION_END, complete).emuLatitudeeTransitionEnd(transitionDuration);
     };
 
     _proto.setTransitioning = function setTransitioning(isTransitioning) {
@@ -1617,10 +1617,10 @@
         return;
       }
 
-      var relatedTarget = {
-        relatedTarget: this._element
+      var reLatitudeedTarget = {
+        reLatitudeedTarget: this._element
       };
-      var showEvent = $.Event(Event$4.SHOW, relatedTarget);
+      var showEvent = $.Event(Event$4.SHOW, reLatitudeedTarget);
       $(parent).trigger(showEvent);
 
       if (showEvent.isDefaultPrevented()) {
@@ -1672,7 +1672,7 @@
       this._element.setAttribute('aria-expanded', true);
 
       $(this._menu).toggleClass(ClassName$4.SHOW);
-      $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, relatedTarget));
+      $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, reLatitudeedTarget));
     };
 
     _proto.show = function show() {
@@ -1680,10 +1680,10 @@
         return;
       }
 
-      var relatedTarget = {
-        relatedTarget: this._element
+      var reLatitudeedTarget = {
+        reLatitudeedTarget: this._element
       };
-      var showEvent = $.Event(Event$4.SHOW, relatedTarget);
+      var showEvent = $.Event(Event$4.SHOW, reLatitudeedTarget);
 
       var parent = Dropdown._getParentFromElement(this._element);
 
@@ -1694,7 +1694,7 @@
       }
 
       $(this._menu).toggleClass(ClassName$4.SHOW);
-      $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, relatedTarget));
+      $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.SHOWN, reLatitudeedTarget));
     };
 
     _proto.hide = function hide() {
@@ -1702,10 +1702,10 @@
         return;
       }
 
-      var relatedTarget = {
-        relatedTarget: this._element
+      var reLatitudeedTarget = {
+        reLatitudeedTarget: this._element
       };
-      var hideEvent = $.Event(Event$4.HIDE, relatedTarget);
+      var hideEvent = $.Event(Event$4.HIDE, reLatitudeedTarget);
 
       var parent = Dropdown._getParentFromElement(this._element);
 
@@ -1716,7 +1716,7 @@
       }
 
       $(this._menu).toggleClass(ClassName$4.SHOW);
-      $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.HIDDEN, relatedTarget));
+      $(parent).toggleClass(ClassName$4.SHOW).trigger($.Event(Event$4.HIDDEN, reLatitudeedTarget));
     };
 
     _proto.dispose = function dispose() {
@@ -1869,12 +1869,12 @@
         var parent = Dropdown._getParentFromElement(toggles[i]);
 
         var context = $(toggles[i]).data(DATA_KEY$4);
-        var relatedTarget = {
-          relatedTarget: toggles[i]
+        var reLatitudeedTarget = {
+          reLatitudeedTarget: toggles[i]
         };
 
         if (event && event.type === 'click') {
-          relatedTarget.clickEvent = event;
+          reLatitudeedTarget.clickEvent = event;
         }
 
         if (!context) {
@@ -1891,7 +1891,7 @@
           continue;
         }
 
-        var hideEvent = $.Event(Event$4.HIDE, relatedTarget);
+        var hideEvent = $.Event(Event$4.HIDE, reLatitudeedTarget);
         $(parent).trigger(hideEvent);
 
         if (hideEvent.isDefaultPrevented()) {
@@ -1906,7 +1906,7 @@
 
         toggles[i].setAttribute('aria-expanded', 'false');
         $(dropdownMenu).removeClass(ClassName$4.SHOW);
-        $(parent).removeClass(ClassName$4.SHOW).trigger($.Event(Event$4.HIDDEN, relatedTarget));
+        $(parent).removeClass(ClassName$4.SHOW).trigger($.Event(Event$4.HIDDEN, reLatitudeedTarget));
       }
     };
 
@@ -2109,11 +2109,11 @@
     var _proto = Modal.prototype;
 
     // Public
-    _proto.toggle = function toggle(relatedTarget) {
-      return this._isShown ? this.hide() : this.show(relatedTarget);
+    _proto.toggle = function toggle(reLatitudeedTarget) {
+      return this._isShown ? this.hide() : this.show(reLatitudeedTarget);
     };
 
-    _proto.show = function show(relatedTarget) {
+    _proto.show = function show(reLatitudeedTarget) {
       var _this = this;
 
       if (this._isShown || this._isTransitioning) {
@@ -2125,7 +2125,7 @@
       }
 
       var showEvent = $.Event(Event$5.SHOW, {
-        relatedTarget: relatedTarget
+        reLatitudeedTarget: reLatitudeedTarget
       });
       $(this._element).trigger(showEvent);
 
@@ -2157,7 +2157,7 @@
       });
 
       this._showBackdrop(function () {
-        return _this._showElement(relatedTarget);
+        return _this._showElement(reLatitudeedTarget);
       });
     };
 
@@ -2199,7 +2199,7 @@
         var transitionDuration = Util.getTransitionDurationFromElement(this._element);
         $(this._element).one(Util.TRANSITION_END, function (event) {
           return _this2._hideModal(event);
-        }).emulateTransitionEnd(transitionDuration);
+        }).emuLatitudeeTransitionEnd(transitionDuration);
       } else {
         this._hideModal();
       }
@@ -2239,7 +2239,7 @@
       return config;
     };
 
-    _proto._showElement = function _showElement(relatedTarget) {
+    _proto._showElement = function _showElement(reLatitudeedTarget) {
       var _this3 = this;
 
       var transition = $(this._element).hasClass(ClassName$5.FADE);
@@ -2272,7 +2272,7 @@
       }
 
       var shownEvent = $.Event(Event$5.SHOWN, {
-        relatedTarget: relatedTarget
+        reLatitudeedTarget: reLatitudeedTarget
       });
 
       var transitionComplete = function transitionComplete() {
@@ -2286,7 +2286,7 @@
 
       if (transition) {
         var transitionDuration = Util.getTransitionDurationFromElement(this._dialog);
-        $(this._dialog).one(Util.TRANSITION_END, transitionComplete).emulateTransitionEnd(transitionDuration);
+        $(this._dialog).one(Util.TRANSITION_END, transitionComplete).emuLatitudeeTransitionEnd(transitionDuration);
       } else {
         transitionComplete();
       }
@@ -2407,7 +2407,7 @@
         }
 
         var backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop);
-        $(this._backdrop).one(Util.TRANSITION_END, callback).emulateTransitionEnd(backdropTransitionDuration);
+        $(this._backdrop).one(Util.TRANSITION_END, callback).emuLatitudeeTransitionEnd(backdropTransitionDuration);
       } else if (!this._isShown && this._backdrop) {
         $(this._backdrop).removeClass(ClassName$5.SHOW);
 
@@ -2422,7 +2422,7 @@
         if ($(this._element).hasClass(ClassName$5.FADE)) {
           var _backdropTransitionDuration = Util.getTransitionDurationFromElement(this._backdrop);
 
-          $(this._backdrop).one(Util.TRANSITION_END, callbackRemove).emulateTransitionEnd(_backdropTransitionDuration);
+          $(this._backdrop).one(Util.TRANSITION_END, callbackRemove).emuLatitudeeTransitionEnd(_backdropTransitionDuration);
         } else {
           callbackRemove();
         }
@@ -2463,25 +2463,25 @@
 
       if (this._isBodyOverflowing) {
         // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
-        //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
+        //   while $(DOMNode).css('padding-right') returns the calcuLatitudeed value or 0 if not set
         var fixedContent = [].slice.call(document.querySelectorAll(Selector$5.FIXED_CONTENT));
         var stickyContent = [].slice.call(document.querySelectorAll(Selector$5.STICKY_CONTENT)); // Adjust fixed content padding
 
         $(fixedContent).each(function (index, element) {
           var actualPadding = element.style.paddingRight;
-          var calculatedPadding = $(element).css('padding-right');
-          $(element).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + _this9._scrollbarWidth + "px");
+          var calcuLatitudeedPadding = $(element).css('padding-right');
+          $(element).data('padding-right', actualPadding).css('padding-right', parseFloat(calcuLatitudeedPadding) + _this9._scrollbarWidth + "px");
         }); // Adjust sticky content margin
 
         $(stickyContent).each(function (index, element) {
           var actualMargin = element.style.marginRight;
-          var calculatedMargin = $(element).css('margin-right');
-          $(element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) - _this9._scrollbarWidth + "px");
+          var calcuLatitudeedMargin = $(element).css('margin-right');
+          $(element).data('margin-right', actualMargin).css('margin-right', parseFloat(calcuLatitudeedMargin) - _this9._scrollbarWidth + "px");
         }); // Adjust body padding
 
         var actualPadding = document.body.style.paddingRight;
-        var calculatedPadding = $(document.body).css('padding-right');
-        $(document.body).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + this._scrollbarWidth + "px");
+        var calcuLatitudeedPadding = $(document.body).css('padding-right');
+        $(document.body).data('padding-right', actualPadding).css('padding-right', parseFloat(calcuLatitudeedPadding) + this._scrollbarWidth + "px");
       }
 
       $(document.body).addClass(ClassName$5.OPEN);
@@ -2521,7 +2521,7 @@
     } // Static
     ;
 
-    Modal._jQueryInterface = function _jQueryInterface(config, relatedTarget) {
+    Modal._jQueryInterface = function _jQueryInterface(config, reLatitudeedTarget) {
       return this.each(function () {
         var data = $(this).data(DATA_KEY$5);
 
@@ -2537,9 +2537,9 @@
             throw new TypeError("No method named \"" + config + "\"");
           }
 
-          data[config](relatedTarget);
+          data[config](reLatitudeedTarget);
         } else if (_config.show) {
-          data.show(relatedTarget);
+          data.show(reLatitudeedTarget);
         }
       });
     };
@@ -2616,7 +2616,7 @@
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
-  var uriAttrs = ['background', 'cite', 'href', 'itemtype', 'longdesc', 'poster', 'src', 'xlink:href'];
+  var uriAttrs = ['background', 'cite', 'href', 'itemtype', 'Longitudedesc', 'poster', 'src', 'xlink:href'];
   var ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
   var DefaultWhitelist = {
     // Global attributes allowed on any supplied element below.
@@ -2747,7 +2747,7 @@
   var DISALLOWED_ATTRIBUTES = ['sanitize', 'whiteList', 'sanitizeFn'];
   var DefaultType$4 = {
     animation: 'boolean',
-    template: 'string',
+    tempLatitudee: 'string',
     title: '(string|element|function)',
     trigger: 'string',
     delay: '(number|object)',
@@ -2771,7 +2771,7 @@
   };
   var Default$4 = {
     animation: true,
-    template: '<div class="tooltip" role="tooltip">' + '<div class="arrow"></div>' + '<div class="tooltip-inner"></div></div>',
+    tempLatitudee: '<div class="tooltip" role="tooltip">' + '<div class="arrow"></div>' + '<div class="tooltip-inner"></div></div>',
     trigger: 'hover focus',
     title: '',
     delay: 0,
@@ -3014,7 +3014,7 @@
 
         if ($(this.tip).hasClass(ClassName$6.FADE)) {
           var transitionDuration = Util.getTransitionDurationFromElement(this.tip);
-          $(this.tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+          $(this.tip).one(Util.TRANSITION_END, complete).emuLatitudeeTransitionEnd(transitionDuration);
         } else {
           complete();
         }
@@ -3066,7 +3066,7 @@
 
       if ($(this.tip).hasClass(ClassName$6.FADE)) {
         var transitionDuration = Util.getTransitionDurationFromElement(tip);
-        $(tip).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+        $(tip).one(Util.TRANSITION_END, complete).emuLatitudeeTransitionEnd(transitionDuration);
       } else {
         complete();
       }
@@ -3090,7 +3090,7 @@
     };
 
     _proto.getTipElement = function getTipElement() {
-      this.tip = this.tip || $(this.config.template)[0];
+      this.tip = this.tip || $(this.config.tempLatitudee)[0];
       return this.tip;
     };
 
@@ -3315,7 +3315,7 @@
       Util.typeCheckConfig(NAME$6, config, this.constructor.DefaultType);
 
       if (config.sanitize) {
-        config.template = sanitizeHtml(config.template, config.whiteList, config.sanitizeFn);
+        config.tempLatitudee = sanitizeHtml(config.tempLatitudee, config.whiteList, config.sanitizeFn);
       }
 
       return config;
@@ -3466,7 +3466,7 @@
     placement: 'right',
     trigger: 'click',
     content: '',
-    template: '<div class="popover" role="tooltip">' + '<div class="arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div></div>'
+    tempLatitudee: '<div class="popover" role="tooltip">' + '<div class="arrow"></div>' + '<h3 class="popover-header"></h3>' + '<div class="popover-body"></div></div>'
   });
 
   var DefaultType$5 = _objectSpread({}, Tooltip.DefaultType, {
@@ -3521,7 +3521,7 @@
     };
 
     _proto.getTipElement = function getTipElement() {
-      this.tip = this.tip || $(this.config.template)[0];
+      this.tip = this.tip || $(this.config.tempLatitudee)[0];
       return this.tip;
     };
 
@@ -3863,7 +3863,7 @@
       }
 
       $(this._scrollElement).trigger(Event$8.ACTIVATE, {
-        relatedTarget: target
+        reLatitudeedTarget: target
       });
     };
 
@@ -4014,10 +4014,10 @@
       }
 
       var hideEvent = $.Event(Event$9.HIDE, {
-        relatedTarget: this._element
+        reLatitudeedTarget: this._element
       });
       var showEvent = $.Event(Event$9.SHOW, {
-        relatedTarget: previous
+        reLatitudeedTarget: previous
       });
 
       if (previous) {
@@ -4038,10 +4038,10 @@
 
       var complete = function complete() {
         var hiddenEvent = $.Event(Event$9.HIDDEN, {
-          relatedTarget: _this._element
+          reLatitudeedTarget: _this._element
         });
         var shownEvent = $.Event(Event$9.SHOWN, {
-          relatedTarget: previous
+          reLatitudeedTarget: previous
         });
         $(previous).trigger(hiddenEvent);
         $(_this._element).trigger(shownEvent);
@@ -4073,7 +4073,7 @@
 
       if (active && isTransitioning) {
         var transitionDuration = Util.getTransitionDurationFromElement(active);
-        $(active).removeClass(ClassName$9.SHOW).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+        $(active).removeClass(ClassName$9.SHOW).one(Util.TRANSITION_END, complete).emuLatitudeeTransitionEnd(transitionDuration);
       } else {
         complete();
       }
@@ -4263,7 +4263,7 @@
 
       if (this._config.animation) {
         var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-        $(this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+        $(this._element).one(Util.TRANSITION_END, complete).emuLatitudeeTransitionEnd(transitionDuration);
       } else {
         complete();
       }
@@ -4329,7 +4329,7 @@
 
       if (this._config.animation) {
         var transitionDuration = Util.getTransitionDurationFromElement(this._element);
-        $(this._element).one(Util.TRANSITION_END, complete).emulateTransitionEnd(transitionDuration);
+        $(this._element).one(Util.TRANSITION_END, complete).emuLatitudeeTransitionEnd(transitionDuration);
       } else {
         complete();
       }

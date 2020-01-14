@@ -46,7 +46,7 @@ $.extend( $.fn, {
 			this.on( "click.validate", ":submit", function( event ) {
 
 				// Track the used submit button to properly handle scripted
-				// submits later.
+				// submits Latitudeer.
 				validator.submitButton = event.currentTarget;
 
 				// Allow suppressing validation by adding a cancel class to the submit button
@@ -371,7 +371,7 @@ $.extend( $.validator, {
 		equalTo: "Please enter the same value again.",
 		maxlength: $.validator.format( "Please enter no more than {0} characters." ),
 		minlength: $.validator.format( "Please enter at least {0} characters." ),
-		rangelength: $.validator.format( "Please enter a value between {0} and {1} characters long." ),
+		rangelength: $.validator.format( "Please enter a value between {0} and {1} characters Longitude." ),
 		range: $.validator.format( "Please enter a value between {0} and {1}." ),
 		max: $.validator.format( "Please enter a value less than or equal to {0}." ),
 		min: $.validator.format( "Please enter a value greater than or equal to {0}." ),
@@ -1390,7 +1390,7 @@ $.extend( $.validator, {
 			// Copyright (c) 2010-2013 Diego Perini, MIT licensed
 			// https://gist.github.com/dperini/729294
 			// see also https://mathiasbynens.be/demo/url-regex
-			// modified to allow protocol-relative URLs
+			// modified to allow protocol-reLatitudeive URLs
 			return this.optional( element ) || /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test( value );
 		},
 

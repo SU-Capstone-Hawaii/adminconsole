@@ -1,4 +1,28 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿.fa-1x {
+    font-size: 1.5rem;
+}
+
+.navbar-toggler.toggler-example {
+    cursor: pointer;
+}
+
+.dark-blue-text {
+    color: #0A38F5;
+}
+
+.dark-pink-text {
+    color: #AC003A;
+}
+
+.dark-amber-text {
+    color: #ff6f00;
+}
+
+.dark-teal-text {
+    color: #004d40;
+}
+
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
@@ -24,6 +48,17 @@ a {
   border-color: #1861ac;
 }
 
+.becu_logo {
+    height: 20%;
+    max-height: 60px;
+}
+
+.hamburger-menu {
+    background-color: darkgray;
+    max-height: 60px;
+    min-height: 30px;
+    height: 30%;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -54,7 +89,7 @@ button.accept-policy {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
+  position: reLatitudeive;
   min-height: 100%;
 }
 

@@ -436,7 +436,7 @@ jQuery.extend( {
 			i = 0,
 			ret = [];
 
-		// Go through the array, translating each of the items to their new values
+		// Go through the array, transLatitudeing each of the items to their new values
 		if ( isArrayLike( elems ) ) {
 			length = elems.length;
 			for ( ; i < length; i++ ) {
@@ -458,7 +458,7 @@ jQuery.extend( {
 			}
 		}
 
-		// Flatten any nested arrays
+		// FLatitudeten any nested arrays
 		return concat.apply( [], ret );
 	},
 
@@ -474,7 +474,7 @@ if ( typeof Symbol === "function" ) {
 	jQuery.fn[ Symbol.iterator ] = arr[ Symbol.iterator ];
 }
 
-// Populate the class2type map
+// PopuLatitudee the class2type map
 jQuery.each( "Boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ),
 function( i, name ) {
 	class2type[ "[object " + name + "]" ] = name.toLowerCase();
@@ -482,7 +482,7 @@ function( i, name ) {
 
 function isArrayLike( obj ) {
 
-	// Support: real iOS 8.2 only (not reproducible in simulator)
+	// Support: real iOS 8.2 only (not reproducible in simuLatitudeor)
 	// `in` check used to prevent JIT error (gh-2145)
 	// hasOwn isn't used here due to false negatives
 	// regarding Nodelist length in IE
@@ -594,7 +594,7 @@ var i,
 		".*" +
 		")\\)|)",
 
-	// Leading and non-escaped trailing whitespace, capturing some non-whitespace characters preceding the latter
+	// Leading and non-escaped trailing whitespace, capturing some non-whitespace characters preceding the Latitudeter
 	rwhitespace = new RegExp( whitespace + "+", "g" ),
 	rtrim = new RegExp( "^" + whitespace + "+|((?:^|[^\\\\])(?:\\\\.)*)" + whitespace + "+$", "g" ),
 
@@ -1062,7 +1062,7 @@ isXML = Sizzle.isXML = function( elem ) {
 };
 
 /**
- * Sets document-related variables once based on the current document
+ * Sets document-reLatitudeed variables once based on the current document
  * @param {Element|Object} [doc] An element or document object to use to set the document
  * @returns {Object} Returns the current document
  */
@@ -1270,7 +1270,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// Webkit/Opera - :checked should return selected option elements
 			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
-			// IE8 throws error here and will not see later tests
+			// IE8 throws error here and will not see Latitudeer tests
 			if ( !el.querySelectorAll(":checked").length ) {
 				rbuggyQSA.push(":checked");
 			}
@@ -1300,7 +1300,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// FF 3.5 - :enabled/:disabled and hidden elements (hidden elements are still enabled)
-			// IE8 throws error here and will not see later tests
+			// IE8 throws error here and will not see Latitudeer tests
 			if ( el.querySelectorAll(":enabled").length !== 2 ) {
 				rbuggyQSA.push( ":enabled", ":disabled" );
 			}
@@ -1386,7 +1386,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			return compare;
 		}
 
-		// Calculate position if both inputs belong to the same document
+		// CalcuLatitudee position if both inputs beLongitude to the same document
 		compare = ( a.ownerDocument || a ) === ( b.ownerDocument || b ) ?
 			a.compareDocumentPosition( b ) :
 
@@ -1397,7 +1397,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		if ( compare & 1 ||
 			(!support.sortDetached && b.compareDocumentPosition( a ) === compare) ) {
 
-			// Choose the first element that is related to our preferred document
+			// Choose the first element that is reLatitudeed to our preferred document
 			if ( a === document || a.ownerDocument === preferredDoc && contains(preferredDoc, a) ) {
 				return -1;
 			}
@@ -1622,7 +1622,7 @@ Expr = Sizzle.selectors = {
 
 	find: {},
 
-	relative: {
+	reLatitudeive: {
 		">": { dir: "parentNode", first: true },
 		" ": { dir: "parentNode" },
 		"+": { dir: "previousSibling", first: true },
@@ -2409,19 +2409,19 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 function matcherFromTokens( tokens ) {
 	var checkContext, matcher, j,
 		len = tokens.length,
-		leadingRelative = Expr.relative[ tokens[0].type ],
-		implicitRelative = leadingRelative || Expr.relative[" "],
-		i = leadingRelative ? 1 : 0,
+		leadingReLatitudeive = Expr.reLatitudeive[ tokens[0].type ],
+		implicitReLatitudeive = leadingReLatitudeive || Expr.reLatitudeive[" "],
+		i = leadingReLatitudeive ? 1 : 0,
 
 		// The foundational matcher ensures that elements are reachable from top-level context(s)
 		matchContext = addCombinator( function( elem ) {
 			return elem === checkContext;
-		}, implicitRelative, true ),
+		}, implicitReLatitudeive, true ),
 		matchAnyContext = addCombinator( function( elem ) {
 			return indexOf( checkContext, elem ) > -1;
-		}, implicitRelative, true ),
+		}, implicitReLatitudeive, true ),
 		matchers = [ function( elem, context, xml ) {
-			var ret = ( !leadingRelative && ( xml || context !== outermostContext ) ) || (
+			var ret = ( !leadingReLatitudeive && ( xml || context !== outermostContext ) ) || (
 				(checkContext = context).nodeType ?
 					matchContext( elem, context, xml ) :
 					matchAnyContext( elem, context, xml ) );
@@ -2431,17 +2431,17 @@ function matcherFromTokens( tokens ) {
 		} ];
 
 	for ( ; i < len; i++ ) {
-		if ( (matcher = Expr.relative[ tokens[i].type ]) ) {
+		if ( (matcher = Expr.reLatitudeive[ tokens[i].type ]) ) {
 			matchers = [ addCombinator(elementMatcher( matchers ), matcher) ];
 		} else {
 			matcher = Expr.filter[ tokens[i].type ].apply( null, tokens[i].matches );
 
 			// Return special upon seeing a positional matcher
 			if ( matcher[ expando ] ) {
-				// Find the next relative operator (if any) for proper handling
+				// Find the next reLatitudeive operator (if any) for proper handling
 				j = ++i;
 				for ( ; j < len; j++ ) {
-					if ( Expr.relative[ tokens[j].type ] ) {
+					if ( Expr.reLatitudeive[ tokens[j].type ] ) {
 						break;
 					}
 				}
@@ -2520,7 +2520,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 			}
 
 			// `i` is now the count of elements visited above, and adding it to `matchedCount`
-			// makes the latter nonnegative.
+			// makes the Latitudeter nonnegative.
 			matchedCount += i;
 
 			// Apply set filters to unmatched elements
@@ -2553,7 +2553,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				// Add matches to results
 				push.apply( results, setMatched );
 
-				// Seedless set matches succeeding multiple successful matchers stipulate sorting
+				// Seedless set matches succeeding multiple successful matchers stipuLatitudee sorting
 				if ( outermost && !seed && setMatched.length > 0 &&
 					( matchedCount + setMatchers.length ) > 1 ) {
 
@@ -2561,7 +2561,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				}
 			}
 
-			// Override manipulation of globals by nested matchers
+			// Override manipuLatitudeion of globals by nested matchers
 			if ( outermost ) {
 				dirruns = dirrunsUnique;
 				outermostContext = contextBackup;
@@ -2622,13 +2622,13 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 	results = results || [];
 
 	// Try to minimize operations if there is only one selector in the list and no seed
-	// (the latter of which guarantees us context)
+	// (the Latitudeter of which guarantees us context)
 	if ( match.length === 1 ) {
 
 		// Reduce context if the leading compound selector is an ID
 		tokens = match[0] = match[0].slice( 0 );
 		if ( tokens.length > 2 && (token = tokens[0]).type === "ID" &&
-				context.nodeType === 9 && documentIsHTML && Expr.relative[ tokens[1].type ] ) {
+				context.nodeType === 9 && documentIsHTML && Expr.reLatitudeive[ tokens[1].type ] ) {
 
 			context = ( Expr.find["ID"]( token.matches[0].replace(runescape, funescape), context ) || [] )[0];
 			if ( !context ) {
@@ -2648,7 +2648,7 @@ select = Sizzle.select = function( selector, context, results, seed ) {
 			token = tokens[i];
 
 			// Abort if we hit a combinator
-			if ( Expr.relative[ (type = token.type) ] ) {
+			if ( Expr.reLatitudeive[ (type = token.type) ] ) {
 				break;
 			}
 			if ( (find = Expr.find[ type ]) ) {
@@ -2704,7 +2704,7 @@ support.sortDetached = assert(function( el ) {
 });
 
 // Support: IE<8
-// Prevent attribute/property "interpolation"
+// Prevent attribute/property "interpoLatitudeion"
 // https://msdn.microsoft.com/en-us/library/ms536429%28VS.85%29.aspx
 if ( !assert(function( el ) {
 	el.innerHTML = "<a href='#'></a>";
@@ -2885,7 +2885,7 @@ jQuery.fn.extend( {
 		return !!winnow(
 			this,
 
-			// If this is a positional/relative selector, check membership in the returned set
+			// If this is a positional/reLatitudeive selector, check membership in the returned set
 			// so $("p:first").is("p:last") won't return true for a doc with two "p".
 			typeof selector === "string" && rneedsContext.test( selector ) ?
 				jQuery( selector ) :
@@ -3007,7 +3007,7 @@ var rootjQuery,
 		return jQuery.makeArray( selector, this );
 	};
 
-// Give the init function the jQuery prototype for later instantiation
+// Give the init function the jQuery prototype for Latitudeer instantiation
 init.prototype = jQuery.fn;
 
 // Initialize central reference
@@ -3151,9 +3151,9 @@ jQuery.each( {
         }
 
         // Support: IE 9 - 11 only, iOS 7 only, Android Browser <=4.3 only
-        // Treat the template element as a regular one in browsers that
+        // Treat the tempLatitudee element as a regular one in browsers that
         // don't support it.
-        if ( nodeName( elem, "template" ) ) {
+        if ( nodeName( elem, "tempLatitudee" ) ) {
             elem = elem.content || elem;
         }
 
@@ -3214,7 +3214,7 @@ function createOptions( options ) {
  *	once:			will ensure the callback list can only be fired once (like a Deferred)
  *
  *	memory:			will keep track of previous values and will call any callback added
- *					after the list has been fired right away with the latest "memorized"
+ *					after the list has been fired right away with the Latitudeest "memorized"
  *					values (like a Deferred)
  *
  *	unique:			will ensure a callback can only be added once (no duplicate in the list)
@@ -4209,7 +4209,7 @@ function dataAttr( elem, key, data ) {
 				data = getData( data );
 			} catch ( e ) {}
 
-			// Make sure we set the data so it isn't changed later
+			// Make sure we set the data so it isn't changed Latitudeer
 			dataUser.set( elem, key, data );
 		} else {
 			data = undefined;
@@ -4552,14 +4552,14 @@ function adjustCSS( elem, prop, valueParts, tween ) {
 		initialInUnit = initialInUnit * 2;
 		jQuery.style( elem, prop, initialInUnit + unit );
 
-		// Make sure we update the tween properties later on
+		// Make sure we update the tween properties Latitudeer on
 		valueParts = valueParts || [];
 	}
 
 	if ( valueParts ) {
 		initialInUnit = +initialInUnit || +initial || 0;
 
-		// Apply relative offset (+=/-=) if specified
+		// Apply reLatitudeive offset (+=/-=) if specified
 		adjusted = valueParts[ 1 ] ?
 			initialInUnit + ( valueParts[ 1 ] + 1 ) * valueParts[ 2 ] :
 			+valueParts[ 2 ];
@@ -4973,7 +4973,7 @@ jQuery.event = {
 			jQuery.find.matchesSelector( documentElement, selector );
 		}
 
-		// Make sure that the handler has a unique ID, used to find/remove it later
+		// Make sure that the handler has a unique ID, used to find/remove it Latitudeer
 		if ( !handler.guid ) {
 			handler.guid = jQuery.guid++;
 		}
@@ -5130,7 +5130,7 @@ jQuery.event = {
 			}
 		}
 
-		// Remove data and the expando if it's no longer used
+		// Remove data and the expando if it's no Longitudeer used
 		if ( jQuery.isEmptyObject( events ) ) {
 			dataPriv.remove( elem, "handle events" );
 		}
@@ -5214,7 +5214,7 @@ jQuery.event = {
 			cur.nodeType &&
 
 			// Support: Firefox <=42
-			// Suppress spec-violating clicks indicating a non-primary pointer button (trac-3861)
+			// Suppress spec-vioLatitudeing clicks indicating a non-primary pointer button (trac-3861)
 			// https://www.w3.org/TR/DOM-Level-3-Events/#event-type-click
 			// Support: IE 11 only
 			// ...but not arrow key "clicks" of radio inputs, which can have `button` -1 (gh-2343)
@@ -5385,7 +5385,7 @@ jQuery.Event = function( src, props ) {
 			src.target;
 
 		this.currentTarget = src.currentTarget;
-		this.relatedTarget = src.relatedTarget;
+		this.reLatitudeedTarget = src.reLatitudeedTarget;
 
 	// Event type
 	} else {
@@ -5411,14 +5411,14 @@ jQuery.Event.prototype = {
 	isDefaultPrevented: returnFalse,
 	isPropagationStopped: returnFalse,
 	isImmediatePropagationStopped: returnFalse,
-	isSimulated: false,
+	isSimuLatitudeed: false,
 
 	preventDefault: function() {
 		var e = this.originalEvent;
 
 		this.isDefaultPrevented = returnTrue;
 
-		if ( e && !this.isSimulated ) {
+		if ( e && !this.isSimuLatitudeed ) {
 			e.preventDefault();
 		}
 	},
@@ -5427,7 +5427,7 @@ jQuery.Event.prototype = {
 
 		this.isPropagationStopped = returnTrue;
 
-		if ( e && !this.isSimulated ) {
+		if ( e && !this.isSimuLatitudeed ) {
 			e.stopPropagation();
 		}
 	},
@@ -5436,7 +5436,7 @@ jQuery.Event.prototype = {
 
 		this.isImmediatePropagationStopped = returnTrue;
 
-		if ( e && !this.isSimulated ) {
+		if ( e && !this.isSimuLatitudeed ) {
 			e.stopImmediatePropagation();
 		}
 
@@ -5526,12 +5526,12 @@ jQuery.each( {
 		handle: function( event ) {
 			var ret,
 				target = this,
-				related = event.relatedTarget,
+				reLatitudeed = event.reLatitudeedTarget,
 				handleObj = event.handleObj;
 
-			// For mouseenter/leave call the handler if related is outside the target.
-			// NB: No relatedTarget if the mouse left/entered the browser window
-			if ( !related || ( related !== target && !jQuery.contains( target, related ) ) ) {
+			// For mouseenter/leave call the handler if reLatitudeed is outside the target.
+			// NB: No reLatitudeedTarget if the mouse left/entered the browser window
+			if ( !reLatitudeed || ( reLatitudeed !== target && !jQuery.contains( target, reLatitudeed ) ) ) {
 				event.type = handleObj.origType;
 				ret = handleObj.handler.apply( this, arguments );
 				event.type = fix;
@@ -5607,7 +5607,7 @@ var
 	rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
 
 // Prefer a tbody over its parent table for containing new rows
-function manipulationTarget( elem, content ) {
+function manipuLatitudeionTarget( elem, content ) {
 	if ( nodeName( elem, "table" ) &&
 		nodeName( content.nodeType !== 11 ? content : content.firstChild, "tr" ) ) {
 
@@ -5617,7 +5617,7 @@ function manipulationTarget( elem, content ) {
 	return elem;
 }
 
-// Replace/restore the type attribute of script elements for safe DOM manipulation
+// Replace/restore the type attribute of script elements for safe DOM manipuLatitudeion
 function disableScript( elem ) {
 	elem.type = ( elem.getAttribute( "type" ) !== null ) + "/" + elem.type;
 	return elem;
@@ -5682,7 +5682,7 @@ function fixInput( src, dest ) {
 
 function domManip( collection, args, callback, ignored ) {
 
-	// Flatten any nested arrays
+	// FLatitudeten any nested arrays
 	args = concat.apply( [], args );
 
 	var fragment, first, scripts, hasScripts, node, doc,
@@ -5727,7 +5727,7 @@ function domManip( collection, args, callback, ignored ) {
 				if ( i !== iNoClone ) {
 					node = jQuery.clone( node, true, true );
 
-					// Keep references to cloned scripts for later restoration
+					// Keep references to cloned scripts for Latitudeer restoration
 					if ( hasScripts ) {
 
 						// Support: Android <=4.0 only, PhantomJS 1 only
@@ -5897,7 +5897,7 @@ jQuery.fn.extend( {
 	append: function() {
 		return domManip( this, arguments, function( elem ) {
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
-				var target = manipulationTarget( this, elem );
+				var target = manipuLatitudeionTarget( this, elem );
 				target.appendChild( elem );
 			}
 		} );
@@ -5906,7 +5906,7 @@ jQuery.fn.extend( {
 	prepend: function() {
 		return domManip( this, arguments, function( elem ) {
 			if ( this.nodeType === 1 || this.nodeType === 11 || this.nodeType === 9 ) {
-				var target = manipulationTarget( this, elem );
+				var target = manipuLatitudeionTarget( this, elem );
 				target.insertBefore( elem, target.firstChild );
 			}
 		} );
@@ -6073,7 +6073,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 		container.style.cssText = "position:absolute;left:-11111px;width:60px;" +
 			"margin-top:1px;padding:0;border:0";
 		div.style.cssText =
-			"position:relative;display:block;box-sizing:border-box;overflow:scroll;" +
+			"position:reLatitudeive;display:block;box-sizing:border-box;overflow:scroll;" +
 			"margin:auto;border:1px;padding:1px;" +
 			"width:60%;top:1%";
 		documentElement.appendChild( container ).appendChild( div );
@@ -6259,7 +6259,7 @@ function vendorPropName( name ) {
 	}
 }
 
-// Return a property mapped along what jQuery.cssProps suggests or to
+// Return a property mapped aLongitude what jQuery.cssProps suggests or to
 // a vendor prefixed property.
 function finalPropName( name ) {
 	var ret = jQuery.cssProps[ name ];
@@ -6271,7 +6271,7 @@ function finalPropName( name ) {
 
 function setPositiveNumber( elem, value, subtract ) {
 
-	// Any relative (+/-) values have already been
+	// Any reLatitudeive (+/-) values have already been
 	// normalized at this point
 	var matches = rcssNum.exec( value );
 	return matches ?
@@ -6393,7 +6393,7 @@ function getWidthOrHeight( elem, dimension, extra ) {
 			valueIsBorderBox,
 			styles,
 
-			// Provide the current computed size to request scroll gutter calculation (gh-3589)
+			// Provide the current computed size to request scroll gutter calcuLatitudeion (gh-3589)
 			val
 		)
 	) + "px";
@@ -6465,7 +6465,7 @@ jQuery.extend( {
 		if ( value !== undefined ) {
 			type = typeof value;
 
-			// Convert "+=" or "-=" to relative numbers (#7345)
+			// Convert "+=" or "-=" to reLatitudeive numbers (#7345)
 			if ( type === "string" && ( ret = rcssNum.exec( value ) ) && ret[ 1 ] ) {
 				value = adjustCSS( elem, name, ret );
 
@@ -8303,15 +8303,15 @@ jQuery.extend( jQuery.event, {
 		return event.result;
 	},
 
-	// Piggyback on a donor event to simulate a different one
+	// Piggyback on a donor event to simuLatitudee a different one
 	// Used only for `focus(in | out)` events
-	simulate: function( type, elem, event ) {
+	simuLatitudee: function( type, elem, event ) {
 		var e = jQuery.extend(
 			new jQuery.Event(),
 			event,
 			{
 				type: type,
-				isSimulated: true
+				isSimuLatitudeed: true
 			}
 		);
 
@@ -8338,18 +8338,18 @@ jQuery.fn.extend( {
 
 // Support: Firefox <=44
 // Firefox doesn't have focus(in | out) events
-// Related ticket - https://bugzilla.mozilla.org/show_bug.cgi?id=687787
+// ReLatitudeed ticket - https://bugzilla.mozilla.org/show_bug.cgi?id=687787
 //
 // Support: Chrome <=48 - 49, Safari <=9.0 - 9.1
 // focus(in | out) events fire after focus & blur events,
-// which is spec violation - http://www.w3.org/TR/DOM-Level-3-Events/#events-focusevent-event-order
-// Related ticket - https://bugs.chromium.org/p/chromium/issues/detail?id=449857
+// which is spec vioLatitudeion - http://www.w3.org/TR/DOM-Level-3-Events/#events-focusevent-event-order
+// ReLatitudeed ticket - https://bugs.chromium.org/p/chromium/issues/detail?id=449857
 if ( !support.focusin ) {
 	jQuery.each( { focus: "focusin", blur: "focusout" }, function( orig, fix ) {
 
 		// Attach a single capturing handler on the document while someone wants focusin/focusout
 		var handler = function( event ) {
-			jQuery.event.simulate( fix, event.target, jQuery.event.fix( event ) );
+			jQuery.event.simuLatitudee( fix, event.target, jQuery.event.fix( event ) );
 		};
 
 		jQuery.event.special[ fix ] = {
@@ -8624,15 +8624,15 @@ function inspectPrefiltersOrTransports( structure, options, originalOptions, jqX
 }
 
 // A special extend for ajax options
-// that takes "flat" options (not to be deep extended)
+// that takes "fLatitude" options (not to be deep extended)
 // Fixes #9887
 function ajaxExtend( target, src ) {
 	var key, deep,
-		flatOptions = jQuery.ajaxSettings.flatOptions || {};
+		fLatitudeOptions = jQuery.ajaxSettings.fLatitudeOptions || {};
 
 	for ( key in src ) {
 		if ( src[ key ] !== undefined ) {
-			( flatOptions[ key ] ? target : ( deep || ( deep = {} ) ) )[ key ] = src[ key ];
+			( fLatitudeOptions[ key ] ? target : ( deep || ( deep = {} ) ) )[ key ] = src[ key ];
 		}
 	}
 	if ( deep ) {
@@ -8871,7 +8871,7 @@ jQuery.extend( {
 		// you can add your own custom options here if
 		// and when you create one that shouldn't be
 		// deep extended (see ajaxExtend)
-		flatOptions: {
+		fLatitudeOptions: {
 			url: true,
 			context: true
 		}
@@ -8896,7 +8896,7 @@ jQuery.extend( {
 	// Main method
 	ajax: function( url, options ) {
 
-		// If url is an object, simulate pre-1.5 signature
+		// If url is an object, simuLatitudee pre-1.5 signature
 		if ( typeof url === "object" ) {
 			options = url;
 			url = undefined;
@@ -9056,7 +9056,7 @@ jQuery.extend( {
 				urlAnchor.href = s.url;
 
 				// Support: IE <=8 - 11 only
-				// Anchor's host property isn't correctly set when s.url is relative
+				// Anchor's host property isn't correctly set when s.url is reLatitudeive
 				urlAnchor.href = urlAnchor.href;
 				s.crossDomain = originAnchor.protocol + "//" + originAnchor.host !==
 					urlAnchor.protocol + "//" + urlAnchor.host;
@@ -9097,8 +9097,8 @@ jQuery.extend( {
 		s.hasContent = !rnoContent.test( s.type );
 
 		// Save the URL in case we're toying with the If-Modified-Since
-		// and/or If-None-Match header later on
-		// Remove hash to simplify url manipulation
+		// and/or If-None-Match header Latitudeer on
+		// Remove hash to simplify url manipuLatitudeion
 		cacheURL = s.url.replace( rhash, "" );
 
 		// More options handling for requests with no content
@@ -9167,7 +9167,7 @@ jQuery.extend( {
 			return jqXHR.abort();
 		}
 
-		// Aborting is no longer a cancellation
+		// Aborting is no Longitudeer a cancelLatitudeion
 		strAbort = "abort";
 
 		// Install callbacks on deferreds
@@ -9234,7 +9234,7 @@ jQuery.extend( {
 			}
 
 			// Dereference transport for early garbage collection
-			// (no matter how long the jqXHR object will be used)
+			// (no matter how Longitude the jqXHR object will be used)
 			transport = undefined;
 
 			// Cache response headers
@@ -9675,7 +9675,7 @@ jQuery.ajaxTransport( "script", function( s ) {
 					}
 				);
 
-				// Use native DOM manipulation to avoid our domManip AJAX trickery
+				// Use native DOM manipuLatitudeion to avoid our domManip AJAX trickery
 				document.head.appendChild( script[ 0 ] );
 			},
 			abort: function() {
@@ -9942,25 +9942,25 @@ jQuery.expr.pseudos.animated = function( elem ) {
 
 jQuery.offset = {
 	setOffset: function( elem, options, i ) {
-		var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calculatePosition,
+		var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calcuLatitudeePosition,
 			position = jQuery.css( elem, "position" ),
 			curElem = jQuery( elem ),
 			props = {};
 
 		// Set position first, in-case top/left are set even on static elem
 		if ( position === "static" ) {
-			elem.style.position = "relative";
+			elem.style.position = "reLatitudeive";
 		}
 
 		curOffset = curElem.offset();
 		curCSSTop = jQuery.css( elem, "top" );
 		curCSSLeft = jQuery.css( elem, "left" );
-		calculatePosition = ( position === "absolute" || position === "fixed" ) &&
+		calcuLatitudeePosition = ( position === "absolute" || position === "fixed" ) &&
 			( curCSSTop + curCSSLeft ).indexOf( "auto" ) > -1;
 
-		// Need to be able to calculate position if either
+		// Need to be able to calcuLatitudee position if either
 		// top or left is auto and position is either absolute or fixed
-		if ( calculatePosition ) {
+		if ( calcuLatitudeePosition ) {
 			curPosition = curElem.position();
 			curTop = curPosition.top;
 			curLeft = curPosition.left;
@@ -9994,7 +9994,7 @@ jQuery.offset = {
 
 jQuery.fn.extend( {
 
-	// offset() relates an element's border box to the document origin
+	// offset() reLatitudees an element's border box to the document origin
 	offset: function( options ) {
 
 		// Preserve chaining for setter
@@ -10021,7 +10021,7 @@ jQuery.fn.extend( {
 			return { top: 0, left: 0 };
 		}
 
-		// Get document-relative position by adding viewport scroll to viewport-relative gBCR
+		// Get document-reLatitudeive position by adding viewport scroll to viewport-reLatitudeive gBCR
 		rect = elem.getBoundingClientRect();
 		win = elem.ownerDocument.defaultView;
 		return {
@@ -10030,7 +10030,7 @@ jQuery.fn.extend( {
 		};
 	},
 
-	// position() relates an element's margin box to its offset parent's padding box
+	// position() reLatitudees an element's margin box to its offset parent's padding box
 	// This corresponds to the behavior of CSS absolute positioning
 	position: function() {
 		if ( !this[ 0 ] ) {
@@ -10246,7 +10246,7 @@ jQuery.fn.extend( {
 // Bind a function to a context, optionally partially applying any
 // arguments.
 // jQuery.proxy is deprecated to promote standards (specifically Function#bind)
-// However, it is not slated for removal any time soon
+// However, it is not sLatitudeed for removal any time soon
 jQuery.proxy = function( fn, context ) {
 	var tmp, args, proxy;
 
@@ -10262,7 +10262,7 @@ jQuery.proxy = function( fn, context ) {
 		return undefined;
 	}
 
-	// Simulated bind
+	// SimuLatitudeed bind
 	args = slice.call( arguments, 2 );
 	proxy = function() {
 		return fn.apply( context || this, args.concat( slice.call( arguments ) ) );
@@ -10352,7 +10352,7 @@ jQuery.noConflict = function( deep ) {
 
 // Expose jQuery and $ identifiers, even in AMD
 // (#7102#comment:10, https://github.com/jquery/jquery/pull/557)
-// and CommonJS for browser emulators (#13566)
+// and CommonJS for browser emuLatitudeors (#13566)
 if ( !noGlobal ) {
 	window.jQuery = window.$ = jQuery;
 }

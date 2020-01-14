@@ -21,8 +21,7 @@ namespace adminconsole.Controllers
         // GET: Locations
         public async Task<IActionResult> Index()
         {
-            var locationsList = await _context.LocationsModel.ToListAsync().ConfigureAwait(false);
-            return View(locationsList);
+            return View(await _context.Locations.ToListAsync());
         }
 
         // GET: Locations/Details/5
@@ -33,8 +32,8 @@ namespace adminconsole.Controllers
                 return NotFound();
             }
 
-            var locations = await _context.LocationsModel
-                .FirstOrDefaultAsync(m => m.LocationId == id).ConfigureAwait(false);
+            var locations = await _context.Locations
+                .FirstOrDefaultAsync(m => m.LocationId == id);
             if (locations == null)
             {
                 return NotFound();
@@ -54,12 +53,12 @@ namespace adminconsole.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LocationId,InstitutionName,TypeName,Street,City,State,Zipcode,Lat,Long,RetailOutlet,Hours")] LocationsModel locations)
+        public async Task<IActionResult> Create([Bind("LocationId,InstitutionName,TypeName,Street,City,State,Zipcode,Lat,Long,RetailOutlet,Hours")] Locations locations)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(locations);
-                await _context.SaveChangesAsync().ConfigureAwait(false);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(locations);
@@ -73,7 +72,7 @@ namespace adminconsole.Controllers
                 return NotFound();
             }
 
-            var locations = await _context.LocationsModel.FindAsync(id);
+            var locations = await _context.Locations.FindAsync(id);
             if (locations == null)
             {
                 return NotFound();
@@ -86,7 +85,7 @@ namespace adminconsole.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("LocationId,InstitutionName,TypeName,Street,City,State,Zipcode,Lat,Long,RetailOutlet,Hours")] LocationsModel locations)
+        public async Task<IActionResult> Edit(string id, [Bind("LocationId,InstitutionName,TypeName,Street,City,State,Zipcode,Lat,Long,RetailOutlet,Hours")] Locations locations)
         {
             if (id != locations.LocationId)
             {
@@ -98,7 +97,7 @@ namespace adminconsole.Controllers
                 try
                 {
                     _context.Update(locations);
-                    await _context.SaveChangesAsync().ConfigureAwait(false);
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,8 +123,8 @@ namespace adminconsole.Controllers
                 return NotFound();
             }
 
-            var locations = await _context.LocationsModel
-                .FirstOrDefaultAsync(m => m.LocationId == id).ConfigureAwait(false);
+            var locations = await _context.Locations
+                .FirstOrDefaultAsync(m => m.LocationId == id);
             if (locations == null)
             {
                 return NotFound();
@@ -139,15 +138,15 @@ namespace adminconsole.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var locations = await _context.LocationsModel.FindAsync(id);
-            _context.LocationsModel.Remove(locations);
-            await _context.SaveChangesAsync().ConfigureAwait(false);
+            var locations = await _context.Locations.FindAsync(id);
+            _context.Locations.Remove(locations);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LocationsExists(string id)
         {
-            return _context.LocationsModel.Any(e => e.LocationId == id);
+            return _context.Locations.Any(e => e.LocationId == id);
         }
     }
 }
