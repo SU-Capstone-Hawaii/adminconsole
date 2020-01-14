@@ -1,4 +1,4 @@
-﻿@model IEnumerable<adminconsole.Models.Locations>
+﻿@model adminconsole.Models.LocationsContactSpecialQualitiesViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Index" asp-controller="Contacts">Contacts</a>
 </p>
 <table class ="table table-bordered"
             id="table"
@@ -15,6 +15,7 @@
             data-search="true"
             data-show-search-clear-button="true"
             data-show-columns="true"
+            data-show-columns-toggle-all="true"
             data-show-export="true"
             data-sort-stable="true"
             data-pagination="true">
@@ -51,49 +52,135 @@
             <th>
                 @Html.DisplayNameFor(model => model.Hours)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Terminal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AcceptsCash)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cashless)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositTaking)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HandicapAccess)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LimitedTransactions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MilitaryIdrequired)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OnMilitaryBase)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RestrictedAccess)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelfServiceOnly)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surcharge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdditionalDetail)
+            </th>
+            <th>
+                Controls
+            </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.locations)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InstitutionName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TypeName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Street)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.State)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Zipcode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Lat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Long)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RetailOutlet)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hours)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstitutionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zipcode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Long)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RetailOutlet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.contacts.Find(c => c.LocationId == item.LocationId).Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.contacts.Find(c => c.LocationId == item.LocationId).Fax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.contacts.Find(c => c.LocationId == item.LocationId).Terminal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).AcceptsCash)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).Cashless)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).DepositTaking)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).HandicapAccess)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).LimitedTransactions)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).MilitaryIdrequired)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).OnMilitaryBase)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).RestrictedAccess)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).SelfServiceOnly)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).Surcharge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).AdditionalDetail)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
     </table>

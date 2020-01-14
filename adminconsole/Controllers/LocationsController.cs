@@ -6,22 +6,27 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using adminconsole.Models;
+using adminconsole.Backend;
 
 namespace adminconsole.Controllers
 {
     public class LocationsController : Controller
     {
         private readonly MaphawksContext _context;
+        private LocationsContactSpecialQualitiesBackend backend;
 
         public LocationsController(MaphawksContext context)
         {
             _context = context;
+            backend = new LocationsContactSpecialQualitiesBackend(context);
         }
 
         // GET: Locations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Locations.ToListAsync());
+            var results = backend.Index();
+            //var results = await _context.Locations.ToListAsync().ConfigureAwait(false);
+            return View(results);
         }
 
         // GET: Locations/Details/5

@@ -97,8 +97,8 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
-.footer {
-  position: absolute;
+.footer-relative {
+  position: relative;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
