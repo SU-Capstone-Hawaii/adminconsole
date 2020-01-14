@@ -4,11 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Index" asp-controller="Contacts">Contacts</a>
-</p>
 <table class ="table table-bordered"
             id="table"
             data-toggle="table"
@@ -134,46 +129,46 @@
                 @Html.DisplayFor(modelItem => item.Hours)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.contacts.Find(c => c.LocationId == item.LocationId).Phone)
+                @Html.DisplayFor(s => s.Phone)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.contacts.Find(c => c.LocationId == item.LocationId).Fax)
+                @Html.DisplayFor(s => s.Fax)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.contacts.Find(c => c.LocationId == item.LocationId).Terminal)
+                @Html.DisplayFor(s => s.Terminal)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).AcceptsCash)
+                @Html.DisplayFor(s => s.AcceptsCash)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).Cashless)
+                @Html.DisplayFor(s => s.Cashless)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).DepositTaking)
+                @Html.DisplayFor(s => s.DepositTaking)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).HandicapAccess)
+                @Html.DisplayFor(s => s.HandicapAccess)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).LimitedTransactions)
+                @Html.DisplayFor(s => s.LimitedTransactions)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).MilitaryIdrequired)
+                @Html.DisplayFor(s => s.MilitaryIdrequired)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).OnMilitaryBase)
+                @Html.DisplayFor(s => s.OnMilitaryBase)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).RestrictedAccess)
+                @Html.DisplayFor(s => s.RestrictedAccess)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).SelfServiceOnly)
+                @Html.DisplayFor(s => s.SelfServiceOnly)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).Surcharge)
+                @Html.DisplayFor(s => s.Surcharge)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.specialQualities.Find(s => s.LocationId == item.LocationId).AdditionalDetail)
+                @Html.DisplayFor(s => s.AdditionalDetail)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
