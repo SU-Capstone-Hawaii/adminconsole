@@ -12,7 +12,7 @@ namespace adminconsoletest
             // Arrange
 
             // Act
-            var result = new ContactsModel();
+            var result = new Contact();
 
             // Assert
             Assert.IsNotNull(result);
@@ -22,7 +22,7 @@ namespace adminconsoletest
         public void ContactModel_Get_Property_Defaults_Should_Pass()
         {
             // Arrange
-            var result = new ContactsModel();
+            var result = new Contact();
 
             // Act
 
@@ -38,10 +38,10 @@ namespace adminconsoletest
         public void ContactModel_Set_Property_Should_Pass()
         {
             // Arrange
-            var result = new ContactsModel();
+            var result = new Contact();
 
             // Act
-            result.Location = new LocationsModel();
+            result.Location = new Locations();
             result.LocationId = "location id";
             result.Phone = "phone";
             result.Fax = "fax";
