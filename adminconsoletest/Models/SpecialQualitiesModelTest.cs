@@ -12,7 +12,7 @@ namespace adminconsoletest
             // Arrange
 
             // Act
-            var result = new SpecialQualitiesModel();
+            var result = new SpecialQualities();
 
             // Assert
             Assert.IsNotNull(result);
@@ -22,7 +22,7 @@ namespace adminconsoletest
         public void SpecialQualitiesModel_Get_Property_Defaults_Should_Pass()
         {
             // Arrange
-            var result = new SpecialQualitiesModel();
+            var result = new SpecialQualities();
 
             // Act
 
@@ -46,10 +46,10 @@ namespace adminconsoletest
         public void SpecialQualitiesModel_Set_Property_Should_Pass()
         {
             // Arrange
-            var result = new SpecialQualitiesModel();
+            var result = new SpecialQualities();
 
             // Act
-            result.Location = new LocationsModel();
+            result.Location = new Locations();
             result.LocationId = "location id";
             result.AcceptsCash = true;
             result.AdditionalDetail = "additional";

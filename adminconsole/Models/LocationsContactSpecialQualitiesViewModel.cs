@@ -11,30 +11,30 @@ namespace adminconsole.Models
     public class LocationsContactSpecialQualitiesViewModel
     {
         [Required]
-        public string LocationId { get; set; }
+        public string LocationId { get; set; } = null;
 
         [DisplayName("Institution Name")]
-        public string InstitutionName { get; set; }
+        public string InstitutionName { get; set; } = null;
 
         [Required]
         [DisplayName("Type")]
-        public string TypeName { get; set; }
+        public string TypeName { get; set; } = null;
 
         [Required]
         [DisplayName("Street")]
-        public string Street { get; set; }
+        public string Street { get; set; } = null;
 
         [Required]
         [DisplayName("City")]
-        public string City { get; set; }
+        public string City { get; set; } = null;
 
         [Required]
         [DisplayName("State")]
-        public string State { get; set; }
+        public string State { get; set; } = null;
 
         [Required]
         [DisplayName("Zipcode")]
-        public string Zipcode { get; set; }
+        public string Zipcode { get; set; } = null;
 
         [Required]
         [DisplayName("Latitude")]
@@ -45,58 +45,60 @@ namespace adminconsole.Models
         public decimal Long { get; set; }
 
         [DisplayName("Retail Outlet")]
-        public string RetailOutlet { get; set; }
+        public string RetailOutlet { get; set; } = null;
 
         [DisplayName("Hours")]
-        public string Hours { get; set; }
+        public string Hours { get; set; } = null;
 
         [DisplayName("Phone")]
-        public string Phone { get; set; }
+        public string Phone { get; set; } = null;
 
         [DisplayName("Fax")]
-        public string Fax { get; set; }
+        public string Fax { get; set; } = null;
 
         [DisplayName("Terminal")]
-        public string Terminal { get; set; }
+        public string Terminal { get; set; } = null;
 
         [DisplayName("Restricted Access")]
-        public bool? RestrictedAccess { get; set; }
+        public bool? RestrictedAccess { get; set; } = null;
 
         [DisplayName("Deposit Taking")]
-        public bool? DepositTaking { get; set; }
+        public bool? DepositTaking { get; set; } = null;
 
         [DisplayName("Limited Transactions")]
-        public bool? LimitedTransactions { get; set; }
+        public bool? LimitedTransactions { get; set; } = null;
 
         [DisplayName("Handicap Acces")]
-        public bool? HandicapAccess { get; set; }
+        public bool? HandicapAccess { get; set; } = null;
 
         [DisplayName("Accepts Cash")]
-        public bool? AcceptsCash { get; set; }
+        public bool? AcceptsCash { get; set; } = null;
 
         [DisplayName("Cashless")]
-        public bool? Cashless { get; set; }
+        public bool? Cashless { get; set; } = null;
 
         [DisplayName("Self Service Only")]
-        public bool? SelfServiceOnly { get; set; }
+        public bool? SelfServiceOnly { get; set; } = null;
 
         [DisplayName("Surcharge")]
-        public bool? Surcharge { get; set; }
+        public bool? Surcharge { get; set; } = null;
 
         [DisplayName("On Military Base")]
-        public bool? OnMilitaryBase { get; set; }
+        public bool? OnMilitaryBase { get; set; } = null;
 
         [DisplayName("Military ID Required")]
-        public bool? MilitaryIdrequired { get; set; }
+        public bool? MilitaryIdrequired { get; set; } = null;
 
         [DisplayName("Additional Detail")]
         [StringLength(100)]
-        public string AdditionalDetail { get; set; }
+        public string AdditionalDetail { get; set; } = null;
 
         public List<Locations> locations;
         public List<Contact> contacts;
         public List<SpecialQualities> specialQualities;
         private readonly MaphawksContext context;
+
+        public LocationsContactSpecialQualitiesViewModel() { }
 
         public LocationsContactSpecialQualitiesViewModel(MaphawksContext context)
         {
@@ -121,6 +123,54 @@ namespace adminconsole.Models
                 return false;
             }
             return true;
+        }
+
+        public Locations getNewLocation(string id)
+        {
+            // Locations row
+            Locations location = new Locations();
+            location.LocationId = id;
+            location.City = City ?? null;
+            location.Hours = Hours ?? null;
+            location.InstitutionName = InstitutionName ?? null;
+            location.Lat = Lat;
+            location.Long = Long;
+            location.RetailOutlet = RetailOutlet ?? null;
+            location.State = State;
+            location.Street = Street;
+            location.Zipcode = Zipcode;
+
+            return location;
+        }
+
+        public Contact getNewContact(string id)
+        {
+            Contact contact = new Contact();
+            contact.LocationId = id;
+            contact.Phone = Phone ?? null;
+            contact.Fax = Fax ?? null;
+            contact.Terminal = Terminal ?? null;
+
+            return contact;
+        }
+
+        public SpecialQualities getNewSpecialQualities(string id)
+        {
+            SpecialQualities specialQuality = new SpecialQualities();
+            specialQuality.AcceptsCash = AcceptsCash ?? null;
+            specialQuality.AdditionalDetail = AdditionalDetail ?? null;
+            specialQuality.Cashless = Cashless ?? null;
+            specialQuality.DepositTaking = DepositTaking ?? null;
+            specialQuality.HandicapAccess = HandicapAccess ?? null;
+            specialQuality.LimitedTransactions = LimitedTransactions ?? null;
+            specialQuality.LocationId = id;
+            specialQuality.MilitaryIdrequired = MilitaryIdrequired ?? null;
+            specialQuality.OnMilitaryBase = OnMilitaryBase ?? null;
+            specialQuality.RestrictedAccess = RestrictedAccess ?? null;
+            specialQuality.SelfServiceOnly = SelfServiceOnly ?? null;
+            specialQuality.Surcharge = Surcharge ?? null;
+
+            return specialQuality;
         }
     }
 }

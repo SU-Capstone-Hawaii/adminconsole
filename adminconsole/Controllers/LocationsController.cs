@@ -57,15 +57,40 @@ namespace adminconsole.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LocationId,InstitutionName,TypeName,Street,City,State,Zipcode,Lat,Long,RetailOutlet,Hours")] Locations locations)
+        public async Task<IActionResult> Create([Bind("LocationId," +
+            "InstitutionName," +
+            "TypeName," +
+            "Street," +
+            "City," +
+            "State," +
+            "Zipcode," +
+            "Lat," +
+            "Long," +
+            "RetailOutlet," +
+            "Hours," +
+            "Phone," +
+            "Fax," +
+            "Terminal," +
+            "RestrictedAccess," +
+            "DepositTaking," +
+            "LimitedTransactions," +
+            "HandicapAccess," +
+            "AcceptsCash," +
+            "Cashless," +
+            "SelfServiceOnly," +
+            "Surcharge," +
+            "OnMilitaryBase," +
+            "MilitaryIdRequired," +
+            "AdditionalDetail")] LocationsContactSpecialQualitiesViewModel newLocation)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(locations);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(newLocation);
             }
-            return View(locations);
+            var result = backend.Create(newLocation);
+            //_context.Add(locations);
+            //await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Locations/Edit/5

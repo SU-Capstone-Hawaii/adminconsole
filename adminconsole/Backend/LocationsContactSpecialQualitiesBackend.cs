@@ -9,7 +9,7 @@ namespace adminconsole.Backend
 {
     public class LocationsContactSpecialQualitiesBackend
     {
-        private MaphawksContext context;
+        public MaphawksContext context;
 
         public LocationsContactSpecialQualitiesBackend(MaphawksContext context)
         {
@@ -45,6 +45,32 @@ namespace adminconsole.Backend
             
 
             return resultViewModel;
+        }
+
+        public bool Create(LocationsContactSpecialQualitiesViewModel newLocation)
+        {
+            Guid guid = Guid.NewGuid();
+            while(context.Locations.Where(x => x.LocationId == guid.ToString()).ToList() != null)
+            {
+                guid = Guid.NewGuid();
+            }
+            Locations location = newLocation.getNewLocation(guid.ToString());
+            Contact contact = newLocation.getNewContact(guid.ToString());
+            SpecialQualities specialQuality = newLocation.getNewSpecialQualities(guid.ToString());
+
+            try
+            {
+                context.Add(location);
+                context.Add(contact);
+                context.Add(specialQuality);
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

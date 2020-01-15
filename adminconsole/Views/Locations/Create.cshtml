@@ -1,4 +1,4 @@
-﻿@model adminconsole.Models.Locations
+﻿@model adminconsole.Models.LocationsContactSpecialQualitiesViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -13,9 +13,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="LocationId" class="control-label"></label>
-                <input asp-for="LocationId" class="form-control" />
-                <span asp-validation-for="LocationId" class="text-danger"></span>
+                <input asp-for="LocationId" class="form-control" hidden />
             </div>
             <div class="form-group">
                 <label asp-for="InstitutionName" class="control-label"></label>
@@ -66,6 +64,76 @@
                 <label asp-for="Hours" class="control-label"></label>
                 <input asp-for="Hours" class="form-control" />
                 <span asp-validation-for="Hours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fax" class="control-label"></label>
+                <input asp-for="Fax" class="form-control" />
+                <span asp-validation-for="Fax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Terminal" class="control-label"></label>
+                <input asp-for="Terminal" class="form-control" />
+                <span asp-validation-for="Terminal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RestrictedAccess" class="control-label"></label>
+                <input asp-for="RestrictedAccess" class="form-control" />
+                <span asp-validation-for="RestrictedAccess" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepositTaking" class="control-label"></label>
+                <input asp-for="DepositTaking" class="form-control" />
+                <span asp-validation-for="DepositTaking" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LimitedTransactions" class="control-label"></label>
+                <input asp-for="LimitedTransactions" class="form-control" />
+                <span asp-validation-for="LimitedTransactions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HandicapAccess" class="control-label"></label>
+                <input asp-for="HandicapAccess" class="form-control" />
+                <span asp-validation-for="HandicapAccess" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AcceptsCash" class="control-label"></label>
+                <input asp-for="AcceptsCash" class="form-control" />
+                <span asp-validation-for="AcceptsCash" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cashless" class="control-label"></label>
+                <input asp-for="Cashless" class="form-control" />
+                <span asp-validation-for="Cashless" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelfServiceOnly" class="control-label"></label>
+                <input asp-for="SelfServiceOnly" class="form-control" />
+                <span asp-validation-for="SelfServiceOnly" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Surcharge" class="control-label"></label>
+                <input asp-for="Surcharge" class="form-control" />
+                <span asp-validation-for="Surcharge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OnMilitaryBase" class="control-label"></label>
+                <input asp-for="OnMilitaryBase" class="form-control" />
+                <span asp-validation-for="OnMilitaryBase" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MilitaryIdrequired" class="control-label"></label>
+                <input asp-for="MilitaryIdrequired" class="form-control" />
+                <span asp-validation-for="MilitaryIdrequired" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionalDetail" class="control-label"></label>
+                <input asp-for="AdditionalDetail" class="form-control" />
+                <span asp-validation-for="AdditionalDetail" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
