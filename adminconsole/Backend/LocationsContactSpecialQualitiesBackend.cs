@@ -28,23 +28,15 @@ namespace adminconsole.Backend
             return locations;
         }
 
-        public LocationsContactSpecialQualitiesViewModel Details(string id)
+        public Locations Details(string id)
         {
-            var resultLocation = context.Locations.Where(x => x.LocationId == id).First();
+            var resultLocation = context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Where(x => x.LocationId == id).First();
             if (resultLocation == null)
             {
                 return null;
             }
-            var resultContact = context.Contact.Where(x => x.LocationId == id).First();
-            var resultSpecialQualities = context.SpecialQualities.Where(x => x.LocationId == id).First();
 
-            LocationsContactSpecialQualitiesViewModel resultViewModel = new LocationsContactSpecialQualitiesViewModel(context);
-            resultViewModel.locations.Add(resultLocation);
-            resultViewModel.contacts.Add(resultContact);
-            resultViewModel.specialQualities.Add(resultSpecialQualities);
-            
-
-            return resultViewModel;
+            return resultLocation ;
         }
 
         public bool Create(LocationsContactSpecialQualitiesViewModel newLocation)
