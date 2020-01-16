@@ -31,9 +31,9 @@ namespace adminconsoletest
             Assert.IsNull(result.Contact);
             Assert.IsNull(result.Hours);
             Assert.IsNull(result.InstitutionName);
-            Assert.IsNull(result.Lat);
+            Assert.AreEqual(0.0M, result.Lat);
             Assert.IsNull(result.LocationId);
-            Assert.IsNull(result.Long);
+            Assert.AreEqual(0.0M, result.Long);
             Assert.IsNull(result.RetailOutlet);
             Assert.IsNull(result.SpecialQualities);
             Assert.IsNull(result.State);
