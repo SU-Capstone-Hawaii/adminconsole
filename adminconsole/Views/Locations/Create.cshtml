@@ -85,53 +85,73 @@
             </div>
             <div class="form-group">
                 <label asp-for="RestrictedAccess" class="control-label"></label>
-                <input asp-for="RestrictedAccess" class="form-control" />
+                    <select asp-for="RestrictedAccess" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
+                        <option selected="selected" value="">Select</option>
+                    </select>                
                 <span asp-validation-for="RestrictedAccess" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DepositTaking" class="control-label"></label>
-                <input asp-for="DepositTaking" class="form-control" />
+                <select asp-for="DepositTaking" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
+                    <option selected="selected" value="">Select</option>
+                </select>
                 <span asp-validation-for="DepositTaking" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LimitedTransactions" class="control-label"></label>
-                <input asp-for="LimitedTransactions" class="form-control" />
+                <select asp-for="LimitedTransactions" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
+                    <option selected="selected" value="">Select</option>
+                </select>
                 <span asp-validation-for="LimitedTransactions" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HandicapAccess" class="control-label"></label>
-                <input asp-for="HandicapAccess" class="form-control" />
+                <select asp-for="HandicapAccess" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
+                    <option selected="selected" value="">Select</option>
+                </select>
                 <span asp-validation-for="HandicapAccess" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AcceptsCash" class="control-label"></label>
-                <input asp-for="AcceptsCash" class="form-control" />
+                <select asp-for="AcceptsCash" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
+                    <option selected="selected" value="">Select</option>
+                </select>
                 <span asp-validation-for="AcceptsCash" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Cashless" class="control-label"></label>
-                <input asp-for="Cashless" class="form-control" />
+                <select asp-for="Cashless" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
+                    <option selected="selected" value="">Select</option>
+                </select>
                 <span asp-validation-for="Cashless" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SelfServiceOnly" class="control-label"></label>
-                <input asp-for="SelfServiceOnly" class="form-control" />
+                <select asp-for="SelfServiceOnly" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
+                    <option selected="selected" value="">Select</option>
+                </select>
                 <span asp-validation-for="SelfServiceOnly" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Surcharge" class="control-label"></label>
-                <input asp-for="Surcharge" class="form-control" />
+                <select asp-for="Surcharge" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
+                    <option selected="selected" value="">Select</option>
+                </select>
                 <span asp-validation-for="Surcharge" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="OnMilitaryBase" class="control-label"></label>
-                <input asp-for="OnMilitaryBase" class="form-control" />
+                <select asp-for="OnMilitaryBase" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
+                    <option selected="selected" value="">Select</option>
+                </select>
                 <span asp-validation-for="OnMilitaryBase" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MilitaryIdrequired" class="control-label"></label>
-                <input asp-for="MilitaryIdrequired" class="form-control" />
-                <span asp-validation-for="MilitaryIdrequired" class="text-danger"></span>
+                <label asp-for="MilitaryIdRequired" class="control-label"></label>
+                <select asp-for="MilitaryIdRequired" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
+                    <option selected="selected" value="">Select</option>
+                </select>
+                <span asp-validation-for="MilitaryIdRequired" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AdditionalDetail" class="control-label"></label>

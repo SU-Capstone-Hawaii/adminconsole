@@ -116,7 +116,7 @@ namespace adminconsole.Models
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.MilitaryIdrequired).HasColumnName("MilitaryIDRequired");
+                entity.Property(e => e.MilitaryIdRequired).HasColumnName("MilitaryIdRequired");
 
                 entity.HasOne(d => d.Location)
                     .WithOne(p => p.SpecialQualities)

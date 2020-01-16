@@ -39,7 +39,7 @@ namespace adminconsole.Models
         public bool? OnMilitaryBase { get; set; }
 
         [DisplayName("Military ID Required")]
-        public bool? MilitaryIdrequired { get; set; }
+        public bool? MilitaryIdRequired { get; set; }
 
         [DisplayName("Additional Detail")]
         [StringLength(100)]

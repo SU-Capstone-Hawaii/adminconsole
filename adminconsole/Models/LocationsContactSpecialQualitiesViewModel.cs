@@ -62,34 +62,34 @@ namespace adminconsole.Models
         public string Terminal { get; set; } = null;
 
         [DisplayName("Restricted Access")]
-        public bool? RestrictedAccess { get; set; } = null;
+        public BooleanEnum? RestrictedAccess { get; set; } = null;
 
         [DisplayName("Deposit Taking")]
-        public bool? DepositTaking { get; set; } = null;
+        public BooleanEnum? DepositTaking { get; set; } = null;
 
         [DisplayName("Limited Transactions")]
-        public bool? LimitedTransactions { get; set; } = null;
+        public BooleanEnum? LimitedTransactions { get; set; } = null;
 
-        [DisplayName("Handicap Acces")]
-        public bool? HandicapAccess { get; set; } = null;
+        [DisplayName("Handicap Access")]
+        public BooleanEnum? HandicapAccess { get; set; } = null;
 
         [DisplayName("Accepts Cash")]
-        public bool? AcceptsCash { get; set; } = null;
+        public BooleanEnum? AcceptsCash { get; set; } = null;
 
         [DisplayName("Cashless")]
-        public bool? Cashless { get; set; } = null;
+        public BooleanEnum? Cashless { get; set; } = null;
 
         [DisplayName("Self Service Only")]
-        public bool? SelfServiceOnly { get; set; } = null;
+        public BooleanEnum? SelfServiceOnly { get; set; } = null;
 
         [DisplayName("Surcharge")]
-        public bool? Surcharge { get; set; } = null;
+        public BooleanEnum? Surcharge { get; set; } = null;
 
         [DisplayName("On Military Base")]
-        public bool? OnMilitaryBase { get; set; } = null;
+        public BooleanEnum? OnMilitaryBase { get; set; } = null;
 
         [DisplayName("Military ID Required")]
-        public bool? MilitaryIdrequired { get; set; } = null;
+        public BooleanEnum? MilitaryIdRequired { get; set; } = null;
 
         [DisplayName("Additional Detail")]
         [StringLength(100)]
@@ -155,20 +155,33 @@ namespace adminconsole.Models
         public static SpecialQualities getNewSpecialQualities(LocationsContactSpecialQualitiesViewModel newLocation)
         {
             SpecialQualities specialQuality = new SpecialQualities();
-            specialQuality.AcceptsCash = newLocation.AcceptsCash ?? null;
+            specialQuality.AcceptsCash = ConvertBooleanEnumToBool(newLocation.AcceptsCash);
             specialQuality.AdditionalDetail = newLocation.AdditionalDetail ?? null;
-            specialQuality.Cashless = newLocation.Cashless ?? null;
-            specialQuality.DepositTaking = newLocation.DepositTaking ?? null;
-            specialQuality.HandicapAccess = newLocation.HandicapAccess ?? null;
-            specialQuality.LimitedTransactions = newLocation.LimitedTransactions ?? null;
+            specialQuality.Cashless = ConvertBooleanEnumToBool(newLocation.Cashless);
+            specialQuality.DepositTaking = ConvertBooleanEnumToBool(newLocation.DepositTaking);
+            specialQuality.HandicapAccess = ConvertBooleanEnumToBool(newLocation.HandicapAccess);
+            specialQuality.LimitedTransactions = ConvertBooleanEnumToBool(newLocation.LimitedTransactions);
             specialQuality.LocationId = newLocation.LocationId;
-            specialQuality.MilitaryIdrequired = newLocation.MilitaryIdrequired ?? null;
-            specialQuality.OnMilitaryBase = newLocation.OnMilitaryBase ?? null;
-            specialQuality.RestrictedAccess = newLocation.RestrictedAccess ?? null;
-            specialQuality.SelfServiceOnly = newLocation.SelfServiceOnly ?? null;
-            specialQuality.Surcharge = newLocation.Surcharge ?? null;
+            specialQuality.MilitaryIdRequired = ConvertBooleanEnumToBool(newLocation.MilitaryIdRequired);
+            specialQuality.OnMilitaryBase = ConvertBooleanEnumToBool(newLocation.OnMilitaryBase);
+            specialQuality.RestrictedAccess = ConvertBooleanEnumToBool(newLocation.RestrictedAccess);
+            specialQuality.SelfServiceOnly = ConvertBooleanEnumToBool(newLocation.SelfServiceOnly);
+            specialQuality.Surcharge = ConvertBooleanEnumToBool(newLocation.Surcharge);
 
             return specialQuality;
+        }
+
+        private static bool? ConvertBooleanEnumToBool(BooleanEnum? booleanEnum)
+        {
+            switch (booleanEnum)
+            {
+                case BooleanEnum.N:
+                    return false;
+                case BooleanEnum.Y:
+                    return true;
+                default:
+                    return null;
+            }
         }
     }
 }

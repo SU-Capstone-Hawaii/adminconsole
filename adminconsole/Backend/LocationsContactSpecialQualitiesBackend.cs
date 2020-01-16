@@ -49,7 +49,6 @@ namespace adminconsole.Backend
 
         public bool Create(LocationsContactSpecialQualitiesViewModel newLocation)
         {
-            Console.WriteLine(newLocation.LocationId.Length);
             while(context.Locations.Where(x => x.LocationId == newLocation.LocationId).ToList().Any())
             {
                 newLocation.LocationId = Guid.NewGuid().ToString();
@@ -71,6 +70,12 @@ namespace adminconsole.Backend
             }
 
             return true;
+        }
+
+        public Locations GetLocation(string id)
+        {
+            Locations location = context.Locations.Include(x => x.Contact).Include(x => x.Contact).Where(x => x.LocationId == id).First();
+            return location;
         }
     }
 }
