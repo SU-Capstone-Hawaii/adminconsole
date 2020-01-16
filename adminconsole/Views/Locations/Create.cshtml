@@ -1,4 +1,5 @@
 ﻿@model adminconsole.Models.LocationsContactSpecialQualitiesViewModel
+@using adminconsole.Models
 
 @{
     ViewData["Title"] = "Create";
@@ -13,7 +14,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <input asp-for="LocationId" class="form-control" hidden />
+                <input type="hidden" value="@Guid.NewGuid()" asp-for="LocationId" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="InstitutionName" class="control-label"></label>
@@ -37,7 +38,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="State" class="control-label"></label>
-                <input asp-for="State" class="form-control" />
+                <select asp-for="State" asp-items="Html.GetEnumSelectList<StateEnum>()">
+                    <option selected="selected" value="">Select State</option>
+                </select>
                 <span asp-validation-for="State" class="text-danger"></span>
             </div>
             <div class="form-group">

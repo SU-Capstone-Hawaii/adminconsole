@@ -49,14 +49,14 @@ namespace adminconsole.Backend
 
         public bool Create(LocationsContactSpecialQualitiesViewModel newLocation)
         {
-            Guid guid = Guid.NewGuid();
-            while(context.Locations.Where(x => x.LocationId == guid.ToString()).ToList() != null)
+            Console.WriteLine(newLocation.LocationId.Length);
+            while(context.Locations.Where(x => x.LocationId == newLocation.LocationId).ToList().Any())
             {
-                guid = Guid.NewGuid();
+                newLocation.LocationId = Guid.NewGuid().ToString();
             }
-            Locations location = newLocation.getNewLocation(guid.ToString());
-            Contact contact = newLocation.getNewContact(guid.ToString());
-            SpecialQualities specialQuality = newLocation.getNewSpecialQualities(guid.ToString());
+            Locations location = LocationsContactSpecialQualitiesViewModel.getNewLocation(newLocation);
+            Contact contact = LocationsContactSpecialQualitiesViewModel.getNewContact(newLocation);
+            SpecialQualities specialQuality = LocationsContactSpecialQualitiesViewModel.getNewSpecialQualities(newLocation);
 
             try
             {

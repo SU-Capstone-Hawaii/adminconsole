@@ -23,7 +23,7 @@ namespace adminconsole.Controllers
 
         // GET: Locations
         public async Task<IActionResult> Index()
-        {
+      {
             var results = backend.Index();
             return View(results);
         }

@@ -129,46 +129,46 @@
                 @Html.DisplayFor(modelItem => item.Hours)
             </td>
             <td>
-                @Html.DisplayFor(s => s.Phone)
+                @Html.DisplayFor(modelItem => item.Contact.Phone)
             </td>
             <td>
-                @Html.DisplayFor(s => s.Fax)
+                @Html.DisplayFor(modelItem => item.Contact.Fax)
             </td>
             <td>
-                @Html.DisplayFor(s => s.Terminal)
+                @Html.DisplayFor(modelItem => item.Contact.Terminal)
             </td>
             <td>
-                @Html.DisplayFor(s => s.AcceptsCash)
+                @Html.DisplayFor(modelItem => item.SpecialQualities.AcceptsCash)
             </td>
             <td>
-                @Html.DisplayFor(s => s.Cashless)
+                @Html.DisplayFor(modelItem => item.SpecialQualities.Cashless)
             </td>
             <td>
-                @Html.DisplayFor(s => s.DepositTaking)
+                @Html.DisplayFor(modelItem => item.SpecialQualities.DepositTaking)
             </td>
             <td>
-                @Html.DisplayFor(s => s.HandicapAccess)
+                @Html.DisplayFor(modelItem => item.SpecialQualities.HandicapAccess)
             </td>
             <td>
-                @Html.DisplayFor(s => s.LimitedTransactions)
+                @Html.DisplayFor(modelItem => item.SpecialQualities.LimitedTransactions)
             </td>
             <td>
-                @Html.DisplayFor(s => s.MilitaryIdrequired)
+                @Html.DisplayFor(modelItem => item.SpecialQualities.MilitaryIdrequired)
             </td>
             <td>
-                @Html.DisplayFor(s => s.OnMilitaryBase)
+                @Html.DisplayFor(modelItem => item.SpecialQualities.OnMilitaryBase)
             </td>
             <td>
-                @Html.DisplayFor(s => s.RestrictedAccess)
+                @Html.DisplayFor(modelItem => item.SpecialQualities.RestrictedAccess)
             </td>
             <td>
-                @Html.DisplayFor(s => s.SelfServiceOnly)
+                @Html.DisplayFor(modelItem => item.SpecialQualities.SelfServiceOnly)
             </td>
             <td>
-                @Html.DisplayFor(s => s.Surcharge)
+                @Html.DisplayFor(modelItem => item.SpecialQualities.Surcharge)
             </td>
             <td>
-                @Html.DisplayFor(s => s.AdditionalDetail)
+                @Html.DisplayFor(modelItem => item.SpecialQualities.AdditionalDetail)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |

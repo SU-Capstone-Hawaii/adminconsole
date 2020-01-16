@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using adminconsole.Backend;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +31,8 @@ namespace adminconsole.Models
 
         [Required]
         [DisplayName("State")]
-        public string State { get; set; } = null;
+        [EnumDataType(typeof(StateEnum))]
+        public StateEnum State { get; set; }
 
         [Required]
         [DisplayName("Zipcode")]
@@ -112,12 +114,7 @@ namespace adminconsole.Models
         {
             try
             {
-                locations = context.Locations.ToList();
-                foreach (Locations location in locations)
-                {
-                    contacts.Add(context.Contact.Where(x => x.LocationId == location.LocationId).First());
-                    specialQualities.Add(context.SpecialQualities.Where(x => x.LocationId == location.LocationId).First());
-                }
+                locations = context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).ToList();
             } catch (Exception e)
             {
                 return false;
@@ -125,50 +122,51 @@ namespace adminconsole.Models
             return true;
         }
 
-        public Locations getNewLocation(string id)
+        public static Locations getNewLocation(LocationsContactSpecialQualitiesViewModel newLocation)
         {
             // Locations row
             Locations location = new Locations();
-            location.LocationId = id;
-            location.City = City ?? null;
-            location.Hours = Hours ?? null;
-            location.InstitutionName = InstitutionName ?? null;
-            location.Lat = Lat;
-            location.Long = Long;
-            location.RetailOutlet = RetailOutlet ?? null;
-            location.State = State;
-            location.Street = Street;
-            location.Zipcode = Zipcode;
+            location.LocationId = newLocation.LocationId;
+            location.City = newLocation.City ?? null;
+            location.Hours = newLocation.Hours ?? null;
+            location.InstitutionName = newLocation.InstitutionName ?? null;
+            location.Lat = newLocation.Lat;
+            location.Long = newLocation.Long;
+            location.RetailOutlet = newLocation.RetailOutlet ?? null;
+            location.TypeName = newLocation.TypeName;
+            location.State = newLocation.State.ToString();
+            location.Street = newLocation.Street;
+            location.Zipcode = newLocation.Zipcode;
 
             return location;
         }
 
-        public Contact getNewContact(string id)
+        public static Contact getNewContact(LocationsContactSpecialQualitiesViewModel newLocation)
         {
             Contact contact = new Contact();
-            contact.LocationId = id;
-            contact.Phone = Phone ?? null;
-            contact.Fax = Fax ?? null;
-            contact.Terminal = Terminal ?? null;
+            contact.LocationId = newLocation.LocationId;
+            contact.Phone = newLocation.Phone ?? null;
+            contact.Fax = newLocation.Fax ?? null;
+            contact.Terminal = newLocation.Terminal ?? null;
 
             return contact;
         }
 
-        public SpecialQualities getNewSpecialQualities(string id)
+        public static SpecialQualities getNewSpecialQualities(LocationsContactSpecialQualitiesViewModel newLocation)
         {
             SpecialQualities specialQuality = new SpecialQualities();
-            specialQuality.AcceptsCash = AcceptsCash ?? null;
-            specialQuality.AdditionalDetail = AdditionalDetail ?? null;
-            specialQuality.Cashless = Cashless ?? null;
-            specialQuality.DepositTaking = DepositTaking ?? null;
-            specialQuality.HandicapAccess = HandicapAccess ?? null;
-            specialQuality.LimitedTransactions = LimitedTransactions ?? null;
-            specialQuality.LocationId = id;
-            specialQuality.MilitaryIdrequired = MilitaryIdrequired ?? null;
-            specialQuality.OnMilitaryBase = OnMilitaryBase ?? null;
-            specialQuality.RestrictedAccess = RestrictedAccess ?? null;
-            specialQuality.SelfServiceOnly = SelfServiceOnly ?? null;
-            specialQuality.Surcharge = Surcharge ?? null;
+            specialQuality.AcceptsCash = newLocation.AcceptsCash ?? null;
+            specialQuality.AdditionalDetail = newLocation.AdditionalDetail ?? null;
+            specialQuality.Cashless = newLocation.Cashless ?? null;
+            specialQuality.DepositTaking = newLocation.DepositTaking ?? null;
+            specialQuality.HandicapAccess = newLocation.HandicapAccess ?? null;
+            specialQuality.LimitedTransactions = newLocation.LimitedTransactions ?? null;
+            specialQuality.LocationId = newLocation.LocationId;
+            specialQuality.MilitaryIdrequired = newLocation.MilitaryIdrequired ?? null;
+            specialQuality.OnMilitaryBase = newLocation.OnMilitaryBase ?? null;
+            specialQuality.RestrictedAccess = newLocation.RestrictedAccess ?? null;
+            specialQuality.SelfServiceOnly = newLocation.SelfServiceOnly ?? null;
+            specialQuality.Surcharge = newLocation.Surcharge ?? null;
 
             return specialQuality;
         }
