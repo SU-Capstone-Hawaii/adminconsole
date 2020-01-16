@@ -26,7 +26,7 @@ namespace adminconsole
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration.GetConnectionString("MaphawksDatabase");
-            services.AddDbContext<MaphawksContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<MaphawksContext>(options => options.UseSqlServer(connection, providerOptions => providerOptions.EnableRetryOnFailure()));
             services.AddControllersWithViews();
         }
 
