@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace adminconsole.Models
+namespace adminconsole.MockData
 {
-    public partial class Locations
+    public class LocationsTableMock
     {
         [Required]
         public string LocationId { get; set; }
@@ -47,18 +47,7 @@ namespace adminconsole.Models
         [DisplayName("Hours")]
         public string Hours { get; set; }
 
-        public virtual Contact Contact { get; set; }
-        public virtual SpecialQualities SpecialQualities { get; set; }
-
-        /*public enum StateEnum
-        {
-            [Description("None")]
-            None,
-            [Description("Alabama")]
-            AL,
-            [Description("Arkansas")]
-            AK
-            //Arizona AZ Arkansas AR California CA Colorado CO Connecticut CT Delaware DE District Of Columbia DC Florida FL Georgia GA Hawaii HI Idaho ID Illinois IL Indiana IN Iowa IA Kansas KS Kentucky KY Louisiana LA Maine ME Maryland MD Massachusetts MA Michigan MI Minnesota MN Mississippi MS Missouri MO Montana MT Nebraska NE Nevada NV New Hampshire NH New Jersey NJ New Mexico NM New York NY North Carolina NC North Dakota ND Ohio OH Oklahoma OK Oregon OR Pennsylvania PA Rhode Island R
-        }*/
+        public virtual ContactTableMock Contact { get; set; }
+        public virtual SpecialQualitiesTableMock SpecialQualities { get; set; }
     }
 }

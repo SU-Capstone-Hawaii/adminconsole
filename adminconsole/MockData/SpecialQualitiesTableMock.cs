@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace adminconsole.Models
+namespace adminconsole.MockData
 {
     public class SpecialQualitiesTableMock
     {
@@ -45,6 +45,6 @@ namespace adminconsole.Models
         [StringLength(100)]
         public string AdditionalDetail { get; set; }
 
-        public virtual Locations Location { get; set; }
+        public virtual LocationsTableMock Location { get; set; }
     }
 }

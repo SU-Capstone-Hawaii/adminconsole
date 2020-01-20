@@ -1,6 +1,6 @@
+using adminconsole.Backend;
 using adminconsole.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.Web.Infrastructure;
 using System.Collections.Generic;
 
 namespace adminconsoletest
@@ -24,12 +24,17 @@ namespace adminconsoletest
         public void LocationsContactSpecialQualitiesViewModel_Constructor_With_Context_Parameter_Should_Pass()
         {
             // Arrange
+            MaphawksContext context = new MaphawksContext();
 
             // Act
-            var result = new LocationsContactSpecialQualitiesViewModel(HttpContextHelper.GetHttpContext().Object);
+            var result = new LocationsContactSpecialQualitiesViewModel(context);
 
             // Assert
             Assert.IsNotNull(result);
+            Assert.IsNotNull(result.context);
+            Assert.IsNotNull(result.locations);
+            Assert.IsNotNull(result.locations);
+            Assert.IsNotNull(result.specialQualities);
         }
 
         [TestMethod]
@@ -157,13 +162,7 @@ namespace adminconsoletest
         [TestMethod]
         public void LocationsContactSpecialQualitiesViewModel_Index_Should_Pass()
         {
-            // Arrange
-
-            // Act
-
-            // Reset
-
-            // Assert
+          
         }
     }
 }
