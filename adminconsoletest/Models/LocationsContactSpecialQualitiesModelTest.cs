@@ -1,5 +1,6 @@
 using adminconsole.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Web.Infrastructure;
 using System.Collections.Generic;
 
 namespace adminconsoletest
@@ -14,6 +15,18 @@ namespace adminconsoletest
 
             // Act
             var result = new LocationsContactSpecialQualitiesViewModel();
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void LocationsContactSpecialQualitiesViewModel_Constructor_With_Context_Parameter_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            var result = new LocationsContactSpecialQualitiesViewModel(HttpContextHelper.GetHttpContext().Object);
 
             // Assert
             Assert.IsNotNull(result);
@@ -56,7 +69,7 @@ namespace adminconsoletest
             Assert.IsNull(result.DepositTaking);
             Assert.IsNull(result.HandicapAccess);
             Assert.IsNull(result.LimitedTransactions);
-            Assert.IsNull(result.MilitaryIdrequired);
+            Assert.IsNull(result.MilitaryIdRequired);
             Assert.IsNull(result.OnMilitaryBase);
             Assert.IsNull(result.RestrictedAccess);
             Assert.IsNull(result.SelfServiceOnly);
@@ -80,7 +93,7 @@ namespace adminconsoletest
             result.Long = 45.555M;
             result.RetailOutlet = "retail";
             result.specialQualities = new List<SpecialQualities>();
-            result.State = "state";
+            result.State = StateEnum.AB;
             result.Street = "street";
             result.TypeName = "atm";
             result.Zipcode = "zip";
@@ -92,17 +105,17 @@ namespace adminconsoletest
 
             // SpecialQualities
             result.locations = new List<Locations>();
-            result.AcceptsCash = true;
+            result.AcceptsCash = BooleanEnum.N;
             result.AdditionalDetail = "additional";
-            result.Cashless = true;
-            result.DepositTaking = true;
-            result.HandicapAccess = true;
-            result.LimitedTransactions = true;
-            result.MilitaryIdrequired = true;
-            result.OnMilitaryBase = true;
-            result.RestrictedAccess = true;
-            result.SelfServiceOnly = true;
-            result.Surcharge = true;
+            result.Cashless = BooleanEnum.N;
+            result.DepositTaking = BooleanEnum.N;
+            result.HandicapAccess = BooleanEnum.N;
+            result.LimitedTransactions = BooleanEnum.Y;
+            result.MilitaryIdRequired = BooleanEnum.Y;
+            result.OnMilitaryBase = BooleanEnum.Y;
+            result.RestrictedAccess = BooleanEnum.Y;
+            result.SelfServiceOnly = BooleanEnum.Y;
+            result.Surcharge = BooleanEnum.NULL;
 
             // Assert
             // Locations
@@ -116,7 +129,7 @@ namespace adminconsoletest
             Assert.AreEqual("locationid", result.LocationId);
             Assert.AreEqual(45.555M, result.Long);
             Assert.AreEqual("retail", result.RetailOutlet);
-            Assert.AreEqual("state", result.State);
+            Assert.AreEqual(StateEnum.AB, result.State);
             Assert.AreEqual("street", result.Street);
             Assert.AreEqual("atm", result.TypeName);
             Assert.AreEqual("zip", result.Zipcode);
@@ -127,17 +140,18 @@ namespace adminconsoletest
             Assert.AreEqual("terminal", result.Terminal);
 
             // SpecialQualities
-            Assert.IsNotNull(result.locations);            Assert.AreEqual(true, result.AcceptsCash);
+            Assert.IsNotNull(result.locations);            
+            Assert.AreEqual(BooleanEnum.N, result.AcceptsCash);
             Assert.AreEqual("additional", result.AdditionalDetail);
-            Assert.AreEqual(true, result.Cashless);
-            Assert.AreEqual(true, result.DepositTaking);
-            Assert.AreEqual(true, result.HandicapAccess);
-            Assert.AreEqual(true, result.LimitedTransactions);
-            Assert.AreEqual(true, result.MilitaryIdrequired);
-            Assert.AreEqual(true, result.OnMilitaryBase);
-            Assert.AreEqual(true, result.RestrictedAccess);
-            Assert.AreEqual(true, result.SelfServiceOnly);
-            Assert.AreEqual(true, result.Surcharge);
+            Assert.AreEqual(BooleanEnum.N, result.Cashless);
+            Assert.AreEqual(BooleanEnum.N, result.DepositTaking);
+            Assert.AreEqual(BooleanEnum.N, result.HandicapAccess);
+            Assert.AreEqual(BooleanEnum.Y, result.LimitedTransactions);
+            Assert.AreEqual(BooleanEnum.Y, result.MilitaryIdRequired);
+            Assert.AreEqual(BooleanEnum.Y, result.OnMilitaryBase);
+            Assert.AreEqual(BooleanEnum.Y, result.RestrictedAccess);
+            Assert.AreEqual(BooleanEnum.Y, result.SelfServiceOnly);
+            Assert.AreEqual(BooleanEnum.NULL, result.Surcharge);
         }
 
         [TestMethod]
