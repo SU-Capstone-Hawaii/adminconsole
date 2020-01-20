@@ -95,19 +95,26 @@ namespace adminconsole.Models
         [StringLength(100)]
         public string AdditionalDetail { get; set; } = null;
 
+
         public List<Locations> locations;
         public List<Contact> contacts;
         public List<SpecialQualities> specialQualities;
-        private readonly MaphawksContext context;
+        public readonly MaphawksContext context;
 
-        public LocationsContactSpecialQualitiesViewModel() { }
+        private DataSourceEnum dataSource { get; set; }
 
-        public LocationsContactSpecialQualitiesViewModel(MaphawksContext context)
+        public LocationsContactSpecialQualitiesViewModel(DataSourceEnum dataSource=DataSourceEnum.LIVE)
+        {
+            this.dataSource = dataSource;
+        }
+
+        public LocationsContactSpecialQualitiesViewModel(MaphawksContext context, DataSourceEnum dataSource = DataSourceEnum.LIVE)
         {
             this.context = context;
             locations = new List<Locations>();
             contacts = new List<Contact>();
             specialQualities = new List<SpecialQualities>();
+            this.dataSource = dataSource;
         }
 
         public bool Index()
