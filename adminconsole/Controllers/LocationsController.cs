@@ -23,7 +23,7 @@ namespace adminconsole.Controllers
 
         // GET: Locations
         public async Task<IActionResult> Index()
-      {
+        {
             var results = backend.Index();
             return View(results);
         }
@@ -52,10 +52,87 @@ namespace adminconsole.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("LocationId," +
+            "CoopLocationId," +
+            "TakeCoopData," +
+            "SoftDelete," +
+            "Name," +
+            "Address," +
+            "City," +
+            "County," +
+            "State," +
+            "PostalCode," +
+            "Country," +
+            "Latitude," +
+            "Longitude," +
+            "Hours," +
+            "RetailOutlet," +
+            "LocationType," +
+            "Phone," +
+            "Fax," +
+            "WebAddress," +
+            "RestrictedAccess," +
+            "AcceptDeposit," +
+            "AcceptCash," +
+            "EnvelopeRequired," +
+            "OnMilitaryBase," +
+            "OnPremise," +
+            "Surcharge," +
+            "Access," +
+            "AccessNotes," +
+            "InstallationType," +
+            "HandicapAccess," +
+            "Cashless," +
+            "DriveThruOnly," +
+            "LimitedTransactions," +
+            "MilitaryIdRequired," +
+            "SelfServiceDevice," +
+            "SelfServiceOnly," +
+            "HoursMonOpen," +
+            "HoursMonClose," +
+            "HoursTueOpen," +
+            "HoursTueClose," +
+            "HoursWedOpen," +
+            "HoursWedClose," +
+            "HoursThuOpen," +
+            "HoursThuClose," +
+            "HoursFriOpen," +
+            "HoursFriClose," +
+            "HoursSatOpen," +
+            "HoursSatClose," +
+            "HoursSunOpen," +
+            "HoursSunClose," +
+            "HoursDtmonOpen," +
+            "HoursDtmonClose," +
+            "HoursDttueOpen," +
+            "HoursDttueClose," +
+            "HoursDtwedOpen," +
+            "HoursDtwedClose," +
+            "HoursDtthuOpen," +
+            "HoursDtthuClose," +
+            "HoursDtfriOpen," +
+            "HoursDtfriClose," +
+            "HoursDtsatOpen," +
+            "HoursDtsatClose," +
+            "HoursDtsunOpen," +
+            "HoursDtsunClose")] LocationsContactSpecialQualitiesViewModel newLocation)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(newLocation);
+            }
+            var result = backend.Create(newLocation);
+            //_context.Add(locations);
+            //await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         // POST: Locations/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("LocationId," +
             "InstitutionName," +
@@ -91,7 +168,7 @@ namespace adminconsole.Controllers
             //_context.Add(locations);
             //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
+        }*/
 
         // GET: Locations/Edit/5
         public async Task<IActionResult> Edit(string id)
@@ -178,3 +255,4 @@ namespace adminconsole.Controllers
         }
     }
 }
+

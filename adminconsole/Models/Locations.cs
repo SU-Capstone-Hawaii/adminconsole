@@ -8,57 +8,58 @@ namespace adminconsole.Models
     public partial class Locations
     {
         [Required]
+        #nullable disable
         public string LocationId { get; set; }
 
-        [DisplayName("Institution Name")]
-        public string InstitutionName { get; set; }
+        public string CoopLocationId { get; set; }
 
-        [Required]
-        [DisplayName("Type")]
-        public string TypeName { get; set; }
+        [DisplayName("Take Co-Op Data")]
+        public bool? TakeCoopData { get; set; }
 
-        [Required]
-        [DisplayName("Street")]
-        public string Street { get; set; }
 
-        [Required]
+        public bool? SoftDelete { get; set; }
+
+        [DisplayName("Institution")]
+        public string Name { get; set; }
+
+        [DisplayName("Address")]
+        public string Address { get; set; }
+
         [DisplayName("City")]
         public string City { get; set; }
 
-        [Required]
+        [DisplayName("County")]
+        public string County { get; set; }
+
         [DisplayName("State")]
         public string State { get; set; }
 
-        [Required]
         [DisplayName("Zipcode")]
-        public string Zipcode { get; set; }
+        public string PostalCode { get; set; }
 
-        [Required]
+        [DisplayName("Country")]
+        public string Country { get; set; }
+
         [DisplayName("Latitude")]
-        public decimal Lat { get; set; } = 0.0M;
+        public decimal? Latitude { get; set; }
 
-        [Required]
         [DisplayName("Longitude")]
-        public decimal Long { get; set; } = 0.0M;
+        public decimal? Longitude { get; set; }
+
+        [DisplayName("24hrs / Business Hours Access")]
+        public string Hours { get; set; }
 
         [DisplayName("Retail Outlet")]
         public string RetailOutlet { get; set; }
 
-        [DisplayName("Hours")]
-        public string Hours { get; set; }
+        [DisplayName("Location Type")]
+        public string LocationType { get; set; }
 
-        public virtual Contact Contact { get; set; }
+
+        #region Objects Used for Joins
+        public virtual Contacts Contact { get; set; }
         public virtual SpecialQualities SpecialQualities { get; set; }
-
-        /*public enum StateEnum
-        {
-            [Description("None")]
-            None,
-            [Description("Alabama")]
-            AL,
-            [Description("Arkansas")]
-            AK
-            //Arizona AZ Arkansas AR California CA Colorado CO Connecticut CT Delaware DE District Of Columbia DC Florida FL Georgia GA Hawaii HI Idaho ID Illinois IL Indiana IN Iowa IA Kansas KS Kentucky KY Louisiana LA Maine ME Maryland MD Massachusetts MA Michigan MI Minnesota MN Mississippi MS Missouri MO Montana MT Nebraska NE Nevada NV New Hampshire NH New Jersey NJ New Mexico NM New York NY North Carolina NC North Dakota ND Ohio OH Oklahoma OK Oregon OR Pennsylvania PA Rhode Island R
-        }*/
+        public virtual HoursPerDayOfTheWeek HoursPerDayOfTheWeek { get; set; }
+        #endregion
     }
 }

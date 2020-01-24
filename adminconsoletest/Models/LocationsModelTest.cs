@@ -27,19 +27,24 @@ namespace adminconsoletest
             // Act
 
             // Assert
+            Assert.IsNull(result.Address);
             Assert.IsNull(result.City);
             Assert.IsNull(result.Contact);
+            Assert.IsNull(result.CoopLocationId);
+            Assert.IsNull(result.Country);
+            Assert.IsNull(result.County);
             Assert.IsNull(result.Hours);
-            Assert.IsNull(result.InstitutionName);
-            Assert.AreEqual(0.0M, result.Lat);
+            Assert.IsNull(result.Latitude);
             Assert.IsNull(result.LocationId);
-            Assert.AreEqual(0.0M, result.Long);
+            Assert.IsNull(result.LocationType);
+            Assert.IsNull(result.Longitude);
+            Assert.IsNull(result.Name);
+            Assert.IsNull(result.PostalCode);
             Assert.IsNull(result.RetailOutlet);
+            Assert.IsNull(result.SoftDelete);
             Assert.IsNull(result.SpecialQualities);
             Assert.IsNull(result.State);
-            Assert.IsNull(result.Street);
-            Assert.IsNull(result.TypeName);
-            Assert.IsNull(result.Zipcode);
+            Assert.IsNull(result.TakeCoopData);
         }
 
         [TestMethod]
@@ -49,35 +54,44 @@ namespace adminconsoletest
             var result = new Locations();
 
             // Act
-            result.City = "city";
-            result.Contact = new Contact();
-            result.Hours = "hours";
-            result.InstitutionName = "institution";
-            result.Lat = 45.555M;
-            result.LocationId = "locationid";
-            result.Long = 45.555M;
-            result.RetailOutlet = "retail";
+            result.Address = "362 Oxford Dr.";
+            result.City = "Starkville";
+            result.Contact = new Contacts();
+            result.CoopLocationId = "WA9820-174920573";
+            result.Country = "US";
+            result.County = "King County";
+            result.Hours = "24 HOURS ACCESS";
+            result.Latitude = 13.3108M;
+            result.LocationId = "11170401-4112-43c1-aa4e-f73370e1014a";
+            result.LocationType = "A";
+            result.Longitude = -132.8851M;
+            result.Name = "BECU";
+            result.PostalCode = "39759";
+            result.RetailOutlet = "Northgate";
+            result.SoftDelete = true;
             result.SpecialQualities = new SpecialQualities();
-            result.State = "state";
-            result.Street = "street";
-            result.TypeName = "atm";
-            result.Zipcode = "zip";
+            result.State = StateEnum.MS.ToString();
+            result.TakeCoopData = true;
 
             // Assert
+            Assert.AreEqual("362 Oxford Dr.", result.Address);
+            Assert.AreEqual("Starkville", result.City);
             Assert.IsNotNull(result.Contact);
+            Assert.AreEqual("WA9820-174920573", result.CoopLocationId);
+            Assert.AreEqual("US", result.Country);
+            Assert.AreEqual("King County", result.County);
+            Assert.AreEqual("24 HOURS ACCESS", result.Hours);
+            Assert.AreEqual(13.3108M, result.Latitude);
+            Assert.AreEqual("11170401-4112-43c1-aa4e-f73370e1014a", result.LocationId);
+            Assert.AreEqual("A", result.LocationType);
+            Assert.AreEqual(-132.8851M, result.Longitude);
+            Assert.AreEqual("BECU", result.Name);
+            Assert.AreEqual("39759", result.PostalCode);
+            Assert.AreEqual("Northgate", result.RetailOutlet);
+            Assert.AreEqual(true, result.SoftDelete);
             Assert.IsNotNull(result.SpecialQualities);
-
-            Assert.AreEqual("city", result.City);
-            Assert.AreEqual("hours", result.Hours);
-            Assert.AreEqual("institution", result.InstitutionName);
-            Assert.AreEqual(45.555M, result.Lat);
-            Assert.AreEqual("locationid", result.LocationId);
-            Assert.AreEqual(45.555M, result.Long);
-            Assert.AreEqual("retail", result.RetailOutlet);
-            Assert.AreEqual("state", result.State);
-            Assert.AreEqual("street", result.Street);
-            Assert.AreEqual("atm", result.TypeName);
-            Assert.AreEqual("zip", result.Zipcode);
+            Assert.AreEqual(StateEnum.MS.ToString(), result.State);
+            Assert.AreEqual(true, result.TakeCoopData); ;
         }
     }
 }

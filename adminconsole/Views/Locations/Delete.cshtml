@@ -12,22 +12,22 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.InstitutionName)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.InstitutionName)
+            @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TypeName)
+            @Html.DisplayNameFor(model => model.LocationType)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TypeName)
+            @Html.DisplayFor(model => model.LocationType)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Street)
+            @Html.DisplayNameFor(model => model.Address)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Street)
+            @Html.DisplayFor(model => model.Address)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.City)
@@ -36,28 +36,40 @@
             @Html.DisplayFor(model => model.City)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PostalCode)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.County)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.County)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.State)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.State)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Zipcode)
+            @Html.DisplayNameFor(model => model.Country)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Zipcode)
+            @Html.DisplayFor(model => model.Country)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Lat)
+            @Html.DisplayNameFor(model => model.Latitude)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Lat)
+            @Html.DisplayFor(model => model.Latitude)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Long)
+            @Html.DisplayNameFor(model => model.Longitude)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Long)
+            @Html.DisplayFor(model => model.Longitude)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.RetailOutlet)
@@ -84,34 +96,58 @@
             @Html.DisplayFor(model => model.Contact.Fax)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Contact.Terminal)
+            @Html.DisplayNameFor(model => model.Contact.WebAddress)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Contact.Terminal)
+            @Html.DisplayFor(model => model.Contact.WebAddress)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SpecialQualities.AcceptsCash)
+            @Html.DisplayNameFor(model => model.PostalCode)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SpecialQualities.AcceptsCash)
+            @Html.DisplayFor(model => model.PostalCode)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SpecialQualities.Cashless)
+            @Html.DisplayNameFor(model => model.SpecialQualities.RestrictedAccess)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SpecialQualities.Cashless)
+            @Html.DisplayFor(model => model.SpecialQualities.RestrictedAccess)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SpecialQualities.DepositTaking)
+            @Html.DisplayNameFor(model => model.SpecialQualities.AcceptDeposit)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SpecialQualities.DepositTaking)
+            @Html.DisplayFor(model => model.SpecialQualities.AcceptDeposit)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SpecialQualities.HandicapAccess)
+            @Html.DisplayNameFor(model => model.SpecialQualities.EnvelopeRequired)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SpecialQualities.HandicapAccess)
+            @Html.DisplayFor(model => model.SpecialQualities.EnvelopeRequired)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SpecialQualities.OnPremise)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SpecialQualities.OnPremise)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SpecialQualities.Access)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SpecialQualities.Access)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SpecialQualities.InstallationType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SpecialQualities.InstallationType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SpecialQualities.DriveThruOnly)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SpecialQualities.DriveThruOnly)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SpecialQualities.LimitedTransactions)
@@ -120,22 +156,22 @@
             @Html.DisplayFor(model => model.SpecialQualities.LimitedTransactions)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SpecialQualities.MilitaryIdRequired)
+            @Html.DisplayNameFor(model => model.SpecialQualities.HandicapAccess)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SpecialQualities.MilitaryIdRequired)
+            @Html.DisplayFor(model => model.SpecialQualities.HandicapAccess)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SpecialQualities.OnMilitaryBase)
+            @Html.DisplayNameFor(model => model.SpecialQualities.AcceptCash)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SpecialQualities.OnMilitaryBase)
+            @Html.DisplayFor(model => model.SpecialQualities.AcceptCash)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SpecialQualities.RestrictedAccess)
+            @Html.DisplayNameFor(model => model.SpecialQualities.Cashless)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SpecialQualities.RestrictedAccess)
+            @Html.DisplayFor(model => model.SpecialQualities.Cashless)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SpecialQualities.SelfServiceOnly)
@@ -150,11 +186,184 @@
             @Html.DisplayFor(model => model.SpecialQualities.Surcharge)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SpecialQualities.AdditionalDetail)
+            @Html.DisplayNameFor(model => model.SpecialQualities.OnMilitaryBase)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SpecialQualities.AdditionalDetail)
+            @Html.DisplayFor(model => model.SpecialQualities.OnMilitaryBase)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SpecialQualities.MilitaryIdRequired)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SpecialQualities.MilitaryIdRequired)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SpecialQualities.SelfServiceDevice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SpecialQualities.SelfServiceDevice)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SpecialQualities.AccessNotes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SpecialQualities.AccessNotes)
+        </dd>
+        @{
+            if (Model.HoursPerDayOfTheWeek != null)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursMonOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursMonOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursMonClose)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursMonClose)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursTueOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursTueOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursTueClose)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursTueClose)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursWedOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursWedOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursThuOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursThuOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursFriOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursFriOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursFriClose)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursFriClose)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursSatOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursSatOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursSatClose)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursSatClose)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursSunOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursSunOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursSunClose)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursSunClose)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtmonOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDtmonOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtmonClose)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDtmonClose)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDttueOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDttueOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDttueClose)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDttueClose)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtwedOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDtwedClose)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtthuOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDtthuOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtthuClose)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDtthuClose)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtfriOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDtfriOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtfriClose)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDtfriClose)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtsatOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDtsatOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtsatClose)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDtsatClose)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtsunOpen)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDtsunOpen)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtsunClose)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoursPerDayOfTheWeek.HoursDtsunClose)
+                </dd>
+            }
+        }
     </dl>
     
     <form asp-action="Delete">

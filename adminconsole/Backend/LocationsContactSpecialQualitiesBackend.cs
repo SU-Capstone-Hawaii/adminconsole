@@ -1,4 +1,5 @@
 ﻿using adminconsole.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,45 +10,40 @@ namespace adminconsole.Backend
 {
     public class LocationsContactSpecialQualitiesBackend
     {
-        public MaphawksContext context;
+        private MaphawksContext context;
 
         public LocationsContactSpecialQualitiesBackend(MaphawksContext context)
         {
             this.context = context;
         }
 
-        public LocationsContactSpecialQualitiesViewModel Index()
+        public List<Locations> Index()
         {
-            LocationsContactSpecialQualitiesViewModel locations = new LocationsContactSpecialQualitiesViewModel(context);
-            var result = locations.Index();
-            if (!result)
-            {
-                LocationsContactSpecialQualitiesViewModel loc = new LocationsContactSpecialQualitiesViewModel(context);
-                return loc;
-            }
-            return locations;
+            var locations_list = context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).ToList();
+            return locations_list;
         }
 
         public Locations Details(string id)
         {
-            var resultLocation = context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Where(x => x.LocationId == id).First();
+            var resultLocation = context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.LocationId == id).First();
             if (resultLocation == null)
             {
                 return null;
             }
 
-            return resultLocation ;
+            return resultLocation;
         }
 
         public bool Create(LocationsContactSpecialQualitiesViewModel newLocation)
         {
-            while(context.Locations.Where(x => x.LocationId == newLocation.LocationId).ToList().Any())
+            while (context.Locations.Where(x => x.LocationId == newLocation.LocationId).ToList().Any())
             {
                 newLocation.LocationId = Guid.NewGuid().ToString();
             }
-            Locations location = LocationsContactSpecialQualitiesViewModel.getNewLocation(newLocation);
-            Contact contact = LocationsContactSpecialQualitiesViewModel.getNewContact(newLocation);
-            SpecialQualities specialQuality = LocationsContactSpecialQualitiesViewModel.getNewSpecialQualities(newLocation);
+            Locations location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(newLocation);
+            Contacts contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(newLocation);
+            SpecialQualities specialQuality = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(newLocation);
+            HoursPerDayOfTheWeek hoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(newLocation);
 
             try
             {
