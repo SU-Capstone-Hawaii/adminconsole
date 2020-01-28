@@ -70,6 +70,7 @@ namespace adminconsole.Backend
         public Locations GetLocation(string id)
         {
             Locations location = context.Locations.Include(x => x.Contact).Include(x => x.Contact).Where(x => x.LocationId == id).First();
+            ConvertDbStringsToEnums(location);
             return location;
         }
 
