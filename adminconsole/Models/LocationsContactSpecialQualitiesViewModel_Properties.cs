@@ -30,7 +30,8 @@ namespace adminconsole.Models
 
         [Required]
         [DisplayName("Type")]
-        public string LocationType { get; set; }
+        [EnumDataType(typeof(LocationTypeEnum))]
+        public LocationTypeEnum LocationType { get; set; }
 
         [Required]
         [DisplayName("Street")]
@@ -51,7 +52,7 @@ namespace adminconsole.Models
         [Required]
         [DisplayName("State")]
         [EnumDataType(typeof(StateEnum))]
-        public StateEnum? State { get; set; }
+        public StateEnum State { get; set; }
 
         [DisplayName("Country")]
         #nullable enable
