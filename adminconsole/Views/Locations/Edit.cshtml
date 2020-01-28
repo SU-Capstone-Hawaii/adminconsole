@@ -13,11 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="LocationId" />
-            <div class="form-group">
-                <label asp-for="CoopLocationId" class="control-label"></label>
-                <input asp-for="CoopLocationId" class="form-control" />
-                <span asp-validation-for="CoopLocationId" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="CoopLocationId" class="form-control" />
             <div class="form-group">
                 <label asp-for="TakeCoopData" class="control-label"></label>
                 <select asp-for="TakeCoopData" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
