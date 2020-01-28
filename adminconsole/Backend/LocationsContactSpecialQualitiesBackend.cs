@@ -17,15 +17,15 @@ namespace adminconsole.Backend
             this.context = context;
         }
 
-        public List<Locations> Index()
+        public async Task<List<Locations>> IndexAsync()
         {
-            var locations_list = context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).ToList();
+            var locations_list = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.SoftDelete != true).ToListAsync().ConfigureAwait(false);
             return locations_list;
         }
 
-        public Locations Details(string id)
+        public async Task<Locations> DetailsAsync(string id)
         {
-            var resultLocation = context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.LocationId == id).First();
+            var resultLocation = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.LocationId == id).FirstAsync().ConfigureAwait(false);
             if (resultLocation == null)
             {
                 return null;

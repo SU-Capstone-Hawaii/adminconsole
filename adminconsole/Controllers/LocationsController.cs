@@ -24,7 +24,7 @@ namespace adminconsole.Controllers
         // GET: Locations
         public async Task<IActionResult> Index()
         {
-            var results = backend.Index();
+            var results = await backend.IndexAsync().ConfigureAwait(false);
             return View(results);
         }
 
@@ -36,7 +36,7 @@ namespace adminconsole.Controllers
                 return NotFound();
             }
 
-            var result = backend.Details(id);
+            var result = await backend.DetailsAsync(id).ConfigureAwait(false);
 
             if (result == null)
             {
