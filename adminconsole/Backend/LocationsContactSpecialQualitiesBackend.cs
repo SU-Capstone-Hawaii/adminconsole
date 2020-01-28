@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace adminconsole.Backend
@@ -20,6 +22,14 @@ namespace adminconsole.Backend
         public async Task<List<Locations>> IndexAsync()
         {
             var locations_list = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.SoftDelete != true).ToListAsync().ConfigureAwait(false);
+            foreach (var location in locations_list)
+            {
+                var state = LocationsContactSpecialQualitiesViewModel.ConvertStringToStateEnum(location.State);
+                if (state != null) // If stored state name is a state abbreviation
+                {
+                    location.State = state.GetType().GetMember(state.ToString()).First().GetCustomAttribute<DisplayAttribute>().Name;
+                }
+            }
             return locations_list;
         }
 

@@ -225,7 +225,7 @@ namespace adminconsole.Models
             }
         }
 
-        private static StateEnum? ConvertStringToStateEnum(string stateValueFromDb)
+        public static StateEnum? ConvertStringToStateEnum(string stateValueFromDb)
         {
             switch (stateValueFromDb)
             {
