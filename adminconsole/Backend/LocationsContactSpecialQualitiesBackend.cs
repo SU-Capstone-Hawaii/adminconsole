@@ -24,11 +24,7 @@ namespace adminconsole.Backend
             var locations_list = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.SoftDelete != true).ToListAsync().ConfigureAwait(false);
             foreach (var location in locations_list)
             {
-                var state = LocationsContactSpecialQualitiesViewModel.ConvertStringToStateEnum(location.State);
-                if (state != null) // If stored state name is a state abbreviation
-                {
-                    location.State = state.GetType().GetMember(state.ToString()).First().GetCustomAttribute<DisplayAttribute>().Name;
-                }
+                ConvertDbStringsToEnums(location);
             }
             return locations_list;
         }
@@ -41,6 +37,7 @@ namespace adminconsole.Backend
                 return null;
             }
 
+            ConvertDbStringsToEnums(resultLocation);
             return resultLocation;
         }
 
@@ -133,6 +130,21 @@ namespace adminconsole.Backend
             {
                 return false;
             }
+        }
+
+        private static Locations ConvertDbStringsToEnums(Locations location)
+        {
+            var state = LocationsContactSpecialQualitiesViewModel.ConvertStringToStateEnum(location.State);
+            var locationType = LocationsContactSpecialQualitiesViewModel.ConvertStringToLocationTypeEnum(location.LocationType);
+            if (state != null) // If stored state name is a state abbreviation
+            {
+                location.State = state.GetType().GetMember(state.ToString()).First().GetCustomAttribute<DisplayAttribute>().Name;
+            }
+            if (locationType != null) // If stored state name is a state abbreviation
+            {
+                location.LocationType = locationType.GetType().GetMember(locationType.ToString()).First().GetCustomAttribute<DisplayAttribute>().Name;
+            }
+            return location;
         }
     }
 }
