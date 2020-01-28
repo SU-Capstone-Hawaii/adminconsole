@@ -8,7 +8,6 @@ namespace adminconsole.Models
     public partial class Locations
     {
         [Required]
-        #nullable disable
         public string LocationId { get; set; }
 
         public string CoopLocationId { get; set; }
@@ -22,29 +21,35 @@ namespace adminconsole.Models
         [DisplayName("Institution")]
         public string Name { get; set; }
 
+        [Required]
         [DisplayName("Address")]
         public string Address { get; set; }
 
+        [Required]
         [DisplayName("City")]
         public string City { get; set; }
 
         [DisplayName("County")]
         public string County { get; set; }
 
+        [Required]
         [DisplayName("State")]
         public string State { get; set; }
 
+        [Required]
         [DisplayName("Zipcode")]
         public string PostalCode { get; set; }
 
         [DisplayName("Country")]
         public string Country { get; set; }
 
+        [Required]
         [DisplayName("Latitude")]
-        public decimal? Latitude { get; set; }
+        public decimal Latitude { get; set; }
 
+        [Required]
         [DisplayName("Longitude")]
-        public decimal? Longitude { get; set; }
+        public decimal Longitude { get; set; }
 
         [DisplayName("24hrs / Business Hours Access")]
         public string Hours { get; set; }
@@ -52,6 +57,7 @@ namespace adminconsole.Models
         [DisplayName("Retail Outlet")]
         public string RetailOutlet { get; set; }
 
+        [Required]
         [DisplayName("Location Type")]
         public string LocationType { get; set; }
 

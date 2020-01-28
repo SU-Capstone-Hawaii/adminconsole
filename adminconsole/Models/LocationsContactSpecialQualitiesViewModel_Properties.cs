@@ -51,7 +51,7 @@ namespace adminconsole.Models
         [Required]
         [DisplayName("State")]
         [EnumDataType(typeof(StateEnum))]
-        public StateEnum State { get; set; }
+        public StateEnum? State { get; set; }
 
         [DisplayName("Country")]
         #nullable enable

@@ -178,8 +178,15 @@ namespace adminconsole.Controllers
                 return NotFound();
             }
 
-            var locations = await _context.Locations.FindAsync(id);
+            var locations = await backend.Edit(id).ConfigureAwait(false);
+            // If error in DB query
             if (locations == null)
+            {
+                return NotFound();
+            }
+
+            // If no location found
+            if (locations.locations == null)
             {
                 return NotFound();
             }
@@ -191,9 +198,72 @@ namespace adminconsole.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("LocationId,InstitutionName,TypeName,Street,City,State,Zipcode,Lat,Long,RetailOutlet,Hours")] Locations locations)
+        public async Task<IActionResult> Edit(string id, [Bind("LocationId," +
+            "CoopLocationId," +
+            "TakeCoopData," +
+            "SoftDelete," +
+            "Name," +
+            "Address," +
+            "City," +
+            "County," +
+            "State," +
+            "PostalCode," +
+            "Country," +
+            "Latitude," +
+            "Longitude," +
+            "Hours," +
+            "RetailOutlet," +
+            "LocationType," +
+            "Phone," +
+            "Fax," +
+            "WebAddress," +
+            "RestrictedAccess," +
+            "AcceptDeposit," +
+            "AcceptCash," +
+            "EnvelopeRequired," +
+            "OnMilitaryBase," +
+            "OnPremise," +
+            "Surcharge," +
+            "Access," +
+            "AccessNotes," +
+            "InstallationType," +
+            "HandicapAccess," +
+            "Cashless," +
+            "DriveThruOnly," +
+            "LimitedTransactions," +
+            "MilitaryIdRequired," +
+            "SelfServiceDevice," +
+            "SelfServiceOnly," +
+            "HoursMonOpen," +
+            "HoursMonClose," +
+            "HoursTueOpen," +
+            "HoursTueClose," +
+            "HoursWedOpen," +
+            "HoursWedClose," +
+            "HoursThuOpen," +
+            "HoursThuClose," +
+            "HoursFriOpen," +
+            "HoursFriClose," +
+            "HoursSatOpen," +
+            "HoursSatClose," +
+            "HoursSunOpen," +
+            "HoursSunClose," +
+            "HoursDtmonOpen," +
+            "HoursDtmonClose," +
+            "HoursDttueOpen," +
+            "HoursDttueClose," +
+            "HoursDtwedOpen," +
+            "HoursDtwedClose," +
+            "HoursDtthuOpen," +
+            "HoursDtthuClose," +
+            "HoursDtfriOpen," +
+            "HoursDtfriClose," +
+            "HoursDtsatOpen," +
+            "HoursDtsatClose," +
+            "HoursDtsunOpen," +
+            "HoursDtsunClose")] LocationsContactSpecialQualitiesViewModel location)
         {
-            if (id != locations.LocationId)
+            if (id != location.LocationId)
             {
                 return NotFound();
             }
@@ -202,12 +272,12 @@ namespace adminconsole.Controllers
             {
                 try
                 {
-                    _context.Update(locations);
+                    _context.Update(location);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LocationsExists(locations.LocationId))
+                    if (!LocationsExists(location.LocationId))
                     {
                         return NotFound();
                     }
@@ -218,7 +288,7 @@ namespace adminconsole.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(locations);
+            return View(location);
         }
 
         // GET: Locations/Delete/5
