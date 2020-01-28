@@ -43,7 +43,7 @@ namespace adminconsole.Models
             location.Hours = newLocation.Hours ?? null;
             location.Latitude = newLocation.Latitude;
             location.LocationId = newLocation.LocationId;
-            location.LocationType = newLocation.LocationType;
+            location.LocationType = ConvertLocationTypeEnumToString(newLocation.LocationType);
             location.Longitude = newLocation.Longitude;
             location.Name = newLocation.Name ?? null;
             location.PostalCode = newLocation.PostalCode;
@@ -225,151 +225,282 @@ namespace adminconsole.Models
             }
         }
 
-        public static StateEnum? ConvertStringToStateEnum(string stateValueFromDb)
+        public static StateEnum ConvertStringToStateEnum(string stateValueFromDb)
         {
-            switch (stateValueFromDb)
+
+            if (stateValueFromDb == "AL")
             {
-                case ("AL"):
-                    return StateEnum.AL;
-                case ("AK"):
-                    return StateEnum.AK;
-                case ("AZ"):
-                    return StateEnum.AZ;
-                case ("AR"):
-                    return StateEnum.AR;
-                case ("CA"):
-                    return StateEnum.CA;
-                case ("CO"):
-                    return StateEnum.CO;
-                case ("CT"):
-                    return StateEnum.CT;
-                case ("DE"):
-                    return StateEnum.DE;
-                case ("DC"):
-                    return StateEnum.DC;
-                case ("FL"):
-                    return StateEnum.FL;
-                case ("GA"):
-                    return StateEnum.GA;
-                case ("GU"):
-                    return StateEnum.GU;
-                case ("HI"):
-                    return StateEnum.HI;
-                case ("ID"):
-                    return StateEnum.ID;
-                case ("IL"):
-                    return StateEnum.IL;
-                case ("IN"):
-                    return StateEnum.IN;
-                case ("IA"):
-                    return StateEnum.IA;
-                case ("KS"):
-                    return StateEnum.KS;
-                case ("KY"):
-                    return StateEnum.KY;
-                case ("LA"):
-                    return StateEnum.LA;
-                case ("ME"):
-                    return StateEnum.ME;
-                case ("MD"):
-                    return StateEnum.MD;
-                case ("MA"):
-                    return StateEnum.MA;
-                case ("MI"):
-                    return StateEnum.MI;
-                case ("MN"):
-                    return StateEnum.MN;
-                case ("MS"):
-                    return StateEnum.MS;
-                case ("MO"):
-                    return StateEnum.MO;
-                case ("MT"):
-                    return StateEnum.MT;
-                case ("NE"):
-                    return StateEnum.NE;
-                case ("NV"):
-                    return StateEnum.NV;
-                case ("NH"):
-                    return StateEnum.NH;
-                case ("NJ"):
-                    return StateEnum.NJ;
-                case ("NM"):
-                    return StateEnum.NM;
-                case ("NY"):
-                    return StateEnum.NY;
-                case ("NC"):
-                    return StateEnum.NC;
-                case ("ND"):
-                    return StateEnum.ND;
-                case ("OH"):
-                    return StateEnum.OH;
-                case ("OK"):
-                    return StateEnum.OK;
-                case ("OR"):
-                    return StateEnum.OR;
-                case ("PA"):
-                    return StateEnum.PA;
-                case ("RI"):
-                    return StateEnum.RI;
-                case ("SC"):
-                    return StateEnum.SC;
-                case ("SD"):
-                    return StateEnum.SD;
-                case ("TN"):
-                    return StateEnum.TN;
-                case ("TX"):
-                    return StateEnum.TX;
-                case ("UT"):
-                    return StateEnum.UT;
-                case ("VT"):
-                    return StateEnum.VT;
-                case ("VA"):
-                    return StateEnum.VA;
-                case ("WA"):
-                    return StateEnum.WA;
-                case ("WV"):
-                    return StateEnum.WV;
-                case ("WI"):
-                    return StateEnum.WI;
-                case ("WY"):
-                    return StateEnum.WY;
-                case ("AB"):
-                    return StateEnum.AB;
-                case ("BC"):
-                    return StateEnum.BC;
-                case ("MB"):
-                    return StateEnum.MB;
-                case ("NB"):
-                    return StateEnum.NB;
-                case ("NL"):
-                    return StateEnum.NL;
-                case ("NS"):
-                    return StateEnum.NS;
-                case ("ON"):
-                    return StateEnum.ON;
-                case ("QC"):
-                    return StateEnum.QC;
-                case ("SK"):
-                    return StateEnum.SK;
-                case ("AE"):
-                    return StateEnum.AE;
-                case ("PR"):
-                    return StateEnum.PR;
-                default:
-                    return null; // should never happen as this is a required field in db
+                return StateEnum.AL;
+            }
+            else if (stateValueFromDb == "AK")
+            {
+                return StateEnum.AK;
+            }
+            else if (stateValueFromDb == "AZ")
+            {
+                return StateEnum.AZ;
+            }
+            else if (stateValueFromDb == "AR")
+            {
+                return StateEnum.AR;
+            }
+            else if (stateValueFromDb == "CA")
+            {
+                return StateEnum.CA;
+            }
+            else if (stateValueFromDb == "CO")
+            {
+                return StateEnum.CO;
+            }
+            else if (stateValueFromDb == "CT")
+            {
+                return StateEnum.CT;
+            }
+            else if (stateValueFromDb == "DE")
+            {
+                return StateEnum.DE;
+            }
+            else if (stateValueFromDb == "DC")
+            {
+                return StateEnum.DC;
+            }
+            else if (stateValueFromDb == "FL")
+            {
+                return StateEnum.FL;
+            }
+            else if (stateValueFromDb == "GA")
+            {
+                return StateEnum.GA;
+            }
+            else if (stateValueFromDb == "GU")
+            {
+                return StateEnum.GU;
+            }
+            else if (stateValueFromDb == "HI")
+            {
+                return StateEnum.HI;
+            }
+            else if (stateValueFromDb == "ID")
+            {
+                return StateEnum.ID;
+            }
+            else if (stateValueFromDb == "IL")
+            {
+                return StateEnum.IL;
+            }
+            else if (stateValueFromDb == "IN")
+            {
+                return StateEnum.IN;
+            }
+            else if (stateValueFromDb == "IA")
+            {
+                return StateEnum.IA;
+            }
+            else if (stateValueFromDb == "KS")
+            {
+                return StateEnum.KS;
+            }
+            else if (stateValueFromDb == "KY")
+            {
+                return StateEnum.KY;
+            }
+            else if (stateValueFromDb == "LA")
+            { 
+                return StateEnum.LA;
+            }
+            else if (stateValueFromDb == "ME")
+            { 
+                return StateEnum.ME;
+            }
+            else if (stateValueFromDb == "MD")
+            { 
+                return StateEnum.MD;
+            }
+            else if (stateValueFromDb == "MA")
+            { 
+                return StateEnum.MA;
+            }
+            else if (stateValueFromDb == "MI")
+            { 
+                return StateEnum.MI;
+            }
+            else if (stateValueFromDb == "MN")
+            { 
+                return StateEnum.MN;
+            }
+            else if (stateValueFromDb == "MS")
+            { 
+                return StateEnum.MS;
+            }
+            else if (stateValueFromDb == "MO")
+            { 
+                return StateEnum.MO;
+            }
+            else if (stateValueFromDb == "MT")
+            { 
+                return StateEnum.MT;
+            }
+            else if (stateValueFromDb == "NE")
+            { 
+                return StateEnum.NE;
+            }
+            else if (stateValueFromDb == "NV")
+            { 
+                return StateEnum.NV;
+            }
+            else if (stateValueFromDb == "NH")
+            { 
+                return StateEnum.NH;
+            }
+            else if (stateValueFromDb == "NJ")
+            { 
+                return StateEnum.NJ;
+            }
+            else if (stateValueFromDb == "NM")
+            { 
+                return StateEnum.NM;
+            }
+            else if (stateValueFromDb == "NY")
+            { 
+                return StateEnum.NY;
+            }
+            else if (stateValueFromDb == "NC")
+            { 
+                return StateEnum.NC;
+            }
+            else if (stateValueFromDb == "ND")
+            { 
+                return StateEnum.ND;
+            }
+            else if (stateValueFromDb == "OH")
+            { 
+                return StateEnum.OH;
+            }
+            else if (stateValueFromDb == "OK")
+            { 
+                return StateEnum.OK;
+            }
+            else if (stateValueFromDb == "OR")
+            { 
+                return StateEnum.OR;
+            }
+            else if (stateValueFromDb == "PA")
+            { 
+                return StateEnum.PA;
+            }
+            else if (stateValueFromDb == "RI")
+            { 
+                return StateEnum.RI;
+            }
+            else if (stateValueFromDb == "SC")
+            { 
+                return StateEnum.SC;
+            }
+            else if (stateValueFromDb == "SD")
+            { 
+                return StateEnum.SD;
+            }
+            else if (stateValueFromDb == "TN")
+            { 
+                return StateEnum.TN;
+            }
+            else if (stateValueFromDb == "TX")
+            { 
+                return StateEnum.TX;
+            }
+            else if (stateValueFromDb == "UT")
+            { 
+                return StateEnum.UT;
+            }
+            else if (stateValueFromDb == "VT")
+            { 
+                return StateEnum.VT;
+            }
+            else if (stateValueFromDb == "VA")
+            { 
+                return StateEnum.VA;
+            }
+            else if (stateValueFromDb == "WA")
+            { 
+                return StateEnum.WA;
+            }
+            else if (stateValueFromDb == "WV")
+            { 
+                return StateEnum.WV;
+            }
+            else if (stateValueFromDb == "WI")
+            { 
+                return StateEnum.WI;
+            }
+            else if (stateValueFromDb == "WY")
+            { 
+                return StateEnum.WY;
+            }
+            else if (stateValueFromDb == "AB")
+            { 
+                return StateEnum.AB;
+            }
+            else if (stateValueFromDb == "BC")
+            { 
+                return StateEnum.BC;
+            }
+            else if (stateValueFromDb == "MB")
+            { 
+                return StateEnum.MB;
+            }
+            else if (stateValueFromDb == "NB")
+            { 
+                return StateEnum.NB;
+            }
+            else if (stateValueFromDb == "NL")
+            { 
+                return StateEnum.NL;
+            }
+            else if (stateValueFromDb == "NS")
+            { 
+                return StateEnum.NS;
+            }
+            else if (stateValueFromDb == "ON")
+            { 
+                return StateEnum.ON;
+            }
+            else if (stateValueFromDb == "QC")
+            { 
+                return StateEnum.QC;
+            }
+            else if (stateValueFromDb == "SK")
+            { 
+                return StateEnum.SK;
+            }
+            else if (stateValueFromDb == "AE")
+            { 
+                return StateEnum.AE;
+            }
+            else
+            { 
+                return StateEnum.PR;
             }
         }
 
-        public static LocationTypeEnum? ConvertStringToLocationTypeEnum(string locationTypeValueFromDb)
+        public static LocationTypeEnum ConvertStringToLocationTypeEnum(string locationTypeValueFromDb)
         {
-            switch (locationTypeValueFromDb)
+            if (locationTypeValueFromDb == "A")
             {
-                case ("A"):
-                    return LocationTypeEnum.A;
-                case ("S"):
-                    return LocationTypeEnum.S;
-                default:
-                    return null;
+                return LocationTypeEnum.A;
+            } else
+            {
+                return LocationTypeEnum.S;
+            }
+        }
+
+        private static string ConvertLocationTypeEnumToString(LocationTypeEnum locationTypeEnum)
+        {
+            if (locationTypeEnum == LocationTypeEnum.A)
+            {
+                return "A";
+            } else
+            {
+                return "S";
             }
         }
 
@@ -431,7 +562,7 @@ namespace adminconsole.Models
                 Latitude = referenceLocation.Latitude;
                 LimitedTransactions = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.LimitedTransactions);
                 LocationId = referenceLocation.LocationId;
-                LocationType = referenceLocation.LocationType;
+                LocationType = ConvertStringToLocationTypeEnum(referenceLocation.LocationType);
                 Longitude = referenceLocation.Longitude;
                 MilitaryIdRequired = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.MilitaryIdRequired);
                 Name = referenceLocation.Name;
