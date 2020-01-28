@@ -360,6 +360,19 @@ namespace adminconsole.Models
             }
         }
 
+        public static LocationTypeEnum? ConvertStringToLocationTypeEnum(string locationTypeValueFromDb)
+        {
+            switch (locationTypeValueFromDb)
+            {
+                case ("A"):
+                    return LocationTypeEnum.A;
+                case ("S"):
+                    return LocationTypeEnum.S;
+                default:
+                    return null;
+            }
+        }
+
         public bool InstatiateViewModelPropertiesWithOneLocation(Locations referenceLocation = null)
         {
             try
