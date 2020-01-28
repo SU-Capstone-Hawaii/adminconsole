@@ -243,10 +243,14 @@ namespace adminconsole.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var locations = await _context.Locations.FindAsync(id);
-            _context.Locations.Remove(locations);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var result = await backend.DeleteConfirmedAsync(id).ConfigureAwait(false);
+            
+            if (!result)
+            {
+                return RedirectToAction(nameof(Delete));
+            }
+                
+           return RedirectToAction(nameof(Index));
         }
 
         private bool LocationsExists(string id)

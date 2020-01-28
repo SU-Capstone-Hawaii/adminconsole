@@ -65,5 +65,21 @@ namespace adminconsole.Backend
             Locations location = context.Locations.Include(x => x.Contact).Include(x => x.Contact).Where(x => x.LocationId == id).First();
             return location;
         }
+
+        public async Task<bool> DeleteConfirmedAsync(string id)
+        {
+            try
+            {
+                var locations = await context.Locations.FindAsync(id);
+                locations.SoftDelete = true;
+                context.Locations.Update(locations);
+                await context.SaveChangesAsync().ConfigureAwait(false);
+                return true;
+            } catch (DbUpdateException)
+            {
+                return false;
+            }
+            
+        }
     }
 }
