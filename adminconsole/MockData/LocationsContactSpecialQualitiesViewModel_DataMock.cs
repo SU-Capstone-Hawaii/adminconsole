@@ -102,7 +102,7 @@ namespace adminconsole.Models
                 location_1.LimitedTransactions = BooleanEnum.Y;
                 location_1.LocationId = "11170401-4112-43c1-aa4e-f73370e1014a";
                 location_1.locations = new List<Locations>();
-                location_1.LocationType = "A";
+                location_1.LocationType = LocationTypeEnum.A;
                 location_1.Longitude = -132.8851M;
                 location_1.MilitaryIdRequired = BooleanEnum.Y;
                 location_1.Name = "BECU";
@@ -171,7 +171,7 @@ namespace adminconsole.Models
                 location_2.LimitedTransactions = BooleanEnum.NULL;
                 location_2.LocationId = "2f104551-5140-4394-bce7-11a6a5b53db9";
                 location_2.locations = new List<Locations>();
-                location_2.LocationType = "S";
+                location_2.LocationType = LocationTypeEnum.S;
                 location_2.Longitude = 87.9330M;
                 location_2.MilitaryIdRequired = BooleanEnum.NULL;
                 location_2.Name = "SoundCU";
@@ -240,7 +240,7 @@ namespace adminconsole.Models
                 location_3.LimitedTransactions = BooleanEnum.N;
                 location_3.LocationId = "6cc2244b-ff5b-4860-8464-2e5186b7060f";
                 location_3.locations = new List<Locations>();
-                location_3.LocationType = "S";
+                location_3.LocationType = LocationTypeEnum.S;
                 location_3.Longitude = -17.9152M;
                 location_3.MilitaryIdRequired = BooleanEnum.N;
                 location_3.Name = "VerityCU";
@@ -310,7 +310,7 @@ namespace adminconsole.Models
                 location_4.LimitedTransactions = BooleanEnum.Y;
                 location_4.LocationId = "a91be80e-ed05-4157-bb95-aa3494663d2a";
                 location_4.locations = new List<Locations>();
-                location_4.LocationType = "A";
+                location_4.LocationType = LocationTypeEnum.A;
                 location_4.Longitude = -40.3143M;
                 location_4.MilitaryIdRequired = BooleanEnum.Y;
                 location_4.Name = null;
@@ -379,7 +379,7 @@ namespace adminconsole.Models
                 location_5.LimitedTransactions = BooleanEnum.NULL;
                 location_5.LocationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
                 location_5.locations = null;
-                location_5.LocationType = "A";
+                location_5.LocationType = LocationTypeEnum.A;
                 location_5.Longitude = -84.8988M;
                 location_5.MilitaryIdRequired = BooleanEnum.NULL;
                 location_5.Name = null;
@@ -565,7 +565,7 @@ namespace adminconsole.Models
                 case "LocationId":
                     return location.LocationId.Trim() == pair.Value.Trim();
                 case "LocationType":
-                    return location.LocationType.Trim() == pair.Value.Trim();
+                    return location.LocationType.ToString().Trim() == pair.Value.Trim();
                 case "Longitude":
                     return location.Longitude == decimal.Parse(pair.Value.Trim());
                 case "MilitaryIdRequired":
