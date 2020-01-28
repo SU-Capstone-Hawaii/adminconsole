@@ -27,11 +27,10 @@ namespace adminconsoletest
             MaphawksContext context = new MaphawksContext();
 
             // Act
-            var result = new LocationsContactSpecialQualitiesViewModel(context);
+            var result = new LocationsContactSpecialQualitiesViewModel();
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.IsNotNull(result.context);
             Assert.IsNotNull(result.locations);
             Assert.IsNotNull(result.locations);
             Assert.IsNotNull(result.specialQualities);
