@@ -87,7 +87,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="LocationType" class="control-label"></label>
-                <input asp-for="LocationType" class="form-control" />
+                <select asp-for="LocationType" asp-items="Html.GetEnumSelectList<LocationTypeEnum>()">
+                    <option selected="selected">Select Location Type</option>
+                </select>
                 <span asp-validation-for="LocationType" class="text-danger"></span>
             </div>
             <div class="form-group">
