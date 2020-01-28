@@ -263,32 +263,29 @@ namespace adminconsole.Controllers
             "HoursDtsunOpen," +
             "HoursDtsunClose")] LocationsContactSpecialQualitiesViewModel location)
         {
-            if (id != location.LocationId)
+            if (location == null) // Edit submit error
+            {
+                return View(location);
+            }
+
+            if (id != location.LocationId) // IDs don't match
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) // Invalid model state
             {
-                try
-                {
-                    _context.Update(location);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LocationsExists(location.LocationId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return View(location);
             }
-            return View(location);
+
+            var result = await backend.EditPostAsync(location).ConfigureAwait(false);
+          
+            if (!result) // DB update error, retry
+            {
+                return View(location);
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Locations/Delete/5

@@ -51,7 +51,7 @@
             <div class="form-group">
                 <label asp-for="State" class="control-label"></label>
                 <select asp-for="State" asp-items="Html.GetEnumSelectList<StateEnum>()">
-                    <option selected="selected" value="">Select State</option>
+                    <option selected="selected" value="@Model.State">@Html.DisplayFor(model => model.State)</option>
                 </select>
                 <span asp-validation-for="State" class="text-danger"></span>
             </div>
@@ -208,7 +208,8 @@
                 <label asp-for="SelfServiceOnly" class="control-label"></label>
                 <select asp-for="SelfServiceOnly" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
                     <option selected="selected" value="">Select</option>
-                </select>                <span asp-validation-for="SelfServiceOnly" class="text-danger"></span>
+                </select>                
+                <span asp-validation-for="SelfServiceOnly" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HoursMonOpen" class="control-label"></label>

@@ -12,30 +12,19 @@ namespace adminconsole.Models
 {
     public partial class LocationsContactSpecialQualitiesViewModel
     {
+        public LocationsContactSpecialQualitiesViewModel()
+        {
+            locations = new List<Locations>();
+            contacts = new List<Contacts>();
+            specialQualities = new List<SpecialQualities>();
+            dataSource = DataSourceEnum.LIVE;
+        }
         public LocationsContactSpecialQualitiesViewModel(DataSourceEnum dataSource=DataSourceEnum.LIVE)
         {
-            this.dataSource = dataSource;
-        }
-
-        public LocationsContactSpecialQualitiesViewModel(MaphawksContext context, DataSourceEnum dataSource = DataSourceEnum.LIVE)
-        {
-            this.context = context;
             locations = new List<Locations>();
             contacts = new List<Contacts>();
             specialQualities = new List<SpecialQualities>();
             this.dataSource = dataSource;
-        }
-
-        public bool Index()
-        {
-            try
-            {
-                locations = context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).ToList();
-            } catch (Exception e)
-            {
-                return false;
-            }
-            return true;
         }
 
         public static Locations GetNewLocation(LocationsContactSpecialQualitiesViewModel newLocation)
@@ -113,27 +102,69 @@ namespace adminconsole.Models
 
         public static HoursPerDayOfTheWeek GetNewHoursPerDayOfTheWeek(LocationsContactSpecialQualitiesViewModel newLocation)
         {
-            HoursPerDayOfTheWeek hoursPerDayOfTheWeek = new HoursPerDayOfTheWeek();
-            Type type = hoursPerDayOfTheWeek.GetType();
-            PropertyInfo[] properties = type.GetProperties();
-
-            bool allNulls = true;
-
-            foreach (PropertyInfo property in properties)
-            {
-                if ((property.GetValue(newLocation) != null) 
-                    && allNulls)
-                {
-                    allNulls = false;
-                }
-                property.SetValue(hoursPerDayOfTheWeek, property.GetValue(newLocation));
-            }
-
-            if (allNulls)
+            // If all nulls return null
+            if ((newLocation.HoursDtfriClose) == null &&
+            (newLocation.HoursDtfriOpen) == null &&
+            (newLocation.HoursDtmonClose) == null &&
+            (newLocation.HoursDtmonOpen) == null &&
+            (newLocation.HoursDtsatClose) == null &&
+            (newLocation.HoursDtsatOpen) == null &&
+            (newLocation.HoursDtsunClose) == null &&
+            (newLocation.HoursDtsunOpen) == null &&
+            (newLocation.HoursDtthuClose) == null &&
+            (newLocation.HoursDtthuOpen) == null &&
+            (newLocation.HoursDttueClose) == null &&
+            (newLocation.HoursDttueOpen) == null &&
+            (newLocation.HoursDtwedClose) == null &&
+            (newLocation.HoursDtwedOpen) == null &&
+            (newLocation.HoursFriClose) == null &&
+            (newLocation.HoursFriOpen) == null &&
+            (newLocation.HoursMonClose) == null &&
+            (newLocation.HoursMonOpen) == null &&
+            (newLocation.HoursSatClose) == null &&
+            (newLocation.HoursSatOpen) == null &&
+            (newLocation.HoursSunClose) == null &&
+            (newLocation.HoursSunOpen) == null &&
+            (newLocation.HoursThuClose) == null &&
+            (newLocation.HoursThuOpen) == null &&
+            (newLocation.HoursTueClose) == null &&
+            (newLocation.HoursTueOpen) == null &&
+            (newLocation.HoursWedClose) == null &&
+            (newLocation.HoursWedOpen) == null)
             {
                 return null;
             } else
             {
+                HoursPerDayOfTheWeek hoursPerDayOfTheWeek = new HoursPerDayOfTheWeek();
+                hoursPerDayOfTheWeek.LocationId = newLocation.LocationId;
+                hoursPerDayOfTheWeek.HoursDtfriClose = newLocation.HoursDtfriClose;
+                hoursPerDayOfTheWeek.HoursDtfriOpen = newLocation.HoursDtfriOpen;
+                hoursPerDayOfTheWeek.HoursDtmonClose = newLocation.HoursDtmonClose;
+                hoursPerDayOfTheWeek.HoursDtmonOpen = newLocation.HoursDtmonOpen;
+                hoursPerDayOfTheWeek.HoursDtsatClose = newLocation.HoursDtsatClose;
+                hoursPerDayOfTheWeek.HoursDtsatOpen = newLocation.HoursDtsatOpen;
+                hoursPerDayOfTheWeek.HoursDtsunClose = newLocation.HoursDtsunClose;
+                hoursPerDayOfTheWeek.HoursDtsunOpen = newLocation.HoursDtsunOpen;
+                hoursPerDayOfTheWeek.HoursDtthuClose = newLocation.HoursDtthuClose;
+                hoursPerDayOfTheWeek.HoursDtthuOpen = newLocation.HoursDtthuOpen;
+                hoursPerDayOfTheWeek.HoursDttueClose = newLocation.HoursDttueClose;
+                hoursPerDayOfTheWeek.HoursDttueOpen =newLocation.HoursDttueOpen;
+                hoursPerDayOfTheWeek.HoursDtwedClose = newLocation.HoursDtwedClose;
+                hoursPerDayOfTheWeek.HoursDtwedOpen = newLocation.HoursDtwedOpen;
+                hoursPerDayOfTheWeek.HoursFriClose = newLocation.HoursFriClose;
+                hoursPerDayOfTheWeek.HoursFriOpen = newLocation.HoursFriOpen;
+                hoursPerDayOfTheWeek.HoursMonClose = newLocation.HoursMonClose;
+                hoursPerDayOfTheWeek.HoursMonOpen = newLocation.HoursMonOpen;
+                hoursPerDayOfTheWeek.HoursSatClose = newLocation.HoursSatClose;
+                hoursPerDayOfTheWeek.HoursSatOpen = newLocation.HoursSatOpen;
+                hoursPerDayOfTheWeek.HoursSunClose = newLocation.HoursSunClose;
+                hoursPerDayOfTheWeek.HoursSunOpen = newLocation.HoursSunOpen;
+                hoursPerDayOfTheWeek.HoursThuClose = newLocation.HoursThuClose;
+                hoursPerDayOfTheWeek.HoursThuOpen = newLocation.HoursThuOpen;
+                hoursPerDayOfTheWeek.HoursTueClose = newLocation.HoursTueClose;
+                hoursPerDayOfTheWeek.HoursTueOpen = newLocation.HoursTueOpen;
+                hoursPerDayOfTheWeek.HoursWedClose = newLocation.HoursWedClose;
+                hoursPerDayOfTheWeek.HoursWedOpen = newLocation.HoursWedOpen;
                 return hoursPerDayOfTheWeek;
             }
         }
@@ -410,6 +441,7 @@ namespace adminconsole.Models
             {
                 return false;
             }
+
         }
     }
 }

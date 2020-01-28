@@ -46,7 +46,7 @@ namespace adminconsole.Models
 
         [DisplayName("County")]
         #nullable enable
-        public string County { get; set; }
+        public string? County { get; set; }
 
         [Required]
         [DisplayName("State")]
@@ -76,36 +76,35 @@ namespace adminconsole.Models
 
         #region Contacts Properties
         [DisplayName("Phone")]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
         [DisplayName("Fax")]
-        public string Fax { get; set; }
+        public string? Fax { get; set; }
 
         [DisplayName("Web Address")]
-        public string WebAddress { get; set; }
+        public string? WebAddress { get; set; }
         #endregion
 
         #region Special Qualities Properties
-        [Required]
         [DisplayName("Restricted Access")]
         #nullable enable
-        public BooleanEnum RestrictedAccess { get; set; }
+        public BooleanEnum? RestrictedAccess { get; set; }
 
         [DisplayName("Accepts Deposits")]
         #nullable enable
-        public BooleanEnum AcceptDeposit { get; set; }
+        public BooleanEnum? AcceptDeposit { get; set; }
 
         [DisplayName("Envelope Required")]
         #nullable enable
-        public BooleanEnum EnvelopeRequired { get; set; }
+        public BooleanEnum? EnvelopeRequired { get; set; }
 
         [DisplayName("On Premise")]
         #nullable enable
-        public BooleanEnum OnPremise { get; set; }
+        public BooleanEnum? OnPremise { get; set; }
 
         [DisplayName("Access")]
         #nullable enable
-        public BooleanEnum Access { get; set; }
+        public BooleanEnum? Access { get; set; }
 
         [DisplayName("Installation Type")]
         #nullable enable
@@ -113,140 +112,139 @@ namespace adminconsole.Models
 
         [DisplayName("Drive Thru Only")]
         #nullable enable
-        public BooleanEnum DriveThruOnly { get; set; }
+        public BooleanEnum? DriveThruOnly { get; set; }
 
         [DisplayName("Limited Transactions")]
         #nullable enable
-        public BooleanEnum LimitedTransactions { get; set; }
+        public BooleanEnum? LimitedTransactions { get; set; }
 
         [DisplayName("Handicap Access")]
         #nullable enable
-        public BooleanEnum HandicapAccess { get; set; }
+        public BooleanEnum? HandicapAccess { get; set; }
 
         [DisplayName("Accepts Cash")]
         #nullable enable
-        public BooleanEnum AcceptCash { get; set; }
+        public BooleanEnum? AcceptCash { get; set; }
 
         [DisplayName("Cashless")]
         #nullable enable
-        public BooleanEnum Cashless { get; set; }
+        public BooleanEnum? Cashless { get; set; }
 
         [DisplayName("Self Service Only")]
         #nullable enable
-        public BooleanEnum SelfServiceOnly { get; set; }
+        public BooleanEnum? SelfServiceOnly { get; set; }
 
         [DisplayName("Surcharge")]
         #nullable enable
-        public BooleanEnum Surcharge { get; set; }
+        public BooleanEnum? Surcharge { get; set; }
 
         [DisplayName("On Military Base")]
         #nullable enable
-        public BooleanEnum OnMilitaryBase { get; set; }
+        public BooleanEnum? OnMilitaryBase { get; set; }
 
         [DisplayName("Military ID Required")]
         #nullable enable
-        public BooleanEnum MilitaryIdRequired { get; set; }
+        public BooleanEnum? MilitaryIdRequired { get; set; }
 
         [DisplayName("Self Service Device")]
         #nullable enable
-        public BooleanEnum SelfServiceDevice { get; set; }
+        public BooleanEnum? SelfServiceDevice { get; set; }
 
         [DisplayName("Additional Detail")]
         #nullable enable
         [StringLength(100)]
-        public string AccessNotes { get; set; }
+        public string? AccessNotes { get; set; }
         #endregion
 
         #region Hours Per Day Of The Week Properties
         [DisplayName("Mon Open")]
-        public string HoursMonOpen { get; set; }
+        public string? HoursMonOpen { get; set; }
 
         [DisplayName("Mon Close")]
-        public string HoursMonClose { get; set; }
+        public string? HoursMonClose { get; set; }
 
         [DisplayName("Tues Open")]
-        public string HoursTueOpen { get; set; }
+        public string? HoursTueOpen { get; set; }
 
         [DisplayName("Tues Close")]
-        public string HoursTueClose { get; set; }
+        public string? HoursTueClose { get; set; }
 
         [DisplayName("Wed Open")]
-        public string HoursWedOpen { get; set; }
+        public string? HoursWedOpen { get; set; }
 
         [DisplayName("Wed Close")]
-        public string HoursWedClose { get; set; }
+        public string? HoursWedClose { get; set; }
 
         [DisplayName("Thu Open")]
-        public string HoursThuOpen { get; set; }
+        public string? HoursThuOpen { get; set; }
 
         [DisplayName("Thu Close")]
-        public string HoursThuClose { get; set; }
+        public string? HoursThuClose { get; set; }
 
         [DisplayName("Fri Open")]
-        public string HoursFriOpen { get; set; }
+        public string? HoursFriOpen { get; set; }
 
         [DisplayName("Fri Close")]
-        public string HoursFriClose { get; set; }
+        public string? HoursFriClose { get; set; }
 
         [DisplayName("Sat Open")]
-        public string HoursSatOpen { get; set; }
+        public string? HoursSatOpen { get; set; }
 
         [DisplayName("Sat Close")]
-        public string HoursSatClose { get; set; }
+        public string? HoursSatClose { get; set; }
 
         [DisplayName("Sun Open")]
-        public string HoursSunOpen { get; set; }
+        public string? HoursSunOpen { get; set; }
 
         [DisplayName("Sun Close")]
-        public string HoursSunClose { get; set; }
+        public string? HoursSunClose { get; set; }
 
         [DisplayName("Mon Open Drive-Thru")]
-        public string HoursDtmonOpen { get; set; }
+        public string? HoursDtmonOpen { get; set; }
 
         [DisplayName("Mon Close Drive-Thru")]
-        public string HoursDtmonClose { get; set; }
+        public string? HoursDtmonClose { get; set; }
 
         [DisplayName("Tues Open Drive-Thru")]
-        public string HoursDttueOpen { get; set; }
+        public string? HoursDttueOpen { get; set; }
 
         [DisplayName("Tues Close Drive-Thru")]
-        public string HoursDttueClose { get; set; }
+        public string? HoursDttueClose { get; set; }
 
         [DisplayName("Wed Open Drive-Thru")]
-        public string HoursDtwedOpen { get; set; }
+        public string? HoursDtwedOpen { get; set; }
 
         [DisplayName("Wed Close Drive-Thru")]
-        public string HoursDtwedClose { get; set; }
+        public string? HoursDtwedClose { get; set; }
 
         [DisplayName("Thu Open Drive-Thru")]
-        public string HoursDtthuOpen { get; set; }
+        public string? HoursDtthuOpen { get; set; }
 
         [DisplayName("Thu Close Drive-Thru")]
-        public string HoursDtthuClose { get; set; }
+        public string? HoursDtthuClose { get; set; }
 
         [DisplayName("Fri Open Drive-Thru")]
-        public string HoursDtfriOpen { get; set; }
+        public string? HoursDtfriOpen { get; set; }
 
         [DisplayName("Fri Close Drive-Thru")]
-        public string HoursDtfriClose { get; set; }
+        public string? HoursDtfriClose { get; set; }
 
         [DisplayName("Sat Open Drive-Thru")]
-        public string HoursDtsatOpen { get; set; }
+        public string? HoursDtsatOpen { get; set; }
 
         [DisplayName("Sat Close Drive-Thru")]
-        public string HoursDtsatClose { get; set; }
+        public string? HoursDtsatClose { get; set; }
 
         [DisplayName("Sun Open Drive-Thru")]
-        public string HoursDtsunOpen { get; set; }
+        public string? HoursDtsunOpen { get; set; }
 
         [DisplayName("Sun Close Drive-Thru")]
-        public string HoursDtsunClose { get; set; }
+        public string? HoursDtsunClose { get; set; }
         #endregion
 
         public List<Locations> locations { get; set; }
         public List<Contacts> contacts { get; set; }
         public List<SpecialQualities> specialQualities { get; set; }
-        public MaphawksContext context { get; set; }
 
         public DataSourceEnum dataSource { get; set; }
 

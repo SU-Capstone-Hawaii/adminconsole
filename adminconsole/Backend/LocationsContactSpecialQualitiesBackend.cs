@@ -95,5 +95,34 @@ namespace adminconsole.Backend
                 return null;
             }
         }
+
+        public async Task<bool> EditPostAsync(LocationsContactSpecialQualitiesViewModel newLocation)
+        {
+            if (newLocation == null)
+            {
+                return false;
+            }
+
+            Locations location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(newLocation);
+            Contacts contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(newLocation);
+            SpecialQualities specialQualities = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(newLocation);
+            HoursPerDayOfTheWeek hoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(newLocation);
+
+            try
+            {
+                context.Locations.Update(location);
+                context.Contacts.Update(contact);
+                context.SpecialQualities.Update(specialQualities);
+                if (hoursPerDayOfTheWeek != null)
+                {
+                    context.HoursPerDayOfTheWeek.Update(hoursPerDayOfTheWeek);
+                }
+                var result = await context.SaveChangesAsync().ConfigureAwait(false);
+                return true;
+            } catch (DbUpdateConcurrencyException)
+            {
+                return false;
+            }
+        }
     }
 }
