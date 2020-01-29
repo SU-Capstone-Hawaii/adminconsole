@@ -179,7 +179,7 @@ namespace adminconsoletest
             result.LimitedTransactions = BooleanEnum.Y;
             result.LocationId = "11170401-4112-43c1-aa4e-f73370e1014a";
             result.locations = new List<Locations>();
-            result.LocationType = "A";
+            result.LocationType = LocationTypeEnum.A;
             result.Longitude = -132.8851M;
             result.MilitaryIdRequired = BooleanEnum.Y;
             result.Name = "BECU";
