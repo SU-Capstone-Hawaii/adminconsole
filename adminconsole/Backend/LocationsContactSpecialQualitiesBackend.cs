@@ -141,6 +141,21 @@ namespace adminconsole.Backend
             }
         }
 
+        public async Task<bool> RecoverAsync(string id)
+        {
+            try
+            {
+                var location = await context.Locations.FirstAsync(x => x.LocationId == id).ConfigureAwait(false);
+                location.SoftDelete = false;
+                context.Update(location);
+                context.SaveChanges();
+                return true;
+            } catch (Exception)
+            {
+                return false;
+            }
+        }
+
         private static Locations ConvertDbStringsToEnums(Locations location)
         {
             var state = LocationsContactSpecialQualitiesViewModel.ConvertStringToStateEnum(location.State);

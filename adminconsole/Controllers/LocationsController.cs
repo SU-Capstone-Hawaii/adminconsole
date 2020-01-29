@@ -284,6 +284,24 @@ namespace adminconsole.Controllers
            return RedirectToAction(nameof(Index));
         }
 
+        // GET: Locations/Deleted/5
+        [ActionName("Recover")]
+        public async Task<IActionResult> Recover(string id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction(nameof(Deleted));
+            }
+            var result = await backend.RecoverAsync(id).ConfigureAwait(false);
+
+            if (!result)
+            {
+                return RedirectToAction(nameof(Deleted));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
         private bool LocationsExists(string id)
         {
             return _context.Locations.Any(e => e.LocationId == id);
