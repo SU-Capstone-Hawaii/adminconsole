@@ -19,9 +19,17 @@ namespace adminconsole.Backend
             this.context = context;
         }
 
-        public async Task<List<Locations>> IndexAsync()
+        public async Task<List<Locations>> IndexAsync(bool deleted = false)
         {
-            var locations_list = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.SoftDelete != true).ToListAsync().ConfigureAwait(false);
+            List<Locations> locations_list;
+            if (deleted) // Get soft deleted records
+            {
+                locations_list = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.SoftDelete == true).ToListAsync().ConfigureAwait(false);
+            } else 
+            {
+                locations_list = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.SoftDelete != true).ToListAsync().ConfigureAwait(false);
+            }
+
             foreach (var location in locations_list)
             {
                 ConvertDbStringsToEnums(location);

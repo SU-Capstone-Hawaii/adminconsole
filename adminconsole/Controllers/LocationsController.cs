@@ -28,6 +28,13 @@ namespace adminconsole.Controllers
             return View(results);
         }
 
+        // GET: Locations
+        public async Task<IActionResult> Deleted()
+        {
+            var results = await backend.IndexAsync(true).ConfigureAwait(false);
+            return View(results);
+        }
+
         // GET: Locations/Details/5
         public async Task<IActionResult> Details(string id)
         {
