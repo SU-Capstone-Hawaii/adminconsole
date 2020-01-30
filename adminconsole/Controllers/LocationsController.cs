@@ -242,6 +242,15 @@ namespace adminconsole.Controllers
                 return View(location);
             }
 
+
+            // Get the Recrord to ensure it exists
+            var updatedRecord = backend.GetLocation(location.LocationId);
+            if (updatedRecord == null)
+            {
+                return NotFound();
+            }
+
+
             var result = await backend.EditPostAsync(location).ConfigureAwait(false);
           
             if (!result) // DB update error, retry

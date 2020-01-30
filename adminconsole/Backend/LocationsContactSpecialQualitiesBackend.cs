@@ -100,12 +100,23 @@ namespace adminconsole.Backend
 
         public async Task<LocationsContactSpecialQualitiesViewModel> Edit(string id)
         {
+            // Application exception handler
             try
             {
                 LocationsContactSpecialQualitiesViewModel location = new LocationsContactSpecialQualitiesViewModel();
-                location.locations = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.LocationId == id).ToListAsync().ConfigureAwait(false);
+            
+                location.locations = await context.Locations
+                    .Include(x => x.Contact)
+                    .Include(x => x.SpecialQualities)
+                    .Include(x => x.HoursPerDayOfTheWeek)
+                    .Where(x => x.LocationId == id)
+                    .ToListAsync()
+                    .ConfigureAwait(false);
+
                 location.InstatiateViewModelPropertiesWithOneLocation();
+                
                 return location;
+            
             } catch (Exception)
             {
                 return null;
