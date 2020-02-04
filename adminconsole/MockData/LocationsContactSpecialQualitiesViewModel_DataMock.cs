@@ -60,7 +60,6 @@ namespace adminconsole.Models
                 location_1.Address = "362 Oxford Dr.";
                 location_1.Cashless = BooleanEnum.Y;
                 location_1.City = "Starkville";
-                location_1.contacts = new List<Contacts>();
                 location_1.CoopLocationId = "WA9820-174920573";
                 location_1.Country = "US";
                 location_1.County = "King County";
@@ -115,7 +114,6 @@ namespace adminconsole.Models
                 location_1.SelfServiceDevice = BooleanEnum.Y;
                 location_1.SelfServiceOnly = BooleanEnum.Y;
                 location_1.SoftDelete = BooleanEnum.Y;
-                location_1.specialQualities = new List<SpecialQualities>();
                 location_1.State = StateEnum.MS;
                 location_1.Surcharge = BooleanEnum.Y;
                 location_1.TakeCoopData = BooleanEnum.Y;
@@ -129,7 +127,6 @@ namespace adminconsole.Models
                 location_2.Address = "7520 S. Edgewood Road";
                 location_2.Cashless = BooleanEnum.NULL;
                 location_2.City = "Gulfport";
-                location_2.contacts = new List<Contacts>();
                 location_2.CoopLocationId = "WA9820-174920573";
                 location_2.Country = "US";
                 location_2.County = "King County";
@@ -184,7 +181,6 @@ namespace adminconsole.Models
                 location_2.SelfServiceDevice = BooleanEnum.NULL;
                 location_2.SelfServiceOnly = BooleanEnum.NULL;
                 location_2.SoftDelete = BooleanEnum.Y;
-                location_2.specialQualities = new List<SpecialQualities>();
                 location_2.State = StateEnum.MS;
                 location_2.Surcharge = BooleanEnum.NULL;
                 location_2.TakeCoopData = BooleanEnum.Y;
@@ -198,7 +194,6 @@ namespace adminconsole.Models
                 location_3.Address = "8966C Henry Smith Lane";
                 location_3.Cashless = BooleanEnum.N;
                 location_3.City = "Palos Verdes Peninsula";
-                location_3.contacts = new List<Contacts>();
                 location_3.CoopLocationId = "WA9820-174920573";
                 location_3.Country = "US";
                 location_3.County = "King County";
@@ -253,7 +248,6 @@ namespace adminconsole.Models
                 location_3.SelfServiceDevice = BooleanEnum.N;
                 location_3.SelfServiceOnly = BooleanEnum.N;
                 location_3.SoftDelete = BooleanEnum.Y;
-                location_3.specialQualities = new List<SpecialQualities>();
                 location_3.State = StateEnum.CA;
                 location_3.Surcharge = BooleanEnum.N;
                 location_3.TakeCoopData = BooleanEnum.Y;
@@ -268,7 +262,6 @@ namespace adminconsole.Models
                 location_4.Address = "7307 Poor House Ave.";
                 location_4.Cashless = BooleanEnum.Y;
                 location_4.City = "West Bloomfield";
-                location_4.contacts = new List<Contacts>();
                 location_4.CoopLocationId = null;
                 location_4.Country = null;
                 location_4.County = null;
@@ -323,7 +316,6 @@ namespace adminconsole.Models
                 location_4.SelfServiceDevice = BooleanEnum.Y;
                 location_4.SelfServiceOnly = BooleanEnum.Y;
                 location_4.SoftDelete = null;
-                location_4.specialQualities = null;
                 location_4.State = StateEnum.MI;
                 location_4.Surcharge = BooleanEnum.Y;
                 location_4.TakeCoopData = null;
@@ -337,7 +329,6 @@ namespace adminconsole.Models
                 location_5.Address = "8071 Sunbeam Court";
                 location_5.Cashless = BooleanEnum.NULL;
                 location_5.City = "Massillon";
-                location_5.contacts = null;
                 location_5.CoopLocationId = null;
                 location_5.Country = null;
                 location_5.County = null;
@@ -392,7 +383,6 @@ namespace adminconsole.Models
                 location_5.SelfServiceDevice = BooleanEnum.NULL;
                 location_5.SelfServiceOnly = BooleanEnum.NULL;
                 location_5.SoftDelete = null;
-                location_5.specialQualities = null;
                 location_5.State = StateEnum.OH;
                 location_5.Surcharge = BooleanEnum.NULL;
                 location_5.TakeCoopData = null;
