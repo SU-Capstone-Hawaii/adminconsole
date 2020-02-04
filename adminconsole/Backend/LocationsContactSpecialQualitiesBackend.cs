@@ -51,6 +51,10 @@ namespace adminconsole.Backend
 
         public bool Create(LocationsContactSpecialQualitiesViewModel newLocation)
         {
+            if (newLocation == null)
+            {
+                return false;
+            }
             while (context.Locations.Where(x => x.LocationId == newLocation.LocationId).ToList().Any())
             {
                 newLocation.LocationId = Guid.NewGuid().ToString();
@@ -100,9 +104,6 @@ namespace adminconsole.Backend
 
         public async Task<LocationsContactSpecialQualitiesViewModel> Edit(string id)
         {
-            // Application exception handler
-            try
-            {
                 LocationsContactSpecialQualitiesViewModel location = new LocationsContactSpecialQualitiesViewModel();
             
                 location.locations = await context.Locations
@@ -116,11 +117,6 @@ namespace adminconsole.Backend
                 location.InstatiateViewModelPropertiesWithOneLocation();
                 
                 return location;
-            
-            } catch (Exception)
-            {
-                return null;
-            }
         }
 
         public async Task<bool> EditPostAsync(LocationsContactSpecialQualitiesViewModel newLocation)
