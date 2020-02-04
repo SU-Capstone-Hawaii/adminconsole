@@ -47,7 +47,7 @@
                     @Html.DisplayNameFor(model => model.Address)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.City)
+                    @Html.Hidden("hiddenCityHeader", "City")
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.PostalCode)
@@ -83,6 +83,14 @@
             {
                 <tr>
                     <td>
+                        @if(item.Name ==  "BECU")
+                        {
+                            <img src="~/media/BEC-Logo-Icon-pms.png" />
+                        }
+                        else
+                        {
+                            <img src="~/media/logo_co-op.png" style="height: 40px;"/>
+                        }
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
@@ -92,7 +100,7 @@
                         @Html.DisplayFor(modelItem => item.Address)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.City)
+                        @Html.Hidden("hiddenCity", item.City)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PostalCode)

@@ -108,5 +108,11 @@ body {
 /*#endregion*/
 
 /*#region Index Styling*/
+.coop-logo-icon{
+    height: 40px !important;
+}
 
+.hideThis{
+    display: none;
+}
 /*#endregion*/
