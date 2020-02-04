@@ -243,9 +243,7 @@ namespace adminconsole.Models
         public string? HoursDtsunClose { get; set; }
         #endregion
 
-        public List<Locations> locations { get; set; }
-        public List<Contacts> contacts { get; set; }
-        public List<SpecialQualities> specialQualities { get; set; }
+        public List<Locations> locations { get; set;  }
 
         public DataSourceEnum dataSource { get; set; }
 
