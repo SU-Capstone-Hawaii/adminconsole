@@ -32,8 +32,6 @@ namespace adminconsoletest
             // Assert
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.locations);
-            Assert.IsNotNull(result.locations);
-            Assert.IsNotNull(result.specialQualities);
         }
 
         [TestMethod]
@@ -48,21 +46,19 @@ namespace adminconsoletest
             // Locations
             Assert.IsNull(result.Address);
             Assert.IsNull(result.City);
-            Assert.IsNull(result.contacts);
             Assert.IsNull(result.CoopLocationId);
             Assert.IsNull(result.Country);
             Assert.IsNull(result.County);
             Assert.IsNull(result.Hours);
-            Assert.IsNull(result.Latitude);
+            Assert.IsNotNull(result.Latitude);
             Assert.IsNull(result.LocationId);
-            Assert.IsNull(result.LocationType);
-            Assert.IsNull(result.Longitude);
+            Assert.IsNotNull(result.LocationType);
+            Assert.IsNotNull(result.Longitude);
             Assert.IsNull(result.Name);
             Assert.IsNull(result.PostalCode);
             Assert.IsNull(result.RetailOutlet);
             Assert.IsNull(result.SoftDelete);
-            Assert.IsNull(result.specialQualities);
-            Assert.IsNull(result.State);
+            Assert.IsNotNull(result.State);
             Assert.IsNull(result.TakeCoopData);
 
             // Contacts
@@ -81,14 +77,15 @@ namespace adminconsoletest
             Assert.IsNull(result.HandicapAccess);
             Assert.IsNull(result.InstallationType);
             Assert.IsNull(result.LimitedTransactions);
-            Assert.IsNull(result.locations);
+            Assert.IsNotNull(result.locations);
+            Assert.AreEqual(0, result.locations.Capacity);
             Assert.IsNull(result.MilitaryIdRequired);
             Assert.IsNull(result.OnMilitaryBase);
             Assert.IsNull(result.OnPremise);
             Assert.IsNull(result.RestrictedAccess);
             Assert.IsNull(result.SelfServiceDevice);
             Assert.IsNull(result.SelfServiceOnly);
-            Assert.IsNull(result.State);
+            Assert.IsNotNull(result.State);
             Assert.IsNull(result.Surcharge);
 
             // Hours Per Day Of The Week
@@ -137,7 +134,6 @@ namespace adminconsoletest
             result.Address = "362 Oxford Dr.";
             result.Cashless = BooleanEnum.Y;
             result.City = "Starkville";
-            result.contacts = new List<Contacts>();
             result.CoopLocationId = "WA9820-174920573";
             result.Country = "US";
             result.County = "King County";
@@ -192,7 +188,6 @@ namespace adminconsoletest
             result.SelfServiceDevice = BooleanEnum.Y;
             result.SelfServiceOnly = BooleanEnum.Y;
             result.SoftDelete = BooleanEnum.Y;
-            result.specialQualities = new List<SpecialQualities>();
             result.State = StateEnum.MS;
             result.Surcharge = BooleanEnum.Y;
             result.TakeCoopData = BooleanEnum.Y;
@@ -207,7 +202,6 @@ namespace adminconsoletest
             Assert.AreEqual("362 Oxford Dr.", result.Address);
             Assert.AreEqual(BooleanEnum.Y, result.Cashless);
             Assert.AreEqual("Starkville", result.City);
-            Assert.IsNotNull(result.contacts);
             Assert.AreEqual("WA9820-174920573", result.CoopLocationId);
             Assert.AreEqual("US", result.Country);
             Assert.AreEqual("King County", result.County);
@@ -249,7 +243,8 @@ namespace adminconsoletest
             Assert.AreEqual(BooleanEnum.Y, result.LimitedTransactions);
             Assert.AreEqual("11170401-4112-43c1-aa4e-f73370e1014a", result.LocationId);
             Assert.IsNotNull(result.locations);
-            Assert.AreEqual("A", result.LocationType);
+            Assert.AreEqual(0, result.locations.Capacity);
+            Assert.AreEqual(LocationTypeEnum.A, result.LocationType);
             Assert.AreEqual(-132.8851M, result.Longitude);
             Assert.AreEqual(BooleanEnum.Y, result.MilitaryIdRequired);
             Assert.AreEqual("BECU", result.Name);
@@ -262,7 +257,6 @@ namespace adminconsoletest
             Assert.AreEqual(BooleanEnum.Y, result.SelfServiceDevice);
             Assert.AreEqual(BooleanEnum.Y, result.SelfServiceOnly);
             Assert.AreEqual(BooleanEnum.Y, result.SoftDelete);
-            Assert.IsNotNull(result.specialQualities);
             Assert.AreEqual(StateEnum.MS, result.State);
             Assert.AreEqual(BooleanEnum.Y, result.Surcharge);
             Assert.AreEqual(BooleanEnum.Y, result.TakeCoopData);
