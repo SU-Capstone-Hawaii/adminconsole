@@ -15,15 +15,11 @@ namespace adminconsole.Models
         public LocationsContactSpecialQualitiesViewModel()
         {
             locations = new List<Locations>();
-            contacts = new List<Contacts>();
-            specialQualities = new List<SpecialQualities>();
             dataSource = DataSourceEnum.LIVE;
         }
         public LocationsContactSpecialQualitiesViewModel(DataSourceEnum dataSource=DataSourceEnum.LIVE)
         {
             locations = new List<Locations>();
-            contacts = new List<Contacts>();
-            specialQualities = new List<SpecialQualities>();
             this.dataSource = dataSource;
         }
 
