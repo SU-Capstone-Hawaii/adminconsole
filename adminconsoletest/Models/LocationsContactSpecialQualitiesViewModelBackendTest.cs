@@ -396,5 +396,25 @@ namespace adminconsoletest
             // Assert
             Assert.IsNull(result);
         }
+
+
+
+
+        /// <summary>
+        /// Tests Backend GetLocation with a null LocationId value
+        /// </summary>
+        [TestMethod]
+        public void LocationsContactSpecialQualitiesBackend_GetLocation_Null_Id_Should_Not_Pass_()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+
+            // Act
+            var result = backend.GetLocation(null);
+
+
+            // Assert
+            Assert.IsNull(result);
+        }
     }
 }
