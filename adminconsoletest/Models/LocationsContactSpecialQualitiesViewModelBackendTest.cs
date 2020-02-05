@@ -512,5 +512,206 @@ namespace adminconsoletest
             // Assert
             Assert.IsFalse(result);
         }
+
+
+
+
+
+
+        /// <summary>
+        /// Tests Backend EditAsync method. The method should return the Locations record 
+        /// with the LocationId it receives. 
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsContactSpecialQualitiesBackend_EditAsync_Should_Pass_Async()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            string locationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+            var location = new LocationsContactSpecialQualitiesViewModel();
+
+            location.AcceptCash = BooleanEnum.NULL;
+            location.AcceptDeposit = BooleanEnum.NULL;
+            location.Access = BooleanEnum.NULL;
+            location.AccessNotes = null;
+            location.Address = "8071 Sunbeam Court";
+            location.Cashless = BooleanEnum.NULL;
+            location.City = "Massillon";
+            location.CoopLocationId = null;
+            location.Country = null;
+            location.County = null;
+            location.DriveThruOnly = BooleanEnum.NULL;
+            location.EnvelopeRequired = BooleanEnum.NULL;
+            location.Fax = "9166280006";
+            location.HandicapAccess = BooleanEnum.NULL;
+            location.Hours = null;
+            location.HoursDtfriClose = null;
+            location.HoursDtfriOpen = null;
+            location.HoursDtmonClose = null;
+            location.HoursDtmonOpen = null;
+            location.HoursDtsatClose = null;
+            location.HoursDtsatOpen = null;
+            location.HoursDtsunClose = null;
+            location.HoursDtsunOpen = null;
+            location.HoursDtthuClose = null;
+            location.HoursDtthuOpen = null;
+            location.HoursDttueClose = null;
+            location.HoursDttueOpen = null;
+            location.HoursDtwedClose = null;
+            location.HoursDtwedOpen = null;
+            location.HoursFriClose = null;
+            location.HoursFriOpen = null;
+            location.HoursMonClose = null;
+            location.HoursMonOpen = null;
+            location.HoursSatClose = null;
+            location.HoursSatOpen = null;
+            location.HoursSunClose = null;
+            location.HoursSunOpen = null;
+            location.HoursThuClose = null;
+            location.HoursThuOpen = null;
+            location.HoursTueClose = null;
+            location.HoursTueOpen = null;
+            location.HoursWedClose = null;
+            location.HoursWedOpen = null;
+            location.InstallationType = null;
+            location.Latitude = -20.9110M;
+            location.LimitedTransactions = BooleanEnum.NULL;
+            location.LocationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+            location.locations = null;
+            location.LocationType = LocationTypeEnum.A;
+            location.Longitude = -84.8988M;
+            location.MilitaryIdRequired = BooleanEnum.NULL;
+            location.Name = null;
+            location.OnMilitaryBase = BooleanEnum.NULL;
+            location.OnPremise = BooleanEnum.NULL;
+            location.Phone = "9997957521";
+            location.PostalCode = "44646";
+            location.RestrictedAccess = BooleanEnum.NULL;
+            location.RetailOutlet = null;
+            location.SelfServiceDevice = BooleanEnum.NULL;
+            location.SelfServiceOnly = BooleanEnum.NULL;
+            location.SoftDelete = null;
+            location.State = StateEnum.OH;
+            location.Surcharge = BooleanEnum.NULL;
+            location.TakeCoopData = null;
+            location.WebAddress = null;
+
+
+            // Act
+            var result = await backend.EditAsync(locationId);
+
+
+            // Assert
+            Assert.AreEqual(location.AcceptCash, result.AcceptCash);
+            Assert.AreEqual(location.AcceptDeposit, result.AcceptDeposit);
+            Assert.AreEqual(location.Access, result.Access);
+            Assert.AreEqual(location.AccessNotes, result.AccessNotes);
+            Assert.AreEqual(location.Address, result.Address);
+            Assert.AreEqual(location.Cashless, result.Cashless);
+            Assert.AreEqual(location.City, result.City);
+            Assert.AreEqual(location.CoopLocationId, result.CoopLocationId);
+            Assert.AreEqual(location.Country, result.Country);
+            Assert.AreEqual(location.County, result.County);
+            Assert.AreEqual(location.DriveThruOnly, result.DriveThruOnly);
+            Assert.AreEqual(location.EnvelopeRequired, result.EnvelopeRequired);
+            Assert.AreEqual(location.Fax, result.Fax);
+            Assert.AreEqual(location.HandicapAccess, result.HandicapAccess);
+            Assert.AreEqual(location.Hours, result.Hours);
+            Assert.AreEqual(location.HoursDtfriClose, result.HoursDtfriClose);
+            Assert.AreEqual(location.HoursDtfriOpen, result.HoursDtfriOpen);
+            Assert.AreEqual(location.HoursDtmonClose, result.HoursDtmonClose);
+            Assert.AreEqual(location.HoursDtmonOpen, result.HoursDtmonOpen);
+            Assert.AreEqual(location.HoursDtsatClose, result.HoursDtsatClose);
+            Assert.AreEqual(location.HoursDtsatOpen, result.HoursDtsatOpen);
+            Assert.AreEqual(location.HoursDtsunClose, result.HoursDtsunClose);
+            Assert.AreEqual(location.HoursDtsunOpen, result.HoursDtsunOpen);
+            Assert.AreEqual(location.HoursDtthuClose, result.HoursDtthuClose);
+            Assert.AreEqual(location.HoursDtthuOpen, result.HoursDttueOpen);
+            Assert.AreEqual(location.HoursDttueClose, result.HoursDttueClose);
+            Assert.AreEqual(location.HoursDttueOpen, result.HoursDttueOpen);
+            Assert.AreEqual(location.HoursDtwedClose, result.HoursDtwedClose);
+            Assert.AreEqual(location.HoursDtwedOpen, result.HoursDtwedOpen);
+            Assert.AreEqual(location.HoursFriClose, result.HoursFriClose);
+            Assert.AreEqual(location.HoursFriOpen, result.HoursFriOpen);
+            Assert.AreEqual(location.HoursMonClose, result.HoursMonClose);
+            Assert.AreEqual(location.HoursMonOpen, result.HoursMonOpen);
+            Assert.AreEqual(location.HoursSatClose, result.HoursSatClose);
+            Assert.AreEqual(location.HoursSatOpen, result.HoursSatOpen);
+            Assert.AreEqual(location.HoursSunClose, result.HoursSunClose);
+            Assert.AreEqual(location.HoursSunOpen, result.HoursSunOpen);
+            Assert.AreEqual(location.HoursThuClose, result.HoursThuClose);
+            Assert.AreEqual(location.HoursThuOpen, result.HoursThuOpen);
+            Assert.AreEqual(location.HoursTueClose, result.HoursTueClose);
+            Assert.AreEqual(location.HoursTueOpen, result.HoursTueOpen);
+            Assert.AreEqual(location.HoursWedClose, result.HoursWedClose);
+            Assert.AreEqual(location.HoursWedOpen, result.HoursWedOpen);
+            Assert.AreEqual(location.InstallationType, result.InstallationType);
+            Assert.AreEqual(location.Latitude, result.Latitude);
+            Assert.AreEqual(location.LimitedTransactions, result.LimitedTransactions);
+            Assert.AreEqual(location.LocationId, result.LocationId);
+            Assert.AreEqual(location.locations, result.locations);
+            Assert.AreEqual(location.LocationType, result.LocationType);
+            Assert.AreEqual(location.Longitude, result.Longitude);
+            Assert.AreEqual(location.MilitaryIdRequired, result.MilitaryIdRequired);
+            Assert.AreEqual(location.Name, result.Name);
+            Assert.AreEqual(location.OnMilitaryBase, result.OnMilitaryBase);
+            Assert.AreEqual(location.OnPremise, result.OnPremise);
+            Assert.AreEqual(location.Phone, result.Phone);
+            Assert.AreEqual(location.PostalCode, result.PostalCode);
+            Assert.AreEqual(location.RestrictedAccess, result.RestrictedAccess);
+            Assert.AreEqual(location.RetailOutlet, result.RetailOutlet);
+            Assert.AreEqual(location.SelfServiceDevice, result.SelfServiceDevice);
+            Assert.AreEqual(location.SelfServiceOnly, result.SelfServiceOnly);
+            Assert.AreEqual(location.SoftDelete, result.SoftDelete);
+            Assert.AreEqual(location.State, result.State);
+            Assert.AreEqual(location.Surcharge, result.Surcharge);
+            Assert.AreEqual(location.TakeCoopData, result.TakeCoopData);
+            Assert.AreEqual(location.WebAddress, result.WebAddress);
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// Tests Backend EditPostAsync method. The method should return NULL.
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsContactSpecialQualitiesBackend_EditAsync_Invalid_Id_Should_Not_Pass_Async()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            string locationId = "59bb3e88-9757-492e-a07c-00000000000";
+
+            // Act
+            var result = await backend.EditAsync(locationId);
+
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Tests Backend EditPostAsync method. The method should return NULL.
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsContactSpecialQualitiesBackend_EditAsync_Null_Id_Should_Not_Pass_Async()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+
+
+            // Act
+            var result = await backend.EditAsync(null);
+
+
+            // Assert
+            Assert.IsNull(result);
+        }
     }
 }
