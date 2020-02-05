@@ -303,25 +303,55 @@ namespace adminconsole.Backend
         /// </returns>
         public async Task<bool> DeleteConfirmedAsync(string id)
         {
-            var locations = await context.Locations.FindAsync(id);
-            locations.SoftDelete = true;
 
+            if (id == null)
+            {
+                return false;
+            }
+
+            Locations locations;
+
+            if (dataSourceEnum is DataSourceEnum.LIVE)
+            {
+                locations = await context.Locations.FindAsync(id);
+            } else
+            {
+                var dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
+                var whereList = new List<KeyValuePair<string, string>>();
+                var idPair = new KeyValuePair<string, string>("LocationId", id);
+                whereList.Add(idPair);
+                locations = LocationsContactSpecialQualitiesViewModel.GetNewLocation(dataMock.GetOneLocation(whereList));
+            }
 
             if (locations == null)
             {
                 return false;
             }
 
+            locations.SoftDelete = true;
 
-            try
+            if (dataSourceEnum is DataSourceEnum.LIVE)
             {
-                context.Locations.Update(locations);
-                await context.SaveChangesAsync().ConfigureAwait(false);
-                return true;
-            } catch (DbUpdateException)
-            {
-                return false;
+                try
+                {
+                    context.Locations.Update(locations);
+                    await context.SaveChangesAsync().ConfigureAwait(false);
+                    return true;
+                } catch (DbUpdateException)
+                {
+                    return false;
+                }
             }
+            else
+            {
+                var dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
+                var originalNumberOfLocations = dataMock.GetNumberOfLocations();
+                dataMock.Delete(locations);
+                var newNumberOfLocations = dataMock.GetNumberOfLocations();
+
+                return (originalNumberOfLocations - 1) == newNumberOfLocations;
+            }
+            
             
         }
 
