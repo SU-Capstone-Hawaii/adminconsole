@@ -13,40 +13,94 @@ namespace adminconsole.Backend
     public class LocationsContactSpecialQualitiesBackend
     {
         private MaphawksContext context;
+        private DataSourceEnum dataSourceEnum;
 
-        public LocationsContactSpecialQualitiesBackend(MaphawksContext context)
+        public LocationsContactSpecialQualitiesBackend(DataSourceEnum dataSourceEnum = DataSourceEnum.LIVE)
+        {
+            this.dataSourceEnum = dataSourceEnum;
+        }
+
+        public LocationsContactSpecialQualitiesBackend(MaphawksContext context, DataSourceEnum dataSourceEnum = DataSourceEnum.LIVE)
         {
             this.context = context;
+            this.dataSourceEnum = dataSourceEnum;
+
         }
 
         public async Task<List<Locations>> IndexAsync(bool deleted = false)
         {
-            List<Locations> locations_list;
-            if (deleted) // Get soft deleted records
+            if (dataSourceEnum is DataSourceEnum.LIVE)
             {
-                locations_list = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.SoftDelete == true).ToListAsync().ConfigureAwait(false);
-            } else 
-            {
-                locations_list = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.SoftDelete != true).ToListAsync().ConfigureAwait(false);
-            }
+                List<Locations> locations_list;
+                if (deleted) // Get soft deleted records
+                {
+                    locations_list = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.SoftDelete == true).ToListAsync().ConfigureAwait(false);
+                }
+                else
+                {
+                    locations_list = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.SoftDelete != true).ToListAsync().ConfigureAwait(false);
+                }
 
-            foreach (var location in locations_list)
+                foreach (var location in locations_list)
+                {
+                    ConvertDbStringsToEnums(location);
+                }
+                return locations_list;
+            } else
             {
-                ConvertDbStringsToEnums(location);
+                var dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
+                List<LocationsContactSpecialQualitiesViewModel> viewModelList;
+                List<Locations> locations_list = new List<Locations>();
+                if (deleted) // Get soft deleted records
+                {
+                    viewModelList = dataMock.Get_All_ViewModel_List(deleted);
+                }
+                else
+                {
+                    viewModelList = dataMock.Get_All_ViewModel_List();
+                }
+
+                foreach (var location in viewModelList)
+                {
+                    var loc  = LocationsContactSpecialQualitiesViewModel.GetNewLocation(location);
+                    locations_list.Add(ConvertDbStringsToEnums(loc));
+                }
+                return locations_list;
             }
-            return locations_list;
         }
 
         public async Task<Locations> DetailsAsync(string id)
         {
-            var resultLocation = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.LocationId == id).FirstAsync().ConfigureAwait(false);
-            if (resultLocation == null)
+            if (dataSourceEnum is DataSourceEnum.LIVE)
             {
-                return null;
-            }
+                var resultLocation = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.LocationId == id).FirstAsync().ConfigureAwait(false);
+                if (resultLocation == null)
+                {
+                    return null;
+                }
 
-            ConvertDbStringsToEnums(resultLocation);
-            return resultLocation;
+                ConvertDbStringsToEnums(resultLocation);
+                return resultLocation;
+
+            } else
+            {
+                var dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
+                List<KeyValuePair<string, string>> keyValueList = new List<KeyValuePair<string, string>>();
+                KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+
+                
+                keyValueList.Add(idPair);
+
+
+                var resultLocation = LocationsContactSpecialQualitiesViewModel.GetNewLocation(
+                    dataMock.GetOneLocation(keyValueList));
+
+                if (resultLocation != null)
+                {
+                    ConvertDbStringsToEnums(resultLocation);
+                }
+                return resultLocation;
+            }
         }
 
         public bool Create(LocationsContactSpecialQualitiesViewModel newLocation)
