@@ -767,7 +767,7 @@ namespace adminconsoletest
         /// the Database
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_EditPostAsync_Null_Locations_Object_Should_Not_Pass_Async()
+        public async Task LocationsContactSpecialQualitiesBackend_EditPostAsync_Invalid_Id_Should_Not_Pass_Async()
         {
             // Arrange
             var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
@@ -798,6 +798,30 @@ namespace adminconsoletest
             // Assert
             Assert.IsFalse(result);
             Assert.AreEqual(locationToEdit.LocationId, locationAfterEdit.LocationId);
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// Tests Backend EditPostAsync method with a null Locations object
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsContactSpecialQualitiesBackend_EditPostAsync_Null_Locations_Object_Should_Not_Pass_Async()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+
+
+            // Act
+            bool result = await backend.EditPostAsync(null); // Should be null as ID doesn't exist
+
+
+
+            // Assert
+            Assert.IsFalse(result);
         }
     }
 }
