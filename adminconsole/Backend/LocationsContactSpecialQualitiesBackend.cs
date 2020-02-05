@@ -14,6 +14,7 @@ namespace adminconsole.Backend
     {
         private MaphawksContext context;            // DB Context
         private DataSourceEnum dataSourceEnum;      // Allows for toggling betwen Live/Test data
+        private LocationsContactSpecialQualitiesViewModelDataMock dataMock;
 
 
         /// <summary>
@@ -27,6 +28,11 @@ namespace adminconsole.Backend
         public LocationsContactSpecialQualitiesBackend(DataSourceEnum dataSourceEnum = DataSourceEnum.LIVE)
         {
             this.dataSourceEnum = dataSourceEnum;
+            
+            if (dataSourceEnum is DataSourceEnum.TEST)
+            {
+                dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
+            }
         }
 
 
@@ -88,7 +94,6 @@ namespace adminconsole.Backend
                 return locations_list;
             } else
             {
-                var dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
                 List<LocationsContactSpecialQualitiesViewModel> viewModelList;
                 List<Locations> locations_list = new List<Locations>();
                 if (deleted) // Get soft deleted records
@@ -140,7 +145,6 @@ namespace adminconsole.Backend
 
             } else
             {
-                var dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
                 List<KeyValuePair<string, string>> keyValueList = new List<KeyValuePair<string, string>>();
                 KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
 
@@ -221,7 +225,6 @@ namespace adminconsole.Backend
 
             } else // Use mock data
             {
-                var dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
                 var originalNumberOfLocations = dataMock.GetNumberOfLocations();
                 dataMock.Create(newLocation);
                 var newNumberOfLocations = dataMock.GetNumberOfLocations();
@@ -263,14 +266,24 @@ namespace adminconsole.Backend
             }
             else // Use mock data
             {
-                LocationsContactSpecialQualitiesViewModelDataMock dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
                 List<KeyValuePair<string, string>> newList = new List<KeyValuePair<string, string>>();
                 KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
                 
+                
+                
                 newList.Add(idPair);
+
 
                 LocationsContactSpecialQualitiesViewModel locationViewModel = dataMock.GetOneLocation(newList);
                 location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(locationViewModel);
+
+
+                if (location != null) // Then we can fill in other tables' values
+                {
+                    location.Contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(locationViewModel);
+                    location.SpecialQualities = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(locationViewModel);
+                    location.HoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(locationViewModel);
+                }
 
             }
 
@@ -316,7 +329,6 @@ namespace adminconsole.Backend
                 locations = await context.Locations.FindAsync(id);
             } else
             {
-                var dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
                 var whereList = new List<KeyValuePair<string, string>>();
                 var idPair = new KeyValuePair<string, string>("LocationId", id);
                 whereList.Add(idPair);
@@ -344,7 +356,6 @@ namespace adminconsole.Backend
             }
             else
             {
-                var dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
                 var originalNumberOfLocations = dataMock.GetNumberOfLocations();
                 dataMock.Delete(locations);
                 var newNumberOfLocations = dataMock.GetNumberOfLocations();
@@ -401,8 +412,6 @@ namespace adminconsole.Backend
                 }
             } else // Use Mock
             {
-                var dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
-
                 var whereList = new List<KeyValuePair<string, string>>();
                 var idPair = new KeyValuePair<string, string>("LocationId", id);
                 whereList.Add(idPair);
@@ -441,27 +450,40 @@ namespace adminconsole.Backend
                 return false;
             }
 
+
             // Get each table's Object
             Locations location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(newLocation);
             Contacts contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(newLocation);
             SpecialQualities specialQualities = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(newLocation);
             HoursPerDayOfTheWeek hoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(newLocation);
 
-            try
+            bool result; // Value to be returned
+
+            if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
             {
-                context.Locations.Update(location);
-                context.Contacts.Update(contact);
-                context.SpecialQualities.Update(specialQualities);
-                if (hoursPerDayOfTheWeek != null)
+                try
                 {
-                    context.HoursPerDayOfTheWeek.Update(hoursPerDayOfTheWeek);
+                    context.Locations.Update(location);
+                    context.Contacts.Update(contact);
+                    context.SpecialQualities.Update(specialQualities);
+                    if (hoursPerDayOfTheWeek != null)
+                    {
+                        context.HoursPerDayOfTheWeek.Update(hoursPerDayOfTheWeek);
+                    }
+                    result = Convert.ToBoolean(await context.SaveChangesAsync().ConfigureAwait(false));
                 }
-                var result = await context.SaveChangesAsync().ConfigureAwait(false);
-                return true;
-            } catch (DbUpdateConcurrencyException)
-            {
-                return false;
+                catch (DbUpdateConcurrencyException)
+                {
+                    result = false;
+                }
+            } else // Use mock data
+            {                
+                result = dataMock.EditPostAsync(location, contact, specialQualities, hoursPerDayOfTheWeek);
             }
+
+
+            return result;
+            
         }
 
 
