@@ -11,6 +11,7 @@ namespace adminconsole.Models
     {
         // List of DB rows
         private List<LocationsContactSpecialQualitiesViewModel> viewModelList;
+        private List<LocationsContactSpecialQualitiesViewModel> deletedViewModelList;
 
         /// <summary>
         /// Constructor. Puts object in a valid state.
@@ -18,6 +19,7 @@ namespace adminconsole.Models
         public LocationsContactSpecialQualitiesViewModelDataMock()
         {
             viewModelList = new List<LocationsContactSpecialQualitiesViewModel>();
+            deletedViewModelList = new List<LocationsContactSpecialQualitiesViewModel>();
             SetDefaultValues();
         }
 
@@ -389,9 +391,9 @@ namespace adminconsole.Models
                 location_5.WebAddress = null;
 
                 // Add locations to list
-                viewModelList.Add(location_1);
-                viewModelList.Add(location_2);
-                viewModelList.Add(location_3);
+                deletedViewModelList.Add(location_1);
+                deletedViewModelList.Add(location_2);
+                deletedViewModelList.Add(location_3);
                 viewModelList.Add(location_4);
                 viewModelList.Add(location_5);
 
@@ -407,9 +409,15 @@ namespace adminconsole.Models
         /// Returns the full list. Equivalent to a SELECT * FROM {join all tables}
         /// </summary>
         /// <returns> viewModelList </returns>
-        public List<LocationsContactSpecialQualitiesViewModel> Get_All_ViewModel_List()
+        public List<LocationsContactSpecialQualitiesViewModel> Get_All_ViewModel_List(bool deleted=false)
         {
-            return viewModelList;
+            if (deleted)
+            {
+                return deletedViewModelList;
+            } else
+            {
+                return viewModelList;
+            }
         }
 
         /// <summary>
