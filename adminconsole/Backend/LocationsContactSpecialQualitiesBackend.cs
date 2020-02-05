@@ -371,21 +371,44 @@ namespace adminconsole.Backend
         /// Locations Object: If the record was found in the Database
         /// 
         /// </returns>
-        public async Task<LocationsContactSpecialQualitiesViewModel> Edit(string id)
+        public async Task<LocationsContactSpecialQualitiesViewModel> EditAsync(string id)
         {
-            LocationsContactSpecialQualitiesViewModel location = new LocationsContactSpecialQualitiesViewModel();
+            if (id == null)
+            {
+                return null;
+            }
+
+
+            LocationsContactSpecialQualitiesViewModel location;
             
-            location.locations = await context.Locations
+
+            if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
+            {
+                location = new LocationsContactSpecialQualitiesViewModel();
+
+
+                location.locations = await context.Locations // Get Location from Database 
                 .Include(x => x.Contact)
                 .Include(x => x.SpecialQualities)
                 .Include(x => x.HoursPerDayOfTheWeek)
                 .Where(x => x.LocationId == id)
                 .ToListAsync()
                 .ConfigureAwait(false);
-                
-            if (location != null)
+
+                if (location != null)
+                {
+                    location.InstatiateViewModelPropertiesWithOneLocation();
+                }
+            } else // Use Mock
             {
-                location.InstatiateViewModelPropertiesWithOneLocation();
+                var dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
+
+                var whereList = new List<KeyValuePair<string, string>>();
+                var idPair = new KeyValuePair<string, string>("LocationId", id);
+                whereList.Add(idPair);
+
+
+                location = dataMock.GetOneLocation(whereList);
             }
 
             return location;
