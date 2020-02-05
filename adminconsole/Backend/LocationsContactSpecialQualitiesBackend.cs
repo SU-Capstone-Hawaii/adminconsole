@@ -250,7 +250,30 @@ namespace adminconsole.Backend
         /// <returns> If the record doesn't exist returns NULL, otherwise returns the Locations Object </returns>
         public Locations GetLocation(string id)
         {
-            Locations location = context.Locations.Include(x => x.Contact).Include(x => x.Contact).Where(x => x.LocationId == id).First();
+            if (id == null)
+            {
+                return null;
+            }
+
+            Locations location;
+
+            if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
+            {
+                location = context.Locations.Include(x => x.Contact).Include(x => x.Contact).Where(x => x.LocationId == id).First();
+            }
+            else // Use mock data
+            {
+                LocationsContactSpecialQualitiesViewModelDataMock dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
+                List<KeyValuePair<string, string>> newList = new List<KeyValuePair<string, string>>();
+                KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+                
+                newList.Add(idPair);
+
+                LocationsContactSpecialQualitiesViewModel locationViewModel = dataMock.GetOneLocation(newList);
+                location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(locationViewModel);
+
+            }
+
             if (location != null)
             {
                 ConvertDbStringsToEnums(location);
