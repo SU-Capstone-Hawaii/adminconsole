@@ -434,12 +434,13 @@ namespace adminconsole.Models
         /// deletedViewModelList: If deleted is true
         /// 
         /// </returns>
-        public List<LocationsContactSpecialQualitiesViewModel> Get_All_ViewModel_List(bool deleted=false)
+        public List<LocationsContactSpecialQualitiesViewModel> Get_All_ViewModel_List(bool deleted = false)
         {
             if (deleted)
             {
                 return deletedViewModelList;
-            } else
+            }
+            else
             {
                 return viewModelList;
             }
@@ -690,7 +691,7 @@ namespace adminconsole.Models
             }
 
         }
-    
+
 
 
 
@@ -706,7 +707,7 @@ namespace adminconsole.Models
             }
 
 
-            foreach(var location in viewModelList) // Checks if LocationId is in 'live' list
+            foreach (var location in viewModelList) // Checks if LocationId is in 'live' list
             {
                 if (location.LocationId == newLocation.LocationId)
                 {
@@ -715,7 +716,7 @@ namespace adminconsole.Models
             }
 
 
-            foreach(var location in deletedViewModelList) // Checks if LocationId is in 'deleted list'
+            foreach (var location in deletedViewModelList) // Checks if LocationId is in 'deleted list'
             {
                 if (location.LocationId == newLocation.LocationId)
                 {
@@ -743,13 +744,14 @@ namespace adminconsole.Models
             if (deleted)
             {
                 return deletedViewModelList.Count;
-            } else
+            }
+            else
             {
                 return viewModelList.Count;
             }
         }
-    
-    
+
+
 
 
 
@@ -775,7 +777,7 @@ namespace adminconsole.Models
                 LocationsContactSpecialQualitiesViewModel deletedLocation = null;
 
                 // Find the Location record
-                foreach(var loc in viewModelList)
+                foreach (var loc in viewModelList)
                 {
                     if (loc.LocationId == location.LocationId) // Find record, break
                     {
@@ -789,7 +791,8 @@ namespace adminconsole.Models
                 if (deletedLocation == null)
                 {
                     return;
-                } else
+                }
+                else
                 {
                     viewModelList.Remove(deletedLocation);
                 }
@@ -801,6 +804,37 @@ namespace adminconsole.Models
 
 
 
+        public bool EditPostAsync(Locations location, Contacts contact, SpecialQualities specialQuality, HoursPerDayOfTheWeek hoursPerDayOfTheWeek)
+        {
+            if (location == null) // Cannot have a null Locations object
+            {
+                return false;
+            }
 
+
+            // Assign foreign key tables to Locations object
+            location.Contact = contact;
+            location.SpecialQualities = specialQuality;
+            if (hoursPerDayOfTheWeek != null)
+            {
+                location.HoursPerDayOfTheWeek = hoursPerDayOfTheWeek;
+            }
+
+            var viewModel = new LocationsContactSpecialQualitiesViewModel();
+            viewModel.InstatiateViewModelPropertiesWithOneLocation(location); // Combine tables into ViewModel
+
+
+            // Find Locations Object in viewModelList
+            var originalLocationRecordIndex = viewModelList.FindIndex(obj => obj.LocationId.Equals(viewModel.LocationId));
+            if (originalLocationRecordIndex == -1) // The record doesn't exist
+            {
+                return false;
+            }
+
+
+            viewModelList[originalLocationRecordIndex] = viewModel;
+
+            return true;
+        }
     }
 }
