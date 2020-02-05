@@ -245,7 +245,7 @@ namespace adminconsole.Controllers
                 return NotFound();
             }
 
-            var locations = await backend.Edit(id).ConfigureAwait(false);
+            var locations = await backend.EditAsync(id).ConfigureAwait(false);
             // If error in DB query
             if (locations == null)
             {
