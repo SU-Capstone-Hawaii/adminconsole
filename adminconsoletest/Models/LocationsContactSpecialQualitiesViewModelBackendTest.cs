@@ -487,5 +487,30 @@ namespace adminconsoletest
             // Assert
             Assert.IsFalse(result);
         }
+
+
+
+
+
+
+
+        /// <summary>
+        /// Tests Backend DeleteConfirmedAsync with a LocationId that has already
+        /// been deleted
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsContactSpecialQualitiesBackend_DeleteConfirmedAsync_Already_Deleted_Id_Should_Not_Pass_Async()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var locationId = "6cc2244b-ff5b-4860-8464-2e5186b7060f";
+
+            // Act
+            var result = await backend.DeleteConfirmedAsync(locationId);
+
+
+            // Assert
+            Assert.IsFalse(result);
+        }
     }
 }
