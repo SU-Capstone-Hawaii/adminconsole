@@ -753,6 +753,17 @@ namespace adminconsole.Models
 
 
 
+
+        /// <summary>
+        /// Removes Location record from viewModelList and adds it to deletedViewModelList if
+        /// the LocationId exists in viewModelList.
+        /// </summary>
+        /// 
+        /// 
+        /// 
+        /// <param name="location"> 
+        /// The Locations object which contains the LocationId of the Locations record to delete
+        /// </param>
         public void Delete(Locations location)
         {
             if (location == null)
@@ -784,5 +795,12 @@ namespace adminconsole.Models
                 }
             }
         }
+
+
+
+
+
+
+
     }
 }
