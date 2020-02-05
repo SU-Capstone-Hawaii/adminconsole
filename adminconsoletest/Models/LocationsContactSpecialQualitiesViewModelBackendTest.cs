@@ -757,5 +757,47 @@ namespace adminconsoletest
             Assert.IsTrue(successfullyCreatedPostEditViewModel);
             Assert.AreEqual(locationAsViewModel.City, locationAfterEdit.City);
         }
+
+
+
+
+
+        /// <summary>
+        /// Tests Backend EditPostAsync method by editing a record that does not exist in
+        /// the Database
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsContactSpecialQualitiesBackend_EditPostAsync_Null_Locations_Object_Should_Not_Pass_Async()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+
+
+            var locationToEdit = backend.GetLocation(id);
+            var locationToEditAsViewModel = new LocationsContactSpecialQualitiesViewModel();
+
+
+            Locations locationAfterEdit;
+            LocationsContactSpecialQualitiesViewModel locationAfterEditViewModel = new LocationsContactSpecialQualitiesViewModel();
+
+
+            // EditPostAsync takes ViewModel object as parameter
+            locationToEditAsViewModel.InstatiateViewModelPropertiesWithOneLocation(locationToEdit);
+
+
+            // Act
+            locationToEditAsViewModel.LocationId = "59bb3e88-9757-492e-a07c-NOT VALID ID";
+            bool result = await backend.EditPostAsync(locationToEditAsViewModel); // Should be null as ID doesn't exist
+            locationAfterEdit = backend.GetLocation(id); // Should be the same
+
+
+
+
+
+            // Assert
+            Assert.IsFalse(result);
+            Assert.AreEqual(locationToEdit.LocationId, locationAfterEdit.LocationId);
+        }
     }
 }
