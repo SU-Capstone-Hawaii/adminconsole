@@ -748,5 +748,41 @@ namespace adminconsole.Models
                 return viewModelList.Count;
             }
         }
+    
+    
+
+
+
+        public void Delete(Locations location)
+        {
+            if (location == null)
+            {
+                return;
+            }
+            else
+            {
+                LocationsContactSpecialQualitiesViewModel deletedLocation = null;
+
+                // Find the Location record
+                foreach(var loc in viewModelList)
+                {
+                    if (loc.LocationId == location.LocationId) // Find record, break
+                    {
+                        deletedLocation = loc;
+                        break;
+                    }
+                }
+
+
+                // Delete the Location record
+                if (deletedLocation == null)
+                {
+                    return;
+                } else
+                {
+                    viewModelList.Remove(deletedLocation);
+                }
+            }
+        }
     }
 }
