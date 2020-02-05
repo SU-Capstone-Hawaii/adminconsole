@@ -178,46 +178,58 @@ namespace adminconsole.Backend
         /// <returns> 
         /// 
         /// False: If newLocation is null or there was an error when attempting to insert
-        /// True: It newLocation is successfully inserted into the Databse
+        /// True: It newLocation is successfully inserted into the Database
         /// 
         /// </returns>
         public bool Create(LocationsContactSpecialQualitiesViewModel newLocation)
         {
-
-            if (newLocation == null)
+            if (newLocation == null) // Non-valid ViewModel Object
             {
                 return false;
             }
 
 
-
-            while (context.Locations.Where(x => x.LocationId == newLocation.LocationId).ToList().Any())
+            if (dataSourceEnum is DataSourceEnum.LIVE) // Use the Database
             {
-                newLocation.LocationId = Guid.NewGuid().ToString();
+                while (context.Locations.Where(x => x.LocationId == newLocation.LocationId).ToList().Any())
+                {
+                    newLocation.LocationId = Guid.NewGuid().ToString();
+                }
+
+
+
+                Locations location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(newLocation);
+                Contacts contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(newLocation);
+                SpecialQualities specialQuality = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(newLocation);
+                HoursPerDayOfTheWeek hoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(newLocation);
+
+
+
+                try
+                {
+                    context.Add(location);
+                    context.Add(contact);
+                    context.Add(specialQuality);
+                    context.SaveChanges();
+                }
+                catch (DbUpdateException)
+                {
+                    return false;
+                }
+
+                return true;
+
+            } else // Use mock data
+            {
+                var dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
+                var originalNumberOfLocations = dataMock.GetNumberOfLocations();
+                dataMock.Create(newLocation);
+                var newNumberOfLocations = dataMock.GetNumberOfLocations();
+
+
+                return (originalNumberOfLocations + 1) == newNumberOfLocations;
             }
 
-
-
-            Locations location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(newLocation);
-            Contacts contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(newLocation);
-            SpecialQualities specialQuality = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(newLocation);
-            HoursPerDayOfTheWeek hoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(newLocation);
-
-
-
-            try
-            {
-                context.Add(location);
-                context.Add(contact);
-                context.Add(specialQuality);
-                context.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                return false;
-            }
-
-            return true;
         }
 
 
