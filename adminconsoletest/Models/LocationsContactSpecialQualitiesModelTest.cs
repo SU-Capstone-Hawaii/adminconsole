@@ -263,23 +263,6 @@ namespace adminconsoletest
             Assert.AreEqual("https://trypap.com/", result.WebAddress);
         }
 
-        [TestMethod]
-        public async System.Threading.Tasks.Task LocationsContactSpecialQualitiesViewModel_ConvertBoolToBooleanEnum_Should_PassAsync()
-        {
-            // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
-
-
-            // Act
-            var result = await backend.IndexAsync();
-
-            // Assert
-            foreach (var location in result)
-            {
-                Assert.AreNotEqual(BooleanEnum.Y.ToString(), location.SoftDelete);
-            }
-
-            Assert.AreEqual(3, result.Count);
-        }
+ 
     }
 }
