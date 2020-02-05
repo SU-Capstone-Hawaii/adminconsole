@@ -65,10 +65,7 @@ namespace adminconsole.Models
                 LocationsContactSpecialQualitiesViewModel location_4 = new LocationsContactSpecialQualitiesViewModel();
                 LocationsContactSpecialQualitiesViewModel location_5 = new LocationsContactSpecialQualitiesViewModel();
                 LocationsContactSpecialQualitiesViewModel location_6 = new LocationsContactSpecialQualitiesViewModel();
-                LocationsContactSpecialQualitiesViewModel location_7 = new LocationsContactSpecialQualitiesViewModel();
-                LocationsContactSpecialQualitiesViewModel location_8 = new LocationsContactSpecialQualitiesViewModel();
-                LocationsContactSpecialQualitiesViewModel location_9 = new LocationsContactSpecialQualitiesViewModel();
-                LocationsContactSpecialQualitiesViewModel location_10 = new LocationsContactSpecialQualitiesViewModel();
+
 
                 // Set each object's properties
                 //---------LOCATION 1---------NO NULL//
@@ -692,6 +689,64 @@ namespace adminconsole.Models
                 return null;
             }
 
+        }
+    
+
+
+
+        /// <summary>
+        /// Adds new ViewModel object to the viewModelList
+        /// </summary>
+        /// <param name="newLocation"></param>
+        public void Create(LocationsContactSpecialQualitiesViewModel newLocation)
+        {
+            if (newLocation == null)
+            {
+                return;
+            }
+
+
+            foreach(var location in viewModelList) // Checks if LocationId is in 'live' list
+            {
+                if (location.LocationId == newLocation.LocationId)
+                {
+                    return;
+                }
+            }
+
+
+            foreach(var location in deletedViewModelList) // Checks if LocationId is in 'deleted list'
+            {
+                if (location.LocationId == newLocation.LocationId)
+                {
+                    return;
+                }
+            }
+
+            viewModelList.Add(newLocation);
+        }
+
+
+
+
+        /// <summary>
+        /// Gets number of records in either viewModelList or deletedViewModelList.
+        /// </summary>
+        /// 
+        ///   
+        /// <param name="deleted"> Determines if we want to see 'Deleted' records or 'Live' records </param>
+        /// 
+        /// 
+        /// <returns> The number of records in either viewModelList or deletedViewModelList </returns>
+        public int GetNumberOfLocations(bool deleted = false)
+        {
+            if (deleted)
+            {
+                return deletedViewModelList.Count;
+            } else
+            {
+                return viewModelList.Count;
+            }
         }
     }
 }
