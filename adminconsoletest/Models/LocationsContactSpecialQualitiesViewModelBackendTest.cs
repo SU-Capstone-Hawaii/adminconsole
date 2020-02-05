@@ -324,8 +324,7 @@ namespace adminconsoletest
 
 
         /// <summary>
-        /// Tests Backend Create which will not create  a new Location record in all tables
-        /// because it has a non-unique LocationId.
+        /// Tests Backend GetLocation with a valid LocationId value
         /// </summary>
         [TestMethod]
         public void LocationsContactSpecialQualitiesBackend_GetLocation_Should_Pass_()
@@ -373,6 +372,29 @@ namespace adminconsoletest
             Assert.AreEqual(location.SoftDelete, result.SoftDelete);
             Assert.AreEqual(location.State, result.State);
             Assert.AreEqual(location.TakeCoopData, result.TakeCoopData);
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// Tests Backend GetLocation with an invalid LocationId value
+        /// </summary>
+        [TestMethod]
+        public void LocationsContactSpecialQualitiesBackend_GetLocation_Invalid_Id_Should_Not_Pass_()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            string locationId = "INVALID LOCATION ID";
+
+            // Act
+            var result = backend.GetLocation(locationId);
+
+
+            // Assert
+            Assert.IsNull(result);
         }
     }
 }
