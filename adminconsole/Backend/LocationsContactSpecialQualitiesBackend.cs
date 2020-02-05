@@ -12,21 +12,61 @@ namespace adminconsole.Backend
 {
     public class LocationsContactSpecialQualitiesBackend
     {
-        private MaphawksContext context;
-        private DataSourceEnum dataSourceEnum;
+        private MaphawksContext context;            // DB Context
+        private DataSourceEnum dataSourceEnum;      // Allows for toggling betwen Live/Test data
 
+
+        /// <summary>
+        /// 
+        /// Constructor without DB Context for Unit Testing
+        /// 
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="dataSourceEnum"> Default is for Live (DB) data. Can also set to DataSourceEnum.Test for Unit Testing </param>
         public LocationsContactSpecialQualitiesBackend(DataSourceEnum dataSourceEnum = DataSourceEnum.LIVE)
         {
             this.dataSourceEnum = dataSourceEnum;
         }
 
-        public LocationsContactSpecialQualitiesBackend(MaphawksContext context, DataSourceEnum dataSourceEnum = DataSourceEnum.LIVE)
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// Constructor with DB Context for Live Dependency Injection
+        /// 
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="context"> DB Context Object </param>
+        public LocationsContactSpecialQualitiesBackend(MaphawksContext context)
         {
             this.context = context;
             this.dataSourceEnum = dataSourceEnum;
 
         }
 
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// Gets all Locations Objects with a join on all tables on LocationId. 
+        /// If deleted == false: fetches live records (SoftDelete != true)
+        /// If deleted == true: fetched deleted records (SoftDelete == true)
+        /// 
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="deleted"> Lets you choose between deleted or live Locations records </param>
+        /// 
+        /// 
+        /// <returns> Returns List of Locations Objects </returns>
         public async Task<List<Locations>> IndexAsync(bool deleted = false)
         {
             if (dataSourceEnum is DataSourceEnum.LIVE)
@@ -69,6 +109,22 @@ namespace adminconsole.Backend
             }
         }
 
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// Gets a single Locations record with a join on all tables on LocationId
+        /// 
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="id">  The string ID of the Location record requested by the user </param>
+        /// 
+        /// 
+        /// <returns> Returns a single Locations Object </returns>
         public async Task<Locations> DetailsAsync(string id)
         {
             if (dataSourceEnum is DataSourceEnum.LIVE)
@@ -103,20 +159,51 @@ namespace adminconsole.Backend
             }
         }
 
+
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// Creates new Locations, Contacts, SpecialQualities, HoursPerDayOfTheWeek.
+        /// 
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="newLocation"> ViewModel with properties corresponding to the fields for each table </param>
+        /// 
+        /// 
+        /// <returns> 
+        /// 
+        /// False: If newLocation is null or there was an error when attempting to insert
+        /// True: It newLocation is successfully inserted into the Databse
+        /// 
+        /// </returns>
         public bool Create(LocationsContactSpecialQualitiesViewModel newLocation)
         {
+
             if (newLocation == null)
             {
                 return false;
             }
+
+
+
             while (context.Locations.Where(x => x.LocationId == newLocation.LocationId).ToList().Any())
             {
                 newLocation.LocationId = Guid.NewGuid().ToString();
             }
+
+
+
             Locations location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(newLocation);
             Contacts contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(newLocation);
             SpecialQualities specialQuality = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(newLocation);
             HoursPerDayOfTheWeek hoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(newLocation);
+
+
 
             try
             {
@@ -133,19 +220,66 @@ namespace adminconsole.Backend
             return true;
         }
 
+
+
+
+
+        /// <summary>
+        /// 
+        /// Gets a single Locations Object from the Database given an LocationId.
+        /// Used by LocationsController: Edit (Post), Delete (Get)
+        /// 
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="id"> The string ID of a Locations Object </param>
+        /// 
+        /// 
+        /// <returns> If the record doesn't exist returns NULL, otherwise returns the Locations Object </returns>
         public Locations GetLocation(string id)
         {
             Locations location = context.Locations.Include(x => x.Contact).Include(x => x.Contact).Where(x => x.LocationId == id).First();
-            ConvertDbStringsToEnums(location);
+            if (location != null)
+            {
+                ConvertDbStringsToEnums(location);
+            }
+
             return location;
         }
 
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// Soft Deletes a Locations Object.
+        /// 
+        /// </summary>
+        /// 
+        /// <param name="id"> The string ID of the Locations Object the user wants to Delete </param>
+        /// 
+        /// <returns>
+        /// 
+        /// True: If successfully updates SoftDelete field to True
+        /// False: If Database error or if the LocationId does not exist in Database
+        /// 
+        /// </returns>
         public async Task<bool> DeleteConfirmedAsync(string id)
         {
+            var locations = await context.Locations.FindAsync(id);
+            locations.SoftDelete = true;
+
+
+            if (locations == null)
+            {
+                return false;
+            }
+
+
             try
             {
-                var locations = await context.Locations.FindAsync(id);
-                locations.SoftDelete = true;
                 context.Locations.Update(locations);
                 await context.SaveChangesAsync().ConfigureAwait(false);
                 return true;
@@ -156,23 +290,62 @@ namespace adminconsole.Backend
             
         }
 
+
+
+        /// <summary>
+        /// 
+        /// Gets the Location Object given a LocationId for the User to Edit upon
+        /// 
+        /// </summary>
+        /// 
+        /// <param name="id"> The string ID of the Locations Object the user wants to Edit </param>
+        /// 
+        /// <returns> 
+        /// 
+        /// NULL: If Location record does not exist with the given ID
+        /// Locations Object: If the record was found in the Database
+        /// 
+        /// </returns>
         public async Task<LocationsContactSpecialQualitiesViewModel> Edit(string id)
         {
-                LocationsContactSpecialQualitiesViewModel location = new LocationsContactSpecialQualitiesViewModel();
+            LocationsContactSpecialQualitiesViewModel location = new LocationsContactSpecialQualitiesViewModel();
             
-                location.locations = await context.Locations
-                    .Include(x => x.Contact)
-                    .Include(x => x.SpecialQualities)
-                    .Include(x => x.HoursPerDayOfTheWeek)
-                    .Where(x => x.LocationId == id)
-                    .ToListAsync()
-                    .ConfigureAwait(false);
-
-                location.InstatiateViewModelPropertiesWithOneLocation();
+            location.locations = await context.Locations
+                .Include(x => x.Contact)
+                .Include(x => x.SpecialQualities)
+                .Include(x => x.HoursPerDayOfTheWeek)
+                .Where(x => x.LocationId == id)
+                .ToListAsync()
+                .ConfigureAwait(false);
                 
-                return location;
+            if (location != null)
+            {
+                location.InstatiateViewModelPropertiesWithOneLocation();
+            }
+
+            return location;
         }
 
+
+
+
+
+        /// <summary>
+        /// 
+        /// Updates the Location Record in the Database
+        /// 
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="newLocation"> ViewModel Object containing the data for the fields of all the tables provided by the user </param>
+        /// 
+        /// 
+        /// <returns>
+        /// 
+        /// True: If successfully updates Location record in DB
+        /// False: If newLocation is null, of if there was a Database Update error
+        /// 
+        /// </returns>
         public async Task<bool> EditPostAsync(LocationsContactSpecialQualitiesViewModel newLocation)
         {
             if (newLocation == null)
@@ -180,6 +353,7 @@ namespace adminconsole.Backend
                 return false;
             }
 
+            // Get each table's Object
             Locations location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(newLocation);
             Contacts contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(newLocation);
             SpecialQualities specialQualities = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(newLocation);
@@ -202,6 +376,25 @@ namespace adminconsole.Backend
             }
         }
 
+
+
+
+        /// <summary>
+        /// 
+        /// Recovers a deleted Locations record
+        /// 
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="id"> The string ID for the Locations Object the user wants to recover </param>
+        /// 
+        /// 
+        /// <returns>
+        /// 
+        /// True: If the Locations record's SoftDelete field was successfully changed to False
+        /// False: If there was a Database error when trying to Update the Locations record
+        /// 
+        /// </returns>
         public async Task<bool> RecoverAsync(string id)
         {
             try
@@ -217,6 +410,19 @@ namespace adminconsole.Backend
             }
         }
 
+
+
+
+        /// <summary>
+        /// 
+        /// Converts Database State and LocationType strings to their corresponding Enum values so that we can use these values in the ViewModel.
+        /// 
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="location"> A Locations Object </param>
+        /// 
+        /// <returns> The Updated Location. </returns>
         private static Locations ConvertDbStringsToEnums(Locations location)
         {
             var state = LocationsContactSpecialQualitiesViewModel.ConvertStringToStateEnum(location.State);
