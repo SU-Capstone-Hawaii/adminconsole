@@ -23,20 +23,37 @@ namespace adminconsole.Models
             SetDefaultValues();
         }
 
+
+
+
         /// <summary>
-        /// Returns viewModelList elements to their original values
+        /// Returns viewModelList and deletedViewModelList elements to their original values
         /// </summary>
+        /// 
+        /// 
         /// <returns> true if no error. else false </returns>
         public bool ResetDefaultValues()
         {
             viewModelList = null;
+            deletedViewModelList = null;
             return SetDefaultValues();
         }
+
+
+
 
         /// <summary>
         /// Helper method to repopulate viewModelList with default data.
         /// </summary>
-        /// <returns></returns>
+        /// 
+        /// 
+        /// <returns>
+        /// 
+        /// True: If creates all default ViewModel Objects successfully
+        /// False: If there is an instantiation error, which will occur only if the Models' (and thereby the ViewModel's)
+        ///        properties change.
+        /// 
+        /// </returns>
         private bool SetDefaultValues()
         {
             try
@@ -405,10 +422,21 @@ namespace adminconsole.Models
             }
         }
 
+
+
+
+
         /// <summary>
         /// Returns the full list. Equivalent to a SELECT * FROM {join all tables}
         /// </summary>
-        /// <returns> viewModelList </returns>
+        /// 
+        /// 
+        /// <returns> 
+        /// 
+        /// viewModelList: if deleted is false
+        /// deletedViewModelList: If deleted is true
+        /// 
+        /// </returns>
         public List<LocationsContactSpecialQualitiesViewModel> Get_All_ViewModel_List(bool deleted=false)
         {
             if (deleted)
@@ -420,10 +448,20 @@ namespace adminconsole.Models
             }
         }
 
+
+
+
+
+
+
         /// <summary>
         /// Returns only the location records that match the given where criteria.
         /// </summary>
+        /// 
+        /// 
         /// <param name="whereClauses"> The list of where clauses, given as key=column name, value=column value </param>
+        /// 
+        /// 
         /// <returns> List<LocationsContactSpecialQualitiesViewModel>. List may have length of 0 or more. </returns>
         public List<LocationsContactSpecialQualitiesViewModel> Get_Where_ViewModel_List(List<KeyValuePair<string, string>> whereClauses)
         {
@@ -458,11 +496,21 @@ namespace adminconsole.Models
             }
         }
 
+
+
+
+
+
+
         /// <summary>
         /// Helper function to determine of the given where clause matches its corresponding column in a specified location.
         /// </summary>
+        /// 
+        /// 
         /// <param name="pair"> KeyValuePair<string, string> where key=column name, value=column value of the where clause. </param>
         /// <param name="location"> The LocationsContactSpecialQualitiesViewModel object being compared to. </param>
+        /// 
+        /// 
         /// <returns> true if match, else false. </returns>
         private bool IsMatch(KeyValuePair<string, string> pair, LocationsContactSpecialQualitiesViewModel location)
         {
@@ -600,10 +648,19 @@ namespace adminconsole.Models
             return false;
         }
 
+
+
+
+
+
         /// <summary>
         /// Same as Get_Where_ViewModel_List except will only return at most one location.
         /// </summary>
+        /// 
+        /// 
         /// <param name="whereClauses"> The list of where clauses, given as key=column name, value=column value </param>
+        /// 
+        /// 
         /// <returns> The first location that meets the where clause conditions, otherwise null </returns>
         public LocationsContactSpecialQualitiesViewModel? GetOneLocation(List<KeyValuePair<string, string>> whereClauses)
         {
