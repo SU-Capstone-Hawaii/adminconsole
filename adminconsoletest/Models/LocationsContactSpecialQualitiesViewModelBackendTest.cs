@@ -713,5 +713,49 @@ namespace adminconsoletest
             // Assert
             Assert.IsNull(result);
         }
+
+
+
+
+
+
+        /// <summary>
+        /// Tests Backend EditPostAsync method by editing a record that already exists in the 
+        /// Database.
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsContactSpecialQualitiesBackend_EditPostAsync_Should_Pass_Async()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+
+
+            var location = backend.GetLocation(id);
+            var locationAsViewModel = new LocationsContactSpecialQualitiesViewModel();
+            Locations locationAfterEdit;
+            LocationsContactSpecialQualitiesViewModel locationAfterEditViewModel = new LocationsContactSpecialQualitiesViewModel();
+            bool successfullyCreatedPostEditViewModel;
+
+
+            var successfullyCreateViewModel = locationAsViewModel.InstatiateViewModelPropertiesWithOneLocation(location);
+
+
+            // Act
+            locationAsViewModel.City = "MY EDITED FIELD";
+            bool result = await backend.EditPostAsync(locationAsViewModel);
+            locationAfterEdit = backend.GetLocation(id);
+            successfullyCreatedPostEditViewModel = locationAfterEditViewModel.InstatiateViewModelPropertiesWithOneLocation(locationAfterEdit);
+            
+
+
+
+
+            // Assert
+            Assert.IsTrue(successfullyCreateViewModel);
+            Assert.IsTrue(result);
+            Assert.IsTrue(successfullyCreatedPostEditViewModel);
+            Assert.AreEqual(locationAsViewModel.City, locationAfterEdit.City);
+        }
     }
 }
