@@ -319,5 +319,60 @@ namespace adminconsoletest
             Assert.IsFalse(result);
         }
 
+
+
+
+
+        /// <summary>
+        /// Tests Backend Create which will not create  a new Location record in all tables
+        /// because it has a non-unique LocationId.
+        /// </summary>
+        [TestMethod]
+        public void LocationsContactSpecialQualitiesBackend_GetLocation_Should_Pass_()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            string locationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+
+            Locations location = new Locations();
+            location.Address = "8071 Sunbeam Court";
+            location.City = "Massillon";
+            location.CoopLocationId = null;
+            location.Country = null;
+            location.County = null;
+            location.Hours = null;
+            location.Latitude = -20.9110M;
+            location.LocationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+            location.LocationType = "ATM";
+            location.Longitude = -84.8988M;
+            location.Name = null;
+            location.PostalCode = "44646";
+            location.RetailOutlet = null;
+            location.SoftDelete = null;
+            location.State = "Ohio";
+            location.TakeCoopData = null;
+
+            // Act
+            var result = backend.GetLocation(locationId);
+
+
+            // Assert
+            Assert.AreEqual(location.Address, result.Address);
+            Assert.AreEqual(location.City, result.City);
+            Assert.AreEqual(location.CoopLocationId, result.CoopLocationId);
+            Assert.AreEqual(location.Country, result.Country);
+            Assert.AreEqual(location.County, result.County);
+            Assert.AreEqual(location.Hours, result.Hours);
+            Assert.AreEqual(location.Latitude, result.Latitude);
+            Assert.AreEqual(location.LocationId, result.LocationId);
+            Assert.AreEqual(location.LocationType, result.LocationType);
+            Assert.AreEqual(location.Longitude, result.Longitude);
+            Assert.AreEqual(location.Name, result.Name);
+            Assert.AreEqual(location.PostalCode, result.PostalCode);
+            Assert.AreEqual(location.RetailOutlet, result.RetailOutlet);
+            Assert.AreEqual(location.SoftDelete, result.SoftDelete);
+            Assert.AreEqual(location.State, result.State);
+            Assert.AreEqual(location.TakeCoopData, result.TakeCoopData);
+        }
     }
 }
