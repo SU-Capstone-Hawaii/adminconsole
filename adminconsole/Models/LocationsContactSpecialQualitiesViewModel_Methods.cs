@@ -734,86 +734,78 @@ namespace adminconsole.Models
         /// <returns> A ViewModel Object populated with the Locations Object's data </returns>
         public bool InstatiateViewModelPropertiesWithOneLocation(Locations referenceLocation = null)
         {
-            try
+            if (referenceLocation == null) // get first location
             {
-                if (referenceLocation == null) // get first location
-                {
-                    referenceLocation = locations.First();
-                }
-                AcceptCash = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.AcceptCash);
-                AcceptDeposit = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.AcceptDeposit);
-                Access = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.Access);
-                AccessNotes = referenceLocation.SpecialQualities.AccessNotes;
-                Address = referenceLocation.Address;
-                Cashless = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.Cashless);
-                City = referenceLocation.City;
-                CoopLocationId = referenceLocation.CoopLocationId;
-                Country = referenceLocation.Country;
-                County = referenceLocation.County;
-                DriveThruOnly = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.DriveThruOnly);
-                EnvelopeRequired = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.EnvelopeRequired);
-                Fax = referenceLocation.Contact.Fax;
-                HandicapAccess = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.HandicapAccess);
-                Hours = referenceLocation.Hours;
-                if (referenceLocation.HoursPerDayOfTheWeek != null) // if there is an entry in the HoursPerDayOfTheWeek table for this record
-                {
-                    HoursDtfriClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtfriClose;
-                    HoursDtfriOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtfriOpen;
-                    HoursDtmonClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtmonClose;
-                    HoursDtmonOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtmonOpen;
-                    HoursDtsatClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtsatClose;
-                    HoursDtsatOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtsatOpen;
-                    HoursDtsunClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtsunClose;
-                    HoursDtsunOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtsunOpen;
-                    HoursDtthuClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtthuClose;
-                    HoursDtthuOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtthuOpen;
-                    HoursDttueClose = referenceLocation.HoursPerDayOfTheWeek.HoursDttueClose;
-                    HoursDttueOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDttueOpen;
-                    HoursDtwedClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtwedClose;
-                    HoursDtwedOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtwedOpen;
-                    HoursFriClose = referenceLocation.HoursPerDayOfTheWeek.HoursFriClose;
-                    HoursFriOpen = referenceLocation.HoursPerDayOfTheWeek.HoursFriOpen;
-                    HoursMonClose = referenceLocation.HoursPerDayOfTheWeek.HoursMonClose;
-                    HoursMonOpen = referenceLocation.HoursPerDayOfTheWeek.HoursMonOpen;
-                    HoursSatClose = referenceLocation.HoursPerDayOfTheWeek.HoursSatClose;
-                    HoursSatOpen = referenceLocation.HoursPerDayOfTheWeek.HoursSatOpen;
-                    HoursSunClose = referenceLocation.HoursPerDayOfTheWeek.HoursSunClose;
-                    HoursSunOpen = referenceLocation.HoursPerDayOfTheWeek.HoursSunOpen;
-                    HoursThuClose = referenceLocation.HoursPerDayOfTheWeek.HoursThuClose;
-                    HoursThuOpen = referenceLocation.HoursPerDayOfTheWeek.HoursThuOpen;
-                    HoursTueClose = referenceLocation.HoursPerDayOfTheWeek.HoursTueClose;
-                    HoursTueOpen = referenceLocation.HoursPerDayOfTheWeek.HoursTueOpen;
-                    HoursWedClose = referenceLocation.HoursPerDayOfTheWeek.HoursWedClose;
-                    HoursWedOpen = referenceLocation.HoursPerDayOfTheWeek.HoursWedOpen;
-                }
-                InstallationType = referenceLocation.SpecialQualities.InstallationType;
-                Latitude = referenceLocation.Latitude;
-                LimitedTransactions = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.LimitedTransactions);
-                LocationId = referenceLocation.LocationId;
-                LocationType = ConvertStringToLocationTypeEnum(referenceLocation.LocationType);
-                Longitude = referenceLocation.Longitude;
-                MilitaryIdRequired = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.MilitaryIdRequired);
-                Name = referenceLocation.Name;
-                OnMilitaryBase = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.OnMilitaryBase);
-                OnPremise = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.OnPremise);
-                Phone = referenceLocation.Contact.Phone;
-                PostalCode = referenceLocation.PostalCode;
-                RestrictedAccess = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.RestrictedAccess);
-                RetailOutlet = referenceLocation.RetailOutlet;
-                SelfServiceDevice = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.SelfServiceDevice);
-                SelfServiceOnly = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.SelfServiceOnly);
-                SoftDelete = ConvertBoolToBooleanEnum(referenceLocation.SoftDelete);
-                State = ConvertStringToStateEnum(referenceLocation.State);
-                Surcharge = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.Surcharge);
-                TakeCoopData = ConvertBoolToBooleanEnum(referenceLocation.TakeCoopData);
-                WebAddress = referenceLocation.Contact.WebAddress;
-                return true;
+                referenceLocation = locations.First();
             }
-            catch (Exception)
+            AcceptCash = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.AcceptCash);
+            AcceptDeposit = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.AcceptDeposit);
+            Access = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.Access);
+            AccessNotes = referenceLocation.SpecialQualities.AccessNotes;
+            Address = referenceLocation.Address;
+            Cashless = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.Cashless);
+            City = referenceLocation.City;
+            CoopLocationId = referenceLocation.CoopLocationId;
+            Country = referenceLocation.Country;
+            County = referenceLocation.County;
+            DriveThruOnly = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.DriveThruOnly);
+            EnvelopeRequired = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.EnvelopeRequired);
+            Fax = referenceLocation.Contact.Fax;
+            HandicapAccess = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.HandicapAccess);
+            Hours = referenceLocation.Hours;
+            if (referenceLocation.HoursPerDayOfTheWeek != null) // if there is an entry in the HoursPerDayOfTheWeek table for this record
             {
-                return false;
+                HoursDtfriClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtfriClose;
+                HoursDtfriOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtfriOpen;
+                HoursDtmonClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtmonClose;
+                HoursDtmonOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtmonOpen;
+                HoursDtsatClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtsatClose;
+                HoursDtsatOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtsatOpen;
+                HoursDtsunClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtsunClose;
+                HoursDtsunOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtsunOpen;
+                HoursDtthuClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtthuClose;
+                HoursDtthuOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtthuOpen;
+                HoursDttueClose = referenceLocation.HoursPerDayOfTheWeek.HoursDttueClose;
+                HoursDttueOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDttueOpen;
+                HoursDtwedClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtwedClose;
+                HoursDtwedOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtwedOpen;
+                HoursFriClose = referenceLocation.HoursPerDayOfTheWeek.HoursFriClose;
+                HoursFriOpen = referenceLocation.HoursPerDayOfTheWeek.HoursFriOpen;
+                HoursMonClose = referenceLocation.HoursPerDayOfTheWeek.HoursMonClose;
+                HoursMonOpen = referenceLocation.HoursPerDayOfTheWeek.HoursMonOpen;
+                HoursSatClose = referenceLocation.HoursPerDayOfTheWeek.HoursSatClose;
+                HoursSatOpen = referenceLocation.HoursPerDayOfTheWeek.HoursSatOpen;
+                HoursSunClose = referenceLocation.HoursPerDayOfTheWeek.HoursSunClose;
+                HoursSunOpen = referenceLocation.HoursPerDayOfTheWeek.HoursSunOpen;
+                HoursThuClose = referenceLocation.HoursPerDayOfTheWeek.HoursThuClose;
+                HoursThuOpen = referenceLocation.HoursPerDayOfTheWeek.HoursThuOpen;
+                HoursTueClose = referenceLocation.HoursPerDayOfTheWeek.HoursTueClose;
+                HoursTueOpen = referenceLocation.HoursPerDayOfTheWeek.HoursTueOpen;
+                HoursWedClose = referenceLocation.HoursPerDayOfTheWeek.HoursWedClose;
+                HoursWedOpen = referenceLocation.HoursPerDayOfTheWeek.HoursWedOpen;
             }
-
+            InstallationType = referenceLocation.SpecialQualities.InstallationType;
+            Latitude = referenceLocation.Latitude;
+            LimitedTransactions = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.LimitedTransactions);
+            LocationId = referenceLocation.LocationId;
+            LocationType = ConvertStringToLocationTypeEnum(referenceLocation.LocationType);
+            Longitude = referenceLocation.Longitude;
+            MilitaryIdRequired = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.MilitaryIdRequired);
+            Name = referenceLocation.Name;
+            OnMilitaryBase = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.OnMilitaryBase);
+            OnPremise = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.OnPremise);
+            Phone = referenceLocation.Contact.Phone;
+            PostalCode = referenceLocation.PostalCode;
+            RestrictedAccess = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.RestrictedAccess);
+            RetailOutlet = referenceLocation.RetailOutlet;
+            SelfServiceDevice = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.SelfServiceDevice);
+            SelfServiceOnly = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.SelfServiceOnly);
+            SoftDelete = ConvertBoolToBooleanEnum(referenceLocation.SoftDelete);
+            State = ConvertStringToStateEnum(referenceLocation.State);
+            Surcharge = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.Surcharge);
+            TakeCoopData = ConvertBoolToBooleanEnum(referenceLocation.TakeCoopData);
+            WebAddress = referenceLocation.Contact.WebAddress;
+            return true;
         }
     }
 }
