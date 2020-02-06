@@ -1,15 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace adminconsole.Models
 {
     public class HoursPerDayOfTheWeek
     {
+
+        /// <summary>
+        /// LocationId     (GUID)
+        /// </summary>
         [Required]
         #nullable disable
         public string LocationId { get; set; }
+
+
+
+        /// <summary>
+        /// Time open/closed  on _______ day
+        /// 
+        /// ex. 7:00
+        /// </summary>
+        #region Standard Locations
+
 
         [DisplayName("Mon Open")]
         public string HoursMonOpen { get; set; }
@@ -53,6 +65,20 @@ namespace adminconsole.Models
         [DisplayName("Sun Close")]
         public string HoursSunClose { get; set; }
 
+
+        #endregion
+
+
+
+        /// <summary>
+        /// Time open/close on __________ day at Drive-Through locations
+        /// 
+        /// ex. 7:00
+        /// </summary>
+        #region Drive-Through Locations
+
+
+
         [DisplayName("Drive-Thru Mon Open")]
         public string HoursDtmonOpen { get; set; }
 
@@ -95,7 +121,14 @@ namespace adminconsole.Models
         [DisplayName("Drive-Thru Sun Close")]
         public string HoursDtsunClose { get; set; }
 
-        // Location Object. Used for joins
+
+        #endregion
+
+
+
+        /// <summary>
+        /// Locations Table used by EF Core for Table Joins
+        /// </summary>
         public virtual Locations Location { get; set; }
     }
 }
