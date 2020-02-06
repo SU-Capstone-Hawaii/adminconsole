@@ -91,7 +91,7 @@ namespace adminconsole.Backend
 
             } else
             {
-                var viewModelList = dataMock.Get_All_ViewModel_List(deleted);
+                var viewModelList = dataMock.GetAllViewModelList(deleted);
 
                 if (viewModelList != null) // If there are records
                 {

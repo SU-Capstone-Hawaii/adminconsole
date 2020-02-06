@@ -137,7 +137,7 @@ namespace adminconsole.Controllers
         /// <returns> Either returns the existing view if there is an error, otherwise returns the Index View </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LocationId," +
+        public ActionResult Create([Bind("LocationId," +
             "CoopLocationId," +
             "TakeCoopData," +
             "SoftDelete," +
@@ -206,7 +206,11 @@ namespace adminconsole.Controllers
             {
                 return View(newLocation);
             }
+
+
             var result = backend.Create(newLocation);
+
+
             return RedirectToAction(nameof(Index));
         }
 

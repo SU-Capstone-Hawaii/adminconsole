@@ -434,7 +434,7 @@ namespace adminconsole.Models
         /// deletedViewModelList: If deleted is true
         /// 
         /// </returns>
-        public List<LocationsContactSpecialQualitiesViewModel> Get_All_ViewModel_List(bool deleted = false)
+        public List<LocationsContactSpecialQualitiesViewModel> GetAllViewModelList(bool deleted = false)
         {
             if (deleted)
             {
@@ -696,7 +696,7 @@ namespace adminconsole.Models
         /// 
         /// 
         /// <returns> The first location that meets the where clause conditions, otherwise null </returns>
-        public LocationsContactSpecialQualitiesViewModel? GetOneLocation(List<KeyValuePair<string, string>> whereClauses)
+        public LocationsContactSpecialQualitiesViewModel GetOneLocation(List<KeyValuePair<string, string>> whereClauses)
         {
             if (whereClauses is null)
             {
