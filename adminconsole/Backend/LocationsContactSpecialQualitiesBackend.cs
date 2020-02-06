@@ -560,7 +560,7 @@ namespace adminconsole.Backend
                     context.SaveChanges();
                     return true;
                 }
-                catch (Exception)
+                catch (DbUpdateException)
                 {
                     return false;
                 }
