@@ -51,7 +51,7 @@ namespace adminconsole.Backend
         public LocationsContactSpecialQualitiesBackend(MaphawksContext context)
         {
             this.context = context;
-            this.dataSourceEnum = dataSourceEnum;
+            this.dataSourceEnum = DataSourceEnum.LIVE;
 
         }
 
