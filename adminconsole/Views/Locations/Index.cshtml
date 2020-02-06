@@ -115,10 +115,10 @@
                     @Html.DisplayFor(modelItem => item.Country)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Latitude)
+                    @item.Latitude
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Longitude)
+                    @item.Longitude
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RetailOutlet)
@@ -177,6 +177,14 @@
             {
                 <tr>
                     <td>
+                        @if (item.Name == "BECU")
+                        {
+                            <img src="~/media/BEC-Logo-Icon-pms.png" />
+                        }
+                        else
+                        {
+                            <img src="~/media/logo_co-op.png" style="height: 40px;" />
+                        }
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
@@ -283,6 +291,14 @@
             {
                 <tr>
                     <td>
+                        @if (item.Name == "BECU")
+                        {
+                            <img src="~/media/BEC-Logo-Icon-pms.png" />
+                        }
+                        else
+                        {
+                            <img src="~/media/logo_co-op.png" style="height: 40px;" />
+                        }
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
@@ -466,6 +482,14 @@
                 {
                     <tr>
                         <td>
+                            @if (item.Name == "BECU")
+                            {
+                                <img src="~/media/BEC-Logo-Icon-pms.png" />
+                            }
+                            else
+                            {
+                                <img src="~/media/logo_co-op.png" style="height: 40px;" />
+                            }
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         <td>
@@ -770,6 +794,14 @@
             {
                 <tr>
                     <td>
+                        @if (item.Name == "BECU")
+                        {
+                            <img src="~/media/BEC-Logo-Icon-pms.png" />
+                        }
+                        else
+                        {
+                            <img src="~/media/logo_co-op.png" style="height: 40px;" />
+                        }
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
@@ -794,10 +826,10 @@
                         @Html.DisplayFor(modelItem => item.Country)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Latitude)
+                        @item.Latitude
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Longitude)
+                        @item.Longitude
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.RetailOutlet)
