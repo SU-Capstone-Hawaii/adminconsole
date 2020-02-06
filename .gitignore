@@ -351,3 +351,4 @@ MigrationBackup/
 
 # Protect db connection string
 adminconsole/appsettings.json
+adminconsole/Backend/HomeBackend.cs

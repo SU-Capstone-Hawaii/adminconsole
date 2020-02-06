@@ -49,7 +49,7 @@ namespace adminconsole
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Locations}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
