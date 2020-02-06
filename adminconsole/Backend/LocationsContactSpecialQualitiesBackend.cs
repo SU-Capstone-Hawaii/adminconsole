@@ -75,43 +75,46 @@ namespace adminconsole.Backend
         /// <returns> Returns List of Locations Objects </returns>
         public async Task<List<Locations>> IndexAsync(bool deleted = false)
         {
-            if (dataSourceEnum is DataSourceEnum.LIVE)
-            {
-                List<Locations> locations_list;
-                if (deleted) // Get soft deleted records
-                {
-                    locations_list = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.SoftDelete == true).ToListAsync().ConfigureAwait(false);
-                }
-                else
-                {
-                    locations_list = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.SoftDelete != true).ToListAsync().ConfigureAwait(false);
-                }
+            var locations_list = new List<Locations>();
 
-                foreach (var location in locations_list)
-                {
-                    ConvertDbStringsToEnums(location);
-                }
-                return locations_list;
+            if (dataSourceEnum is DataSourceEnum.LIVE) // Use database
+            {
+
+                locations_list = await context.Locations // Select * join all tables
+                    .Include(x => x.Contact)
+                    .Include(x => x.SpecialQualities)
+                    .Include(x => x.HoursPerDayOfTheWeek)
+                    .Where(x => x.SoftDelete == deleted)
+                    .ToListAsync()
+                    .ConfigureAwait(false);
+
+
             } else
             {
-                List<LocationsContactSpecialQualitiesViewModel> viewModelList;
-                List<Locations> locations_list = new List<Locations>();
-                if (deleted) // Get soft deleted records
-                {
-                    viewModelList = dataMock.Get_All_ViewModel_List(deleted);
-                }
-                else
-                {
-                    viewModelList = dataMock.Get_All_ViewModel_List();
-                }
+                var viewModelList = dataMock.Get_All_ViewModel_List(deleted);
 
-                foreach (var location in viewModelList)
+                if (viewModelList != null) // If there are records
                 {
-                    var loc  = LocationsContactSpecialQualitiesViewModel.GetNewLocation(location);
-                    locations_list.Add(ConvertDbStringsToEnums(loc));
+                    foreach(var location in viewModelList) // Convert ViewModels into Locations
+                    {
+                        var newLocation = LocationsContactSpecialQualitiesViewModel.GetNewLocation(location);
+                        newLocation.Contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(location);
+                        newLocation.SpecialQualities = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(location);
+                        newLocation.HoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(location);
+                        
+                        
+                        locations_list.Add(newLocation);
+
+                    }
                 }
-                return locations_list;
             }
+
+
+            foreach (var location in locations_list)
+            {
+                ConvertDbStringsToEnums(location);
+            }
+            return locations_list;
         }
 
 
