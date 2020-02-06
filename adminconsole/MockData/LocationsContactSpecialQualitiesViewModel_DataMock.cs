@@ -512,138 +512,174 @@ namespace adminconsole.Models
         /// <returns> true if match, else false. </returns>
         private bool IsMatch(KeyValuePair<string, string> pair, LocationsContactSpecialQualitiesViewModel location)
         {
+            var valueIsNull = pair.Value is null ? true : false;
+
             switch (pair.Key)
             {
                 case "AcceptCash":
-                    return location.AcceptCash.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.AcceptCash.ToString().Trim(), pair.Value.Trim());
                 case "AcceptDeposit":
-                    return location.AcceptDeposit.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.AcceptDeposit.ToString().Trim(), pair.Value.Trim());
                 case "Access":
-                    return location.Access.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.Access.ToString().Trim(), pair.Value.Trim());
                 case "AccessNotes":
-                    return location.AccessNotes.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.AccessNotes.Trim(), pair.Value.Trim());
                 case "Address":
-                    return location.Address.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.Address.Trim(), pair.Value.Trim());
                 case "Cashless":
-                    return location.Cashless.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.Cashless.ToString().Trim(), pair.Value.Trim());
                 case "City":
-                    return location.City.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.City.Trim(), pair.Value.Trim());
                 case "CoopLocationId":
-                    return location.CoopLocationId.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.CoopLocationId.Trim(), pair.Value.Trim());
                 case "Country":
-                    return location.Country.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.Country.Trim(), pair.Value.Trim());
                 case "County":
-                    return location.County.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.County.Trim(), pair.Value.Trim());
                 case "DriveThruOnly":
-                    return location.DriveThruOnly.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.DriveThruOnly.ToString().Trim(), pair.Value.Trim());
                 case "EnvelopeRequired":
-                    return location.EnvelopeRequired.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.EnvelopeRequired.ToString().Trim(), pair.Value.Trim());
                 case "Fax":
-                    return location.Fax.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.Fax.Trim(), pair.Value.Trim());
                 case "HandicapAccess":
-                    return location.HandicapAccess.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HandicapAccess.ToString().Trim(), pair.Value.Trim());
                 case "Hours":
-                    return location.Hours.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.Hours.Trim(), pair.Value.Trim());
                 case "HoursDtfriClose":
-                    return location.HoursDtfriClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtfriClose.Trim(), pair.Value.Trim());
                 case "HoursDtfriOpen":
-                    return location.HoursDtfriOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtfriOpen.Trim(), pair.Value.Trim());
                 case "HoursDtmonClose":
-                    return location.HoursDtmonClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtmonClose.Trim(), pair.Value.Trim());
                 case "HoursDtmonOpen":
-                    return location.HoursDtmonOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtmonOpen.Trim(), pair.Value.Trim());
                 case "HoursDtsatClose":
-                    return location.HoursDtsatClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtsatClose.Trim(), pair.Value.Trim());
                 case "HoursDtsatOpen":
-                    return location.HoursDtsatOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtsatOpen.Trim(), pair.Value.Trim());
                 case "HoursDtsunClose":
-                    return location.HoursDtsunClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtsunClose.Trim(), pair.Value.Trim());
                 case "HoursDtsunOpen":
-                    return location.HoursDtsunOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtsunOpen.Trim(), pair.Value.Trim());
                 case "HoursDtthuClose":
-                    return location.HoursDtthuClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtthuClose.Trim(), pair.Value.Trim());
                 case "HoursDtthuOpen":
-                    return location.HoursDtthuOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtthuOpen.Trim(), pair.Value.Trim());
                 case "HoursDttueClose":
-                    return location.HoursDttueClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDttueClose.Trim(), pair.Value.Trim());
                 case "HoursDttueOpen":
-                    return location.HoursDttueOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDttueOpen.Trim(), pair.Value.Trim());
                 case "HoursDtwedClose":
-                    return location.HoursDtwedClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtwedClose.Trim(), pair.Value.Trim());
                 case "HoursDtwedOpen":
-                    return location.HoursDtwedOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtwedOpen.Trim(), pair.Value.Trim());
                 case "HoursFriClose":
-                    return location.HoursFriClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursFriClose.Trim(), pair.Value.Trim());
                 case "HoursFriOpen":
-                    return location.HoursFriOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursFriOpen.Trim(), pair.Value.Trim());
                 case "HoursMonClose":
-                    return location.HoursMonClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursMonClose.Trim(), pair.Value.Trim());
                 case "HoursMonOpen":
-                    return location.HoursMonOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursMonOpen.Trim(), pair.Value.Trim());
                 case "HoursSatClose":
-                    return location.HoursSatClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursSatClose.Trim(), pair.Value.Trim());
                 case "HoursSatOpen":
-                    return location.HoursSatOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursSatOpen.Trim(), pair.Value.Trim());
                 case "HoursSunClose":
-                    return location.HoursSunClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursSunClose.Trim(), pair.Value.Trim());
                 case "HoursSunOpen":
-                    return location.HoursSunOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursSunOpen.Trim(), pair.Value.Trim());
                 case "HoursThuClose":
-                    return location.HoursThuClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursThuClose.Trim(), pair.Value.Trim());
                 case "HoursThuOpen":
-                    return location.HoursThuOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursThuOpen.Trim(), pair.Value.Trim());
                 case "HoursTueClose":
-                    return location.HoursTueClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursTueClose.Trim(), pair.Value.Trim());
                 case "HoursTueOpen":
-                    return location.HoursDtfriClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursDtfriClose.Trim(), pair.Value.Trim());
                 case "HoursWedClose":
-                    return location.HoursWedClose.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursWedClose.Trim(), pair.Value.Trim());
                 case "HoursWedOpen":
-                    return location.HoursWedOpen.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.HoursWedOpen.Trim(), pair.Value.Trim());
                 case "InstallationType":
-                    return location.InstallationType.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.InstallationType.Trim(), pair.Value.Trim());
                 case "Latitude":
                     return location.Latitude == decimal.Parse(pair.Value.Trim());
                 case "LimitedTransactions":
-                    return location.LimitedTransactions.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.LimitedTransactions.ToString().Trim(), pair.Value.Trim());
                 case "LocationId":
-                    return location.LocationId.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.LocationId.Trim(), pair.Value.Trim());
                 case "LocationType":
-                    return location.LocationType.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.LocationType.ToString().Trim(), pair.Value.Trim());
                 case "Longitude":
                     return location.Longitude == decimal.Parse(pair.Value.Trim());
                 case "MilitaryIdRequired":
-                    return location.MilitaryIdRequired.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.MilitaryIdRequired.ToString().Trim(), pair.Value.Trim());
                 case "Name":
-                    return location.Name.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.Name.Trim(), pair.Value.Trim());
                 case "OnMilitaryBase":
-                    return location.OnMilitaryBase.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.OnMilitaryBase.ToString().Trim(), pair.Value.Trim());
                 case "OnPremise":
-                    return location.OnPremise.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.OnPremise.ToString().Trim(), pair.Value.Trim());
                 case "Phone":
-                    return location.Phone.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.Phone.Trim(), pair.Value.Trim());
                 case "PostalCode":
-                    return location.PostalCode.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.PostalCode.Trim(), pair.Value.Trim());
                 case "RestrictedAccess":
-                    return location.RestrictedAccess.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.RestrictedAccess.ToString().Trim(), pair.Value.Trim());
                 case "RetailOutlet":
-                    return location.RetailOutlet.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.RetailOutlet.Trim(), pair.Value.Trim());
                 case "SelfServiceDevice":
-                    return location.SelfServiceDevice.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.SelfServiceDevice.ToString().Trim(), pair.Value.Trim());
                 case "SelfServiceOnly":
-                    return location.SelfServiceOnly.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.SelfServiceOnly.ToString().Trim(), pair.Value.Trim());
                 case "SoftDelete":
-                    return location.SoftDelete.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.SoftDelete.ToString().Trim(), pair.Value.Trim());
                 case "State":
-                    return location.State.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.State.ToString().Trim(), pair.Value.Trim());
                 case "Surcharge":
-                    return location.Surcharge.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.Surcharge.ToString().Trim(), pair.Value.Trim());
                 case "TakeCoopData":
-                    return location.TakeCoopData.ToString().Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.TakeCoopData.ToString().Trim(), pair.Value.Trim());
                 case "WebAddress":
-                    return location.WebAddress.Trim() == pair.Value.Trim();
+                    return StringsAreEqual(location.WebAddress.Trim(), pair.Value.Trim());
+                default:
+                    return false;
             }
-            return false;
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// Compares nullable strings
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="mockLocation"> Location from viewModelList </param>
+        /// <param name="unitTestLocation"> Location passed in from Unit Testing class </param>
+        /// 
+        /// 
+        /// <returns> True if equal, otherwise false </returns>
+        private bool StringsAreEqual(string mockLocation, string unitTestLocation)
+        {
+            if (unitTestLocation is null &&
+                mockLocation is null)
+            {
+                return true;
+            }
+
+
+            if (unitTestLocation is null &&
+                !(mockLocation is null))
+            {
+                return false;
+            }
+
+            return unitTestLocation.Equals(mockLocation);
         }
 
 
