@@ -858,5 +858,35 @@ namespace adminconsole.Models
 
             return true;
         }
+    
+    
+    
+
+        public void Recover(Locations location)
+        {
+            if  (location is null)
+            {
+                return;
+            }
+
+            // Look for deleted record
+            var index = deletedViewModelList.FindIndex(obj => obj.LocationId.Equals(location.LocationId));
+            
+            if (index == -1) // Record hasn't been deleted or doesn't exist
+            {
+                return;
+            }
+
+
+            // Recover
+            var recoveredLocation = deletedViewModelList[index];
+            recoveredLocation.SoftDelete = BooleanEnum.N;
+
+
+            // Update lists
+            viewModelList.Add(recoveredLocation);
+            deletedViewModelList.RemoveAt(index);
+
+        }
     }
 }
