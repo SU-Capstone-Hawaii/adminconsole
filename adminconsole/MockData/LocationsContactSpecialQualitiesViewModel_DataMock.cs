@@ -668,7 +668,29 @@ namespace adminconsole.Models
             }
             else
             {
+                // Check if in viewModelList
                 foreach (LocationsContactSpecialQualitiesViewModel location in viewModelList)
+                {
+                    bool isAMatch = true;
+                    foreach (KeyValuePair<string, string> column in whereClauses)
+                    {
+                        bool result = IsMatch(column, location);
+                        if (!result)
+                        {
+                            isAMatch = false;
+                            break;
+                        }
+                    }
+
+                    if (isAMatch)
+                    {
+                        return location;
+                    }
+                }
+
+
+                // Check if in deletedViewModelList
+                foreach (LocationsContactSpecialQualitiesViewModel location in deletedViewModelList)
                 {
                     bool isAMatch = true;
                     foreach (KeyValuePair<string, string> column in whereClauses)
