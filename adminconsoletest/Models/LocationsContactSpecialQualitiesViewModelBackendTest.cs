@@ -380,6 +380,31 @@ namespace adminconsoletest
 
 
         /// <summary>
+        /// Tests Backend GetLocation with a null LocationId value
+        /// </summary>
+        [TestMethod]
+        public void LocationsContactSpecialQualitiesBackend_GetLocation_Deleted_Location_Id_Should_Pass_()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            string id = "11170401-4112-43c1-aa4e-f73370e1014a";
+
+            // Act
+            var result = backend.GetLocation(id);
+
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.LocationId, id);
+        }
+
+
+
+
+
+
+
+        /// <summary>
         /// Tests Backend GetLocation with an invalid LocationId value
         /// </summary>
         [TestMethod]
@@ -823,5 +848,11 @@ namespace adminconsoletest
             // Assert
             Assert.IsFalse(result);
         }
+
+
+
+
+
+        
     }
 }
