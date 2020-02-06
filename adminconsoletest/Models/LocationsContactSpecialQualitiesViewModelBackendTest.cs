@@ -864,15 +864,26 @@ namespace adminconsoletest
             // Arrange
             var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
             string id = "2f104551-5140-4394-bce7-11a6a5b53db9";
+            var deletedLocationsInitial = await backend.IndexAsync(true); // Deleted records
+            var liveLocationsInitial = await backend.IndexAsync(false); // Live records
 
 
             // Act
             bool result = await backend.RecoverAsync(id);
+            var deletedLocationsResult = await backend.IndexAsync(true); // Deleted records fter unsuccessful recover
+            var liveLocationsResult = await backend.IndexAsync(); // Live records after unsuccessful recover
+
+
+            var expectedDeletedDifference = deletedLocationsInitial.Count - 1; // Should have one less deleted record
+            var expectedLiveDifference = liveLocationsInitial.Count + 1; // Should have one more live record after recovery
+
 
 
 
             // Assert
             Assert.IsTrue(result);
+            Assert.AreEqual(expectedDeletedDifference, deletedLocationsResult.Count);
+            Assert.AreEqual(expectedLiveDifference, liveLocationsResult.Count);
         }
 
 
