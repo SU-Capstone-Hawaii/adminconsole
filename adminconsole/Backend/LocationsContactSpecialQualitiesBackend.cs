@@ -76,7 +76,7 @@ namespace adminconsole.Backend
         public async Task<List<Locations>> IndexAsync(bool deleted = false)
         {
             var locations_list = new List<Locations>();
-
+            
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use database
             {
 
