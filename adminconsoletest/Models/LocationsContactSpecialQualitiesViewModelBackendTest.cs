@@ -874,5 +874,35 @@ namespace adminconsoletest
             // Assert
             Assert.IsTrue(result);
         }
+
+
+
+
+
+        /// <summary>
+        /// Tests Backend RecoverAsync. Should return null when given an invalid ID
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsContactSpecialQualitiesBackend_RecoverAsync_Invalid_Id_Should_Not_Pass_Async()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            string id = "2f104551-5140-4394-bce7-INVALID";
+            var deletedLocationsInitial = await backend.IndexAsync(true); // Deleted records
+            var liveLocationsInitial = await backend.IndexAsync(false); // Live records
+
+
+            // Act
+            bool result = await backend.RecoverAsync(id);
+            var deletedLocationsResult = await backend.IndexAsync(true); // Deleted records fter unsuccessful recover
+            var liveLocationsResult = await backend.IndexAsync(); // Live records after unsuccessful recover
+
+
+
+            // Assert
+            Assert.IsFalse(result);
+            Assert.AreEqual(deletedLocationsInitial.Count, deletedLocationsResult.Count);
+            Assert.AreEqual(liveLocationsInitial.Count, liveLocationsResult.Count);
+        }
     }
 }
