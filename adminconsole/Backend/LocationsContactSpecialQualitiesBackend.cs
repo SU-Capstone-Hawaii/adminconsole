@@ -254,7 +254,7 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <returns> If the record doesn't exist returns NULL, otherwise returns the Locations Object </returns>
-        public Locations GetLocation(string id)
+        public async Task<Locations> GetLocationAsync(string id)
         {
             if (id == null)
             {
@@ -265,7 +265,7 @@ namespace adminconsole.Backend
 
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
             {
-                location = context.Locations.Include(x => x.Contact).Include(x => x.Contact).Where(x => x.LocationId == id).First();
+                location = await context.Locations.Include(x => x.Contact).Include(x => x.Contact).Where(x => x.LocationId == id).FirstAsync().ConfigureAwait(false);
             }
             else // Use mock data
             {

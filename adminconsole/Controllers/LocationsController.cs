@@ -384,7 +384,7 @@ namespace adminconsole.Controllers
 
 
             // Get the Recrord to ensure it exists
-            var updatedRecord = backend.GetLocation(location.LocationId);
+            var updatedRecord = backend.GetLocationAsync(location.LocationId);
             if (updatedRecord == null)
             {
                 return NotFound();
@@ -428,7 +428,7 @@ namespace adminconsole.Controllers
                 return NotFound();
             }
 
-            var locations = backend.GetLocation(id);
+            var locations = await backend.GetLocationAsync(id).ConfigureAwait(false);
             if (locations == null)
             {
                 return NotFound();

@@ -171,9 +171,14 @@ namespace adminconsole.Models
         /// <param name="newLocation"> A View Model Object from which to extract from </param>
         /// 
         /// 
-        /// <returns> A HoursPerDayOfTheWeek Object  </returns>
+        /// <returns> A HoursPerDayOfTheWeek Object or null if all properties are null </returns>
         public static HoursPerDayOfTheWeek GetNewHoursPerDayOfTheWeek(LocationsContactSpecialQualitiesViewModel newLocation)
         {
+            if (newLocation is null)
+            {
+                return null;
+            }
+
             // If all nulls return null
             if ((newLocation.HoursDtfriClose) == null &&
             (newLocation.HoursDtfriOpen) == null &&
@@ -205,40 +210,40 @@ namespace adminconsole.Models
             (newLocation.HoursWedOpen) == null)
             {
                 return null;
-            } else
-            {
-                HoursPerDayOfTheWeek hoursPerDayOfTheWeek = new HoursPerDayOfTheWeek();
-                hoursPerDayOfTheWeek.LocationId = newLocation.LocationId;
-                hoursPerDayOfTheWeek.HoursDtfriClose = newLocation.HoursDtfriClose;
-                hoursPerDayOfTheWeek.HoursDtfriOpen = newLocation.HoursDtfriOpen;
-                hoursPerDayOfTheWeek.HoursDtmonClose = newLocation.HoursDtmonClose;
-                hoursPerDayOfTheWeek.HoursDtmonOpen = newLocation.HoursDtmonOpen;
-                hoursPerDayOfTheWeek.HoursDtsatClose = newLocation.HoursDtsatClose;
-                hoursPerDayOfTheWeek.HoursDtsatOpen = newLocation.HoursDtsatOpen;
-                hoursPerDayOfTheWeek.HoursDtsunClose = newLocation.HoursDtsunClose;
-                hoursPerDayOfTheWeek.HoursDtsunOpen = newLocation.HoursDtsunOpen;
-                hoursPerDayOfTheWeek.HoursDtthuClose = newLocation.HoursDtthuClose;
-                hoursPerDayOfTheWeek.HoursDtthuOpen = newLocation.HoursDtthuOpen;
-                hoursPerDayOfTheWeek.HoursDttueClose = newLocation.HoursDttueClose;
-                hoursPerDayOfTheWeek.HoursDttueOpen =newLocation.HoursDttueOpen;
-                hoursPerDayOfTheWeek.HoursDtwedClose = newLocation.HoursDtwedClose;
-                hoursPerDayOfTheWeek.HoursDtwedOpen = newLocation.HoursDtwedOpen;
-                hoursPerDayOfTheWeek.HoursFriClose = newLocation.HoursFriClose;
-                hoursPerDayOfTheWeek.HoursFriOpen = newLocation.HoursFriOpen;
-                hoursPerDayOfTheWeek.HoursMonClose = newLocation.HoursMonClose;
-                hoursPerDayOfTheWeek.HoursMonOpen = newLocation.HoursMonOpen;
-                hoursPerDayOfTheWeek.HoursSatClose = newLocation.HoursSatClose;
-                hoursPerDayOfTheWeek.HoursSatOpen = newLocation.HoursSatOpen;
-                hoursPerDayOfTheWeek.HoursSunClose = newLocation.HoursSunClose;
-                hoursPerDayOfTheWeek.HoursSunOpen = newLocation.HoursSunOpen;
-                hoursPerDayOfTheWeek.HoursThuClose = newLocation.HoursThuClose;
-                hoursPerDayOfTheWeek.HoursThuOpen = newLocation.HoursThuOpen;
-                hoursPerDayOfTheWeek.HoursTueClose = newLocation.HoursTueClose;
-                hoursPerDayOfTheWeek.HoursTueOpen = newLocation.HoursTueOpen;
-                hoursPerDayOfTheWeek.HoursWedClose = newLocation.HoursWedClose;
-                hoursPerDayOfTheWeek.HoursWedOpen = newLocation.HoursWedOpen;
-                return hoursPerDayOfTheWeek;
             }
+
+
+            HoursPerDayOfTheWeek hoursPerDayOfTheWeek = new HoursPerDayOfTheWeek();
+            hoursPerDayOfTheWeek.LocationId = newLocation.LocationId;
+            hoursPerDayOfTheWeek.HoursDtfriClose = newLocation.HoursDtfriClose;
+            hoursPerDayOfTheWeek.HoursDtfriOpen = newLocation.HoursDtfriOpen;
+            hoursPerDayOfTheWeek.HoursDtmonClose = newLocation.HoursDtmonClose;
+            hoursPerDayOfTheWeek.HoursDtmonOpen = newLocation.HoursDtmonOpen;
+            hoursPerDayOfTheWeek.HoursDtsatClose = newLocation.HoursDtsatClose;
+            hoursPerDayOfTheWeek.HoursDtsatOpen = newLocation.HoursDtsatOpen;
+            hoursPerDayOfTheWeek.HoursDtsunClose = newLocation.HoursDtsunClose;
+            hoursPerDayOfTheWeek.HoursDtsunOpen = newLocation.HoursDtsunOpen;
+            hoursPerDayOfTheWeek.HoursDtthuClose = newLocation.HoursDtthuClose;
+            hoursPerDayOfTheWeek.HoursDtthuOpen = newLocation.HoursDtthuOpen;
+            hoursPerDayOfTheWeek.HoursDttueClose = newLocation.HoursDttueClose;
+            hoursPerDayOfTheWeek.HoursDttueOpen =newLocation.HoursDttueOpen;
+            hoursPerDayOfTheWeek.HoursDtwedClose = newLocation.HoursDtwedClose;
+            hoursPerDayOfTheWeek.HoursDtwedOpen = newLocation.HoursDtwedOpen;
+            hoursPerDayOfTheWeek.HoursFriClose = newLocation.HoursFriClose;
+            hoursPerDayOfTheWeek.HoursFriOpen = newLocation.HoursFriOpen;
+            hoursPerDayOfTheWeek.HoursMonClose = newLocation.HoursMonClose;
+            hoursPerDayOfTheWeek.HoursMonOpen = newLocation.HoursMonOpen;
+            hoursPerDayOfTheWeek.HoursSatClose = newLocation.HoursSatClose;
+            hoursPerDayOfTheWeek.HoursSatOpen = newLocation.HoursSatOpen;
+            hoursPerDayOfTheWeek.HoursSunClose = newLocation.HoursSunClose;
+            hoursPerDayOfTheWeek.HoursSunOpen = newLocation.HoursSunOpen;
+            hoursPerDayOfTheWeek.HoursThuClose = newLocation.HoursThuClose;
+            hoursPerDayOfTheWeek.HoursThuOpen = newLocation.HoursThuOpen;
+            hoursPerDayOfTheWeek.HoursTueClose = newLocation.HoursTueClose;
+            hoursPerDayOfTheWeek.HoursTueOpen = newLocation.HoursTueOpen;
+            hoursPerDayOfTheWeek.HoursWedClose = newLocation.HoursWedClose;
+            hoursPerDayOfTheWeek.HoursWedOpen = newLocation.HoursWedOpen;
+            return hoursPerDayOfTheWeek;
         }
 
 
