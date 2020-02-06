@@ -507,17 +507,71 @@ namespace adminconsole.Backend
         /// </returns>
         public async Task<bool> RecoverAsync(string id)
         {
-            try
-            {
-                var location = await context.Locations.FirstAsync(x => x.LocationId == id).ConfigureAwait(false);
-                location.SoftDelete = false;
-                context.Update(location);
-                context.SaveChanges();
-                return true;
-            } catch (Exception)
+            if (id == null)
             {
                 return false;
             }
+
+            Locations location = new Locations();
+
+            if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
+            {
+                location = await context.Locations.FirstAsync(x => x.LocationId == id).ConfigureAwait(false);
+            } else // Use mock data
+            {
+                var whereClause = new List<KeyValuePair<string, string>>();
+                var idPair = new KeyValuePair<string, string>("LocationId", id);
+                whereClause.Add(idPair);
+
+
+
+                var locationViewModel = dataMock.GetOneLocation(whereClause);
+
+
+
+                if (locationViewModel is null) // Record doesn't exist
+                {
+                    location = null;
+                } else // Mimic the structure that would be received from the Database
+                {
+                    location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(locationViewModel);
+                    location.Contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(locationViewModel);
+                    location.SpecialQualities = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(locationViewModel);
+                    location.HoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(locationViewModel);
+                }
+            }
+
+            if (location is null)  // Location doesn't exist
+            {
+                return false;
+            }
+
+
+            if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
+            {
+
+
+                try
+                {
+                    context.Update(location);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+
+            } else // Use mock data
+            {
+                location.SoftDelete = false; // Recovery
+
+                dataMock.EditPostAsync(location, location.Contact, location.SpecialQualities, location.HoursPerDayOfTheWeek); // Equivalent to EF Update command
+                return true;
+
+            }
+          
         }
 
 
