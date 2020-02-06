@@ -865,7 +865,7 @@ namespace adminconsoletest
             var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
             string id = "2f104551-5140-4394-bce7-11a6a5b53db9";
             var deletedLocationsInitial = await backend.IndexAsync(true); // Deleted records
-            var liveLocationsInitial = await backend.IndexAsync(false); // Live records
+            var liveLocationsInitial = await backend.IndexAsync(); // Live records
 
 
             // Act
@@ -891,7 +891,7 @@ namespace adminconsoletest
 
 
         /// <summary>
-        /// Tests Backend RecoverAsync. Should return null when given an invalid ID
+        /// Tests Backend RecoverAsync. Should return FALSE when given an invalid ID
         /// </summary>
         [TestMethod]
         public async Task LocationsContactSpecialQualitiesBackend_RecoverAsync_Invalid_Id_Should_Not_Pass_Async()
@@ -900,7 +900,7 @@ namespace adminconsoletest
             var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
             string id = "2f104551-5140-4394-bce7-INVALID";
             var deletedLocationsInitial = await backend.IndexAsync(true); // Deleted records
-            var liveLocationsInitial = await backend.IndexAsync(false); // Live records
+            var liveLocationsInitial = await backend.IndexAsync(); // Live records
 
 
             // Act
@@ -912,6 +912,37 @@ namespace adminconsoletest
 
             // Assert
             Assert.IsFalse(result);
+            Assert.AreEqual(deletedLocationsInitial.Count, deletedLocationsResult.Count);
+            Assert.AreEqual(liveLocationsInitial.Count, liveLocationsResult.Count);
+        }
+
+
+
+
+
+        /// <summary>
+        /// Tests Backend RecoverAsync. Should return true if Location record is not
+        /// deleted.
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsContactSpecialQualitiesBackend_RecoverAsync_Live_Id_Should_Pass_Async()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            string id = "a91be80e-ed05-4157-bb95-aa3494663d2a";
+            var deletedLocationsInitial = await backend.IndexAsync(true); // Deleted records
+            var liveLocationsInitial = await backend.IndexAsync(); // Live records
+
+
+            // Act
+            bool result = await backend.RecoverAsync(id);
+            var deletedLocationsResult = await backend.IndexAsync(true); // Deleted records after recover
+            var liveLocationsResult = await backend.IndexAsync(); // Live records after recover
+
+
+
+            // Assert
+            Assert.IsTrue(result);
             Assert.AreEqual(deletedLocationsInitial.Count, deletedLocationsResult.Count);
             Assert.AreEqual(liveLocationsInitial.Count, liveLocationsResult.Count);
         }
