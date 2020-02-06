@@ -567,7 +567,7 @@ namespace adminconsole.Backend
             {
                 location.SoftDelete = false; // Recovery
 
-                dataMock.EditPostAsync(location, location.Contact, location.SpecialQualities, location.HoursPerDayOfTheWeek); // Equivalent to EF Update command
+                dataMock.Recover(location);
                 return true;
 
             }
