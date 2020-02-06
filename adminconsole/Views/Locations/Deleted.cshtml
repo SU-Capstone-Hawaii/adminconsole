@@ -74,6 +74,14 @@
             {
                 <tr>
                     <td>
+                        @if (item.Name == "BECU")
+                        {
+                            <img src="~/media/BEC-Logo-Icon-pms.png" />
+                        }
+                        else
+                        {
+                            <img src="~/media/logo_co-op.png" style="height: 40px;" />
+                        }
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
@@ -133,9 +141,9 @@
 
         <thead>
             <tr>
-                <th>
+                <<td>
                     @Html.DisplayNameFor(model => model.Name)
-                </th>
+                </td>
                 <th>
                     @Html.DisplayNameFor(model => model.LocationType)
                 </th>
@@ -322,6 +330,14 @@
             {
                 <tr>
                     <td>
+                        @if (item.Name == "BECU")
+                        {
+                            <img src="~/media/BEC-Logo-Icon-pms.png" />
+                        }
+                        else
+                        {
+                            <img src="~/media/logo_co-op.png" style="height: 40px;" />
+                        }
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
