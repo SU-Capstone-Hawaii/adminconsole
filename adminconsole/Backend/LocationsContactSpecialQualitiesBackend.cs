@@ -594,14 +594,14 @@ namespace adminconsole.Backend
         {
             var state = LocationsContactSpecialQualitiesViewModel.ConvertStringToStateEnum(location.State);
             var locationType = LocationsContactSpecialQualitiesViewModel.ConvertStringToLocationTypeEnum(location.LocationType);
-            if (state != null) // If stored state name is a state abbreviation
-            {
-                location.State = state.GetType().GetMember(state.ToString()).First().GetCustomAttribute<DisplayAttribute>().Name;
-            }
-            if (locationType != null) // If stored state name is a state abbreviation
-            {
-                location.LocationType = locationType.GetType().GetMember(locationType.ToString()).First().GetCustomAttribute<DisplayAttribute>().Name;
-            }
+
+
+
+           location.State = state.GetType().GetMember(state.ToString()).First().GetCustomAttribute<DisplayAttribute>().Name;
+            
+            
+            location.LocationType = locationType.GetType().GetMember(locationType.ToString()).First().GetCustomAttribute<DisplayAttribute>().Name;
+          
             return location;
         }
     }
