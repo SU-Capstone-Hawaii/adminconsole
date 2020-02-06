@@ -870,20 +870,20 @@ namespace adminconsoletest
 
             // Act
             bool result = await backend.RecoverAsync(id);
-            var deletedLocationsResult = await backend.IndexAsync(true); // Deleted records fter unsuccessful recover
-            var liveLocationsResult = await backend.IndexAsync(); // Live records after unsuccessful recover
+            var deletedLocationsResult = await backend.IndexAsync(true); // Deleted records fter successful recover
+            var liveLocationsResult = await backend.IndexAsync(); // Live records after successful recover
 
 
-            var expectedDeletedDifference = deletedLocationsInitial.Count - 1; // Should have one less deleted record
-            var expectedLiveDifference = liveLocationsInitial.Count + 1; // Should have one more live record after recovery
+            var expectedDeleted = deletedLocationsInitial.Count - 1; // Initial should have one less deleted record
+            var expectedLive = liveLocationsInitial.Count + 1; // Initial should have one more live record after recovery
 
 
 
 
             // Assert
             Assert.IsTrue(result);
-            Assert.AreEqual(expectedDeletedDifference, deletedLocationsResult.Count);
-            Assert.AreEqual(expectedLiveDifference, liveLocationsResult.Count);
+            Assert.AreEqual(expectedDeleted, deletedLocationsResult.Count);
+            Assert.AreEqual(expectedLive, liveLocationsResult.Count);
         }
 
 
