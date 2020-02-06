@@ -853,6 +853,26 @@ namespace adminconsoletest
 
 
 
-        
+
+        /// <summary>
+        /// Tests Backend RecoverAsync. Should change SoftDelete to BooleanEnum.N and move
+        /// ViewModel record to the 'live' ViewModel list from the 'deleted' ViewModel list.
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsContactSpecialQualitiesBackend_RecoverAsync_Should_Pass_Async()
+        {
+            // Arrange
+            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            string id = "2f104551-5140-4394-bce7-11a6a5b53db9";
+
+
+            // Act
+            bool result = await backend.RecoverAsync(id);
+
+
+
+            // Assert
+            Assert.IsTrue(result);
+        }
     }
 }
