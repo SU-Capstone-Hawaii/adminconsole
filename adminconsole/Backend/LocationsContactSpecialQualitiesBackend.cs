@@ -523,28 +523,36 @@ namespace adminconsole.Backend
 
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
             {
+
+                // Get the record
                 location = await context.Locations.FirstAsync(x => x.LocationId == id).ConfigureAwait(false);
+            
+            
             } else // Use mock data
             {
+                // Mock the SQL statment
                 var whereClause = new List<KeyValuePair<string, string>>();
                 var idPair = new KeyValuePair<string, string>("LocationId", id);
                 whereClause.Add(idPair);
 
 
-
+                // Get the record
                 var locationViewModel = dataMock.GetOneLocation(whereClause);
 
 
 
                 if (locationViewModel is null) // Record doesn't exist
                 {
+                    
                     location = null;
+
+
                 } else // Mimic the structure that would be received from the Database
                 {
+                    
                     location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(locationViewModel);
-                    location.Contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(locationViewModel);
-                    location.SpecialQualities = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(locationViewModel);
-                    location.HoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(locationViewModel);
+                
+                
                 }
             }
 
@@ -552,6 +560,10 @@ namespace adminconsole.Backend
             {
                 return false;
             }
+
+
+            // Change SoftDelete value to False
+            location.SoftDelete = false;
 
 
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
@@ -572,7 +584,6 @@ namespace adminconsole.Backend
 
             } else // Use mock data
             {
-                location.SoftDelete = false; // Recovery
 
                 dataMock.Recover(location);
                 return true;
