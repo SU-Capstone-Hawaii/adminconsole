@@ -378,14 +378,6 @@ namespace adminconsole.Controllers
             }
 
 
-            // Get the Recrord to ensure it exists
-            var updatedRecord = backend.GetLocationAsync(location.LocationId);
-            if (updatedRecord == null)
-            {
-                return NotFound();
-            }
-
-
             var result = await backend.EditPostAsync(location).ConfigureAwait(false);
           
             if (!result) // DB update error, retry
@@ -423,7 +415,7 @@ namespace adminconsole.Controllers
                 return NotFound();
             }
 
-            var locations = await backend.GetLocationAsync(id).ConfigureAwait(false);
+            var locations = backend.GetLocation(id);
             if (locations == null)
             {
                 return NotFound();
