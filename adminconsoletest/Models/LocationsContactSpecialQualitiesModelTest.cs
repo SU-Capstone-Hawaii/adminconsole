@@ -6,28 +6,28 @@ using System.Collections.Generic;
 namespace adminconsoletest
 {
     [TestClass]
-    public class LocationsContactSpecialQualitiesViewModelTest
+    public class AllTablesViewModelTest
     {
         [TestMethod]
-        public void LocationsContactSpecialQualitiesViewModel_Default_Should_Pass()
+        public void AllTablesViewModel_Default_Should_Pass()
         {
             // Arrange
 
             // Act
-            var result = new LocationsContactSpecialQualitiesViewModel();
+            var result = new AllTablesViewModel();
 
             // Assert
             Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public void LocationsContactSpecialQualitiesViewModel_Constructor_With_Context_Parameter_Should_Pass()
+        public void AllTablesViewModel_Constructor_With_Context_Parameter_Should_Pass()
         {
             // Arrange
             MaphawksContext context = new MaphawksContext();
 
             // Act
-            var result = new LocationsContactSpecialQualitiesViewModel();
+            var result = new AllTablesViewModel();
 
             // Assert
             Assert.IsNotNull(result);
@@ -35,10 +35,10 @@ namespace adminconsoletest
         }
 
         [TestMethod]
-        public void LocationsContactSpecialQualitiesViewModel_Get_Property_Defaults_Should_Pass()
+        public void AllTablesViewModel_Get_Property_Defaults_Should_Pass()
         {
             // Arrange
-            var result = new LocationsContactSpecialQualitiesViewModel();
+            var result = new AllTablesViewModel();
 
             // Act
 
@@ -120,10 +120,10 @@ namespace adminconsoletest
         }
 
         [TestMethod]
-        public void LocationsContactSpecialQualitiesViewModel_Set_Property_Should_Pass()
+        public void AllTablesViewModel_Set_Property_Should_Pass()
         {
             // Arrange
-            var result = new LocationsContactSpecialQualitiesViewModel();
+            var result = new AllTablesViewModel();
 
             // Act
             // Locations

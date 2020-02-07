@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace adminconsole.Backend
 {
-    public class LocationsContactSpecialQualitiesBackend
+    public class LocationsBackend
     {
         private MaphawksContext context;            // DB Context
         private DataSourceEnum dataSourceEnum;      // Allows for toggling betwen Live/Test data
-        private LocationsContactSpecialQualitiesViewModelDataMock dataMock;
+        private AllTablesViewModelDataMock dataMock;
 
 
         /// <summary>
@@ -25,13 +25,13 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <param name="dataSourceEnum"> Default is for Live (DB) data. Can also set to DataSourceEnum.Test for Unit Testing </param>
-        public LocationsContactSpecialQualitiesBackend(DataSourceEnum dataSourceEnum = DataSourceEnum.LIVE)
+        public LocationsBackend(DataSourceEnum dataSourceEnum = DataSourceEnum.LIVE)
         {
             this.dataSourceEnum = dataSourceEnum;
             
             if (dataSourceEnum is DataSourceEnum.TEST)
             {
-                dataMock = new LocationsContactSpecialQualitiesViewModelDataMock();
+                dataMock = new AllTablesViewModelDataMock();
             }
         }
 
@@ -48,7 +48,7 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <param name="context"> DB Context Object </param>
-        public LocationsContactSpecialQualitiesBackend(MaphawksContext context)
+        public LocationsBackend(MaphawksContext context)
         {
             this.context = context;
             this.dataSourceEnum = DataSourceEnum.LIVE;
@@ -97,10 +97,10 @@ namespace adminconsole.Backend
                 {
                     foreach(var location in viewModelList) // Convert ViewModels into Locations
                     {
-                        var newLocation = LocationsContactSpecialQualitiesViewModel.GetNewLocation(location);
-                        newLocation.Contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(location);
-                        newLocation.SpecialQualities = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(location);
-                        newLocation.HoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(location);
+                        var newLocation = AllTablesViewModel.GetNewLocation(location);
+                        newLocation.Contact = AllTablesViewModel.GetNewContact(location);
+                        newLocation.SpecialQualities = AllTablesViewModel.GetNewSpecialQualities(location);
+                        newLocation.HoursPerDayOfTheWeek = AllTablesViewModel.GetNewHoursPerDayOfTheWeek(location);
                         
                         
                         locations_list.Add(newLocation);
@@ -155,7 +155,7 @@ namespace adminconsole.Backend
                 keyValueList.Add(idPair);
 
 
-                var resultLocation = LocationsContactSpecialQualitiesViewModel.GetNewLocation(
+                var resultLocation = AllTablesViewModel.GetNewLocation(
                     dataMock.GetOneLocation(keyValueList));
 
                 if (resultLocation != null)
@@ -188,7 +188,7 @@ namespace adminconsole.Backend
         /// True: It newLocation is successfully inserted into the Database
         /// 
         /// </returns>
-        public bool Create(LocationsContactSpecialQualitiesViewModel newLocation)
+        public bool Create(AllTablesViewModel newLocation)
         {
             if (newLocation == null) // Non-valid ViewModel Object
             {
@@ -205,10 +205,10 @@ namespace adminconsole.Backend
 
 
 
-                Locations location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(newLocation);
-                Contacts contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(newLocation);
-                SpecialQualities specialQuality = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(newLocation);
-                HoursPerDayOfTheWeek hoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(newLocation);
+                Locations location = AllTablesViewModel.GetNewLocation(newLocation);
+                Contacts contact = AllTablesViewModel.GetNewContact(newLocation);
+                SpecialQualities specialQuality = AllTablesViewModel.GetNewSpecialQualities(newLocation);
+                HoursPerDayOfTheWeek hoursPerDayOfTheWeek = AllTablesViewModel.GetNewHoursPerDayOfTheWeek(newLocation);
 
 
 
@@ -277,15 +277,15 @@ namespace adminconsole.Backend
                 newList.Add(idPair);
 
 
-                LocationsContactSpecialQualitiesViewModel locationViewModel = dataMock.GetOneLocation(newList);
-                location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(locationViewModel);
+                AllTablesViewModel locationViewModel = dataMock.GetOneLocation(newList);
+                location = AllTablesViewModel.GetNewLocation(locationViewModel);
 
 
                 if (location != null) // Then we can fill in other tables' values
                 {
-                    location.Contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(locationViewModel);
-                    location.SpecialQualities = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(locationViewModel);
-                    location.HoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(locationViewModel);
+                    location.Contact = AllTablesViewModel.GetNewContact(locationViewModel);
+                    location.SpecialQualities = AllTablesViewModel.GetNewSpecialQualities(locationViewModel);
+                    location.HoursPerDayOfTheWeek = AllTablesViewModel.GetNewHoursPerDayOfTheWeek(locationViewModel);
                 }
 
             }
@@ -335,7 +335,7 @@ namespace adminconsole.Backend
                 var whereList = new List<KeyValuePair<string, string>>();
                 var idPair = new KeyValuePair<string, string>("LocationId", id);
                 whereList.Add(idPair);
-                locations = LocationsContactSpecialQualitiesViewModel.GetNewLocation(dataMock.GetOneLocation(whereList));
+                locations = AllTablesViewModel.GetNewLocation(dataMock.GetOneLocation(whereList));
             }
 
             if (locations == null)
@@ -385,7 +385,7 @@ namespace adminconsole.Backend
         /// Locations Object: If the record was found in the Database
         /// 
         /// </returns>
-        public async Task<LocationsContactSpecialQualitiesViewModel> EditAsync(string id)
+        public async Task<AllTablesViewModel> EditAsync(string id)
         {
             if (id == null)
             {
@@ -393,12 +393,12 @@ namespace adminconsole.Backend
             }
 
 
-            LocationsContactSpecialQualitiesViewModel location;
+            AllTablesViewModel location;
             
 
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
             {
-                location = new LocationsContactSpecialQualitiesViewModel();
+                location = new AllTablesViewModel();
 
 
                 location.locations = await context.Locations // Get Location from Database 
@@ -446,7 +446,7 @@ namespace adminconsole.Backend
         /// False: If newLocation is null, of if there was a Database Update error
         /// 
         /// </returns>
-        public async Task<bool> EditPostAsync(LocationsContactSpecialQualitiesViewModel newLocation)
+        public async Task<bool> EditPostAsync(AllTablesViewModel newLocation)
         {
             if (newLocation == null)
             {
@@ -459,10 +459,10 @@ namespace adminconsole.Backend
             }
 
             // Get each table's Object
-            Locations location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(newLocation);
-            Contacts contact = LocationsContactSpecialQualitiesViewModel.GetNewContact(newLocation);
-            SpecialQualities specialQualities = LocationsContactSpecialQualitiesViewModel.GetNewSpecialQualities(newLocation);
-            HoursPerDayOfTheWeek hoursPerDayOfTheWeek = LocationsContactSpecialQualitiesViewModel.GetNewHoursPerDayOfTheWeek(newLocation);
+            Locations location = AllTablesViewModel.GetNewLocation(newLocation);
+            Contacts contact = AllTablesViewModel.GetNewContact(newLocation);
+            SpecialQualities specialQualities = AllTablesViewModel.GetNewSpecialQualities(newLocation);
+            HoursPerDayOfTheWeek hoursPerDayOfTheWeek = AllTablesViewModel.GetNewHoursPerDayOfTheWeek(newLocation);
 
             bool result; // Value to be returned
 
@@ -550,7 +550,7 @@ namespace adminconsole.Backend
                 } else // Mimic the structure that would be received from the Database
                 {
                     
-                    location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(locationViewModel);
+                    location = AllTablesViewModel.GetNewLocation(locationViewModel);
                 
                 
                 }
@@ -607,8 +607,8 @@ namespace adminconsole.Backend
         /// <returns> The Updated Location. </returns>
         private static Locations ConvertDbStringsToEnums(Locations location)
         {
-            var state = LocationsContactSpecialQualitiesViewModel.ConvertStringToStateEnum(location.State);
-            var locationType = LocationsContactSpecialQualitiesViewModel.ConvertStringToLocationTypeEnum(location.LocationType);
+            var state = AllTablesViewModel.ConvertStringToStateEnum(location.State);
+            var locationType = AllTablesViewModel.ConvertStringToLocationTypeEnum(location.LocationType);
 
 
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace adminconsole.Models
 {
-    public partial class LocationsContactSpecialQualitiesViewModel
+    public partial class AllTablesViewModel
     {
         #region Locations Properties
         [Required]

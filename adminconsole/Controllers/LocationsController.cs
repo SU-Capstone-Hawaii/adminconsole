@@ -8,12 +8,12 @@ namespace adminconsole.Controllers
     public class LocationsController : Controller
     {
         private readonly MaphawksContext _context;
-        private LocationsContactSpecialQualitiesBackend backend;
+        private LocationsBackend backend;
 
         public LocationsController(MaphawksContext context)
         {
             _context = context;
-            backend = new LocationsContactSpecialQualitiesBackend(context);
+            backend = new LocationsBackend(context);
         }
 
 
@@ -195,7 +195,7 @@ namespace adminconsole.Controllers
             "HoursDtsatOpen," +
             "HoursDtsatClose," +
             "HoursDtsunOpen," +
-            "HoursDtsunClose")] LocationsContactSpecialQualitiesViewModel newLocation)
+            "HoursDtsunClose")] AllTablesViewModel newLocation)
         {
             if (!ModelState.IsValid)
             {
@@ -360,7 +360,7 @@ namespace adminconsole.Controllers
             "HoursDtsatOpen," +
             "HoursDtsatClose," +
             "HoursDtsunOpen," +
-            "HoursDtsunClose")] LocationsContactSpecialQualitiesViewModel location)
+            "HoursDtsunClose")] AllTablesViewModel location)
         {
             if (location == null) // Edit submit error
             {

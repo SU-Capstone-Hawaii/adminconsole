@@ -5,14 +5,14 @@ using System.Linq;
 
 namespace adminconsole.Models
 {
-    public partial class LocationsContactSpecialQualitiesViewModel
+    public partial class AllTablesViewModel
     {
         /// <summary>
         /// Default constructor. 
         /// 
         /// Allows app to access Database
         /// </summary>
-        public LocationsContactSpecialQualitiesViewModel()
+        public AllTablesViewModel()
         {
             locations = new List<Locations>();
             dataSource = DataSourceEnum.LIVE;
@@ -29,7 +29,7 @@ namespace adminconsole.Models
         /// Allows app to use mock data class when unit testing
         /// </summary>
         /// <param name="dataSource"></param>
-        public LocationsContactSpecialQualitiesViewModel(DataSourceEnum dataSource=DataSourceEnum.LIVE)
+        public AllTablesViewModel(DataSourceEnum dataSource=DataSourceEnum.LIVE)
         {
             locations = new List<Locations>();
             this.dataSource = dataSource;
@@ -51,7 +51,7 @@ namespace adminconsole.Models
         /// 
         /// 
         /// <returns> A Locations Object  </returns>
-        public static Locations GetNewLocation(LocationsContactSpecialQualitiesViewModel newLocation)
+        public static Locations GetNewLocation(AllTablesViewModel newLocation)
         {
             if (newLocation is null)
             {
@@ -94,7 +94,7 @@ namespace adminconsole.Models
         /// 
         /// 
         /// <returns> A Contacts Object  </returns>
-        public static Contacts GetNewContact(LocationsContactSpecialQualitiesViewModel newLocation)
+        public static Contacts GetNewContact(AllTablesViewModel newLocation)
         {
             if (newLocation is null)
             {
@@ -127,7 +127,7 @@ namespace adminconsole.Models
         /// 
         /// 
         /// <returns> A Special Qualities Object  </returns>
-        public static SpecialQualities GetNewSpecialQualities(LocationsContactSpecialQualitiesViewModel newLocation)
+        public static SpecialQualities GetNewSpecialQualities(AllTablesViewModel newLocation)
         {
             if (newLocation is null)
             {
@@ -172,7 +172,7 @@ namespace adminconsole.Models
         /// 
         /// 
         /// <returns> A HoursPerDayOfTheWeek Object or null if all properties are null </returns>
-        public static HoursPerDayOfTheWeek GetNewHoursPerDayOfTheWeek(LocationsContactSpecialQualitiesViewModel newLocation)
+        public static HoursPerDayOfTheWeek GetNewHoursPerDayOfTheWeek(AllTablesViewModel newLocation)
         {
             if (newLocation is null)
             {

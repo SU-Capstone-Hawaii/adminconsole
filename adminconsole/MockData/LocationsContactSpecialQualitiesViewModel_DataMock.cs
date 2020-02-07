@@ -7,19 +7,19 @@ namespace adminconsole.Models
     /// <summary>
     /// Acts in place of DB. Assumes the query will conduct a join on all tables.
     /// </summary>
-    public class LocationsContactSpecialQualitiesViewModelDataMock
+    public class AllTablesViewModelDataMock
     {
         // List of DB rows
-        private List<LocationsContactSpecialQualitiesViewModel> viewModelList;
-        private List<LocationsContactSpecialQualitiesViewModel> deletedViewModelList;
+        private List<AllTablesViewModel> viewModelList;
+        private List<AllTablesViewModel> deletedViewModelList;
 
         /// <summary>
         /// Constructor. Puts object in a valid state.
         /// </summary>
-        public LocationsContactSpecialQualitiesViewModelDataMock()
+        public AllTablesViewModelDataMock()
         {
-            viewModelList = new List<LocationsContactSpecialQualitiesViewModel>();
-            deletedViewModelList = new List<LocationsContactSpecialQualitiesViewModel>();
+            viewModelList = new List<AllTablesViewModel>();
+            deletedViewModelList = new List<AllTablesViewModel>();
             SetDefaultValues();
         }
 
@@ -58,12 +58,12 @@ namespace adminconsole.Models
         {
 
             // Create ViewModel Objects
-            LocationsContactSpecialQualitiesViewModel location_1 = new LocationsContactSpecialQualitiesViewModel();
-            LocationsContactSpecialQualitiesViewModel location_2 = new LocationsContactSpecialQualitiesViewModel();
-            LocationsContactSpecialQualitiesViewModel location_3 = new LocationsContactSpecialQualitiesViewModel();
-            LocationsContactSpecialQualitiesViewModel location_4 = new LocationsContactSpecialQualitiesViewModel();
-            LocationsContactSpecialQualitiesViewModel location_5 = new LocationsContactSpecialQualitiesViewModel();
-            LocationsContactSpecialQualitiesViewModel location_6 = new LocationsContactSpecialQualitiesViewModel();
+            AllTablesViewModel location_1 = new AllTablesViewModel();
+            AllTablesViewModel location_2 = new AllTablesViewModel();
+            AllTablesViewModel location_3 = new AllTablesViewModel();
+            AllTablesViewModel location_4 = new AllTablesViewModel();
+            AllTablesViewModel location_5 = new AllTablesViewModel();
+            AllTablesViewModel location_6 = new AllTablesViewModel();
 
 
             // Set each object's properties
@@ -428,7 +428,7 @@ namespace adminconsole.Models
         /// deletedViewModelList: If deleted is true
         /// 
         /// </returns>
-        public List<LocationsContactSpecialQualitiesViewModel> GetAllViewModelList(bool deleted = false)
+        public List<AllTablesViewModel> GetAllViewModelList(bool deleted = false)
         {
             if (deleted)
             {
@@ -454,10 +454,10 @@ namespace adminconsole.Models
         /// <param name="whereClauses"> The list of where clauses, given as key=column name, value=column value </param>
         /// 
         /// 
-        /// <returns> List<LocationsContactSpecialQualitiesViewModel>. List may have length of 0 or more. </returns>
-        public List<LocationsContactSpecialQualitiesViewModel> Get_Where_ViewModel_List(List<KeyValuePair<string, string>> whereClauses)
+        /// <returns> List<AllTablesViewModel>. List may have length of 0 or more. </returns>
+        public List<AllTablesViewModel> Get_Where_ViewModel_List(List<KeyValuePair<string, string>> whereClauses)
         {
-            List<LocationsContactSpecialQualitiesViewModel> return_list = new List<LocationsContactSpecialQualitiesViewModel>();
+            List<AllTablesViewModel> return_list = new List<AllTablesViewModel>();
 
             if (whereClauses == null)
             {
@@ -466,7 +466,7 @@ namespace adminconsole.Models
             }
             else
             {
-                foreach (LocationsContactSpecialQualitiesViewModel location in viewModelList)
+                foreach (AllTablesViewModel location in viewModelList)
                 {
                     bool meetsWhereCriteria = true;
                     foreach (KeyValuePair<string, string> column in whereClauses)
@@ -500,11 +500,11 @@ namespace adminconsole.Models
         /// 
         /// 
         /// <param name="pair"> KeyValuePair<string, string> where key=column name, value=column value of the where clause. </param>
-        /// <param name="location"> The LocationsContactSpecialQualitiesViewModel object being compared to. </param>
+        /// <param name="location"> The AllTablesViewModel object being compared to. </param>
         /// 
         /// 
         /// <returns> true if match, else false. </returns>
-        private bool IsMatch(KeyValuePair<string, string> pair, LocationsContactSpecialQualitiesViewModel location)
+        private bool IsMatch(KeyValuePair<string, string> pair, AllTablesViewModel location)
         {
             var valueIsNull = pair.Value is null ? true : false;
 
@@ -690,7 +690,7 @@ namespace adminconsole.Models
         /// 
         /// 
         /// <returns> The first location that meets the where clause conditions, otherwise null </returns>
-        public LocationsContactSpecialQualitiesViewModel GetOneLocation(List<KeyValuePair<string, string>> whereClauses)
+        public AllTablesViewModel GetOneLocation(List<KeyValuePair<string, string>> whereClauses)
         {
             if (whereClauses is null)
             {
@@ -699,7 +699,7 @@ namespace adminconsole.Models
             else
             {
                 // Check if in viewModelList
-                foreach (LocationsContactSpecialQualitiesViewModel location in viewModelList)
+                foreach (AllTablesViewModel location in viewModelList)
                 {
                     bool isAMatch = true;
                     foreach (KeyValuePair<string, string> column in whereClauses)
@@ -720,7 +720,7 @@ namespace adminconsole.Models
 
 
                 // Check if in deletedViewModelList
-                foreach (LocationsContactSpecialQualitiesViewModel location in deletedViewModelList)
+                foreach (AllTablesViewModel location in deletedViewModelList)
                 {
                     bool isAMatch = true;
                     foreach (KeyValuePair<string, string> column in whereClauses)
@@ -751,7 +751,7 @@ namespace adminconsole.Models
         /// Adds new ViewModel object to the viewModelList
         /// </summary>
         /// <param name="newLocation"></param>
-        public void Create(LocationsContactSpecialQualitiesViewModel newLocation)
+        public void Create(AllTablesViewModel newLocation)
         {
             if (newLocation == null)
             {
@@ -826,7 +826,7 @@ namespace adminconsole.Models
             }
             else
             {
-                LocationsContactSpecialQualitiesViewModel deletedLocation = null;
+                AllTablesViewModel deletedLocation = null;
 
                 // Find the Location record
                 foreach (var loc in viewModelList)
@@ -872,7 +872,7 @@ namespace adminconsole.Models
                 location.HoursPerDayOfTheWeek = hoursPerDayOfTheWeek;
             }
 
-            var viewModel = new LocationsContactSpecialQualitiesViewModel();
+            var viewModel = new AllTablesViewModel();
             viewModel.InstatiateViewModelPropertiesWithOneLocation(location); // Combine tables into ViewModel
 
 

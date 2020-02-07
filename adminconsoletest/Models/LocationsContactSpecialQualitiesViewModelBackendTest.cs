@@ -11,16 +11,16 @@ namespace adminconsoletest
     /// Tests default constructor
     /// </summary>
     [TestClass]
-    public class LocationsContactSpecialQualitiesBackendTest
+    public class LocationsBackendTest
     {
 
         [TestMethod]
-        public void LocationsContactSpecialQualitiesBackend_Default_Should_Pass()
+        public void LocationsBackend_Default_Should_Pass()
         {
             // Arrange
 
             // Act
-            var result = new LocationsContactSpecialQualitiesBackend();
+            var result = new LocationsBackend();
 
             // Assert
             Assert.IsNotNull(result);
@@ -33,13 +33,13 @@ namespace adminconsoletest
         /// Tests constructor with Context parameter.
         /// </summary>
         [TestMethod]
-        public void LocationsContactSpecialQualitiesBackend_Constructor_With_Context_Parameter_Should_Pass()
+        public void LocationsBackend_Constructor_With_Context_Parameter_Should_Pass()
         {
             // Arrange
             MaphawksContext context = new MaphawksContext();
 
             // Act
-            var result = new LocationsContactSpecialQualitiesBackend(context);
+            var result = new LocationsBackend(context);
 
             // Assert
             Assert.IsNotNull(result);
@@ -54,10 +54,10 @@ namespace adminconsoletest
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_Index_Deleted_Locations_Should_Pass_Async()
+        public async Task LocationsBackend_Index_Deleted_Locations_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
 
 
             // Act
@@ -81,10 +81,10 @@ namespace adminconsoletest
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_IndexAsync_Should_Pass_Async()
+        public async Task LocationsBackend_IndexAsync_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
 
 
             // Act
@@ -109,10 +109,10 @@ namespace adminconsoletest
         /// </summary>
         /// <returns></returns>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_DetailsAsync_Should_Pass_Async()
+        public async Task LocationsBackend_DetailsAsync_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
 
 
@@ -130,10 +130,10 @@ namespace adminconsoletest
         /// Tests Backend DetailsAsync for a Location record ID that does not exist
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_DetailsAsync_Invalid_Id_Should_Pass_Async()
+        public async Task LocationsBackend_DetailsAsync_Invalid_Id_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             var id = Guid.NewGuid().ToString();
 
 
@@ -150,11 +150,11 @@ namespace adminconsoletest
         /// Tests Backend Create which will create a new Location record in all tables.
         /// </summary>
         [TestMethod]
-        public void LocationsContactSpecialQualitiesBackend_Create_Should_Pass_()
+        public void LocationsBackend_Create_Should_Pass_()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
-            LocationsContactSpecialQualitiesViewModel location = new LocationsContactSpecialQualitiesViewModel();
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            AllTablesViewModel location = new AllTablesViewModel();
 
             location.AcceptCash = BooleanEnum.Y;
             location.AcceptDeposit = BooleanEnum.Y;
@@ -238,11 +238,11 @@ namespace adminconsoletest
         /// because it has a non-unique LocationId.
         /// </summary>
         [TestMethod]
-        public void LocationsContactSpecialQualitiesBackend_Create_Should_Not_Pass_()
+        public void LocationsBackend_Create_Should_Not_Pass_()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
-            LocationsContactSpecialQualitiesViewModel location = new LocationsContactSpecialQualitiesViewModel();
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            AllTablesViewModel location = new AllTablesViewModel();
 
             location.AcceptCash = BooleanEnum.Y;
             location.AcceptDeposit = BooleanEnum.Y;
@@ -327,10 +327,10 @@ namespace adminconsoletest
         /// Tests Backend GetLocation with a valid LocationId value
         /// </summary>
         [TestMethod]
-        public async void LocationsContactSpecialQualitiesBackend_GetLocation_Should_Pass_()
+        public async void LocationsBackend_GetLocation_Should_Pass_()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             string locationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
 
             Locations location = new Locations();
@@ -383,10 +383,10 @@ namespace adminconsoletest
         /// Tests Backend GetLocation with a null LocationId value
         /// </summary>
         [TestMethod]
-        public async void LocationsContactSpecialQualitiesBackend_GetLocation_Deleted_Location_Id_Should_Pass_()
+        public async void LocationsBackend_GetLocation_Deleted_Location_Id_Should_Pass_()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             string id = "11170401-4112-43c1-aa4e-f73370e1014a";
 
             // Act
@@ -408,10 +408,10 @@ namespace adminconsoletest
         /// Tests Backend GetLocation with an invalid LocationId value
         /// </summary>
         [TestMethod]
-        public async void LocationsContactSpecialQualitiesBackend_GetLocation_Invalid_Id_Should_Not_Pass_()
+        public async void LocationsBackend_GetLocation_Invalid_Id_Should_Not_Pass_()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             string locationId = "INVALID LOCATION ID";
 
             // Act
@@ -429,10 +429,10 @@ namespace adminconsoletest
         /// Tests Backend GetLocation with a null LocationId value
         /// </summary>
         [TestMethod]
-        public async void LocationsContactSpecialQualitiesBackend_GetLocation_Null_Id_Should_Not_Pass_()
+        public async void LocationsBackend_GetLocation_Null_Id_Should_Not_Pass_()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
 
             // Act
             var result = backend.GetLocation(null);
@@ -450,10 +450,10 @@ namespace adminconsoletest
         /// Tests Backend DeleteConfirmedAsync with a valid LocationId
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_DeleteConfirmedAsync_Should_Pass_Async()
+        public async Task LocationsBackend_DeleteConfirmedAsync_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             var locationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
 
 
@@ -476,10 +476,10 @@ namespace adminconsoletest
         /// Tests Backend DeleteConfirmedAsync with an invalid LocationId
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_DeleteConfirmedAsync_Invalid_Id_Should_Not_Pass_Async()
+        public async Task LocationsBackend_DeleteConfirmedAsync_Invalid_Id_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             var locationId = "INVALID ID";
 
 
@@ -499,10 +499,10 @@ namespace adminconsoletest
         /// Tests Backend DeleteConfirmedAsync with a null LocationId
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_DeleteConfirmedAsync_Null_Id_Should_Not_Pass_Async()
+        public async Task LocationsBackend_DeleteConfirmedAsync_Null_Id_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
 
 
             // Act
@@ -524,10 +524,10 @@ namespace adminconsoletest
         /// been deleted
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_DeleteConfirmedAsync_Already_Deleted_Id_Should_Not_Pass_Async()
+        public async Task LocationsBackend_DeleteConfirmedAsync_Already_Deleted_Id_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             var locationId = "6cc2244b-ff5b-4860-8464-2e5186b7060f";
 
             // Act
@@ -548,12 +548,12 @@ namespace adminconsoletest
         /// with the LocationId it receives. 
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_EditAsync_Should_Pass_Async()
+        public async Task LocationsBackend_EditAsync_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             string locationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
-            var location = new LocationsContactSpecialQualitiesViewModel();
+            var location = new AllTablesViewModel();
 
             location.AcceptCash = BooleanEnum.NULL;
             location.AcceptDeposit = BooleanEnum.NULL;
@@ -703,10 +703,10 @@ namespace adminconsoletest
         /// Tests Backend EditPostAsync method. The method should return NULL.
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_EditAsync_Invalid_Id_Should_Not_Pass_Async()
+        public async Task LocationsBackend_EditAsync_Invalid_Id_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             string locationId = "59bb3e88-9757-492e-a07c-00000000000";
 
             // Act
@@ -725,10 +725,10 @@ namespace adminconsoletest
         /// Tests Backend EditPostAsync method. The method should return NULL.
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_EditAsync_Null_Id_Should_Not_Pass_Async()
+        public async Task LocationsBackend_EditAsync_Null_Id_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
 
 
             // Act
@@ -749,17 +749,17 @@ namespace adminconsoletest
         /// Database.
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_EditPostAsync_Should_Pass_Async()
+        public async Task LocationsBackend_EditPostAsync_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
 
 
             var location = backend.GetLocation(id);
-            var locationAsViewModel = new LocationsContactSpecialQualitiesViewModel();
+            var locationAsViewModel = new AllTablesViewModel();
             Locations locationAfterEdit;
-            LocationsContactSpecialQualitiesViewModel locationAfterEditViewModel = new LocationsContactSpecialQualitiesViewModel();
+            AllTablesViewModel locationAfterEditViewModel = new AllTablesViewModel();
             bool successfullyCreatedPostEditViewModel;
 
 
@@ -792,19 +792,19 @@ namespace adminconsoletest
         /// the Database
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_EditPostAsync_Invalid_Id_Should_Not_Pass_Async()
+        public async Task LocationsBackend_EditPostAsync_Invalid_Id_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
 
 
             var locationToEdit = backend.GetLocation(id);
-            var locationToEditAsViewModel = new LocationsContactSpecialQualitiesViewModel();
+            var locationToEditAsViewModel = new AllTablesViewModel();
 
 
             Locations locationAfterEdit;
-            LocationsContactSpecialQualitiesViewModel locationAfterEditViewModel = new LocationsContactSpecialQualitiesViewModel();
+            AllTablesViewModel locationAfterEditViewModel = new AllTablesViewModel();
 
 
             // EditPostAsync takes ViewModel object as parameter
@@ -834,10 +834,10 @@ namespace adminconsoletest
         /// Tests Backend EditPostAsync method with a null Locations object
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_EditPostAsync_Null_Locations_Object_Should_Not_Pass_Async()
+        public async Task LocationsBackend_EditPostAsync_Null_Locations_Object_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
 
 
             // Act
@@ -859,10 +859,10 @@ namespace adminconsoletest
         /// ViewModel record to the 'live' ViewModel list from the 'deleted' ViewModel list.
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_RecoverAsync_Should_Pass_Async()
+        public async Task LocationsBackend_RecoverAsync_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             string id = "2f104551-5140-4394-bce7-11a6a5b53db9";
             var deletedLocationsInitial = await backend.IndexAsync(true); // Deleted records
             var liveLocationsInitial = await backend.IndexAsync(); // Live records
@@ -894,10 +894,10 @@ namespace adminconsoletest
         /// Tests Backend RecoverAsync. Should return FALSE when given an invalid ID
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_RecoverAsync_Invalid_Id_Should_Not_Pass_Async()
+        public async Task LocationsBackend_RecoverAsync_Invalid_Id_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             string id = "2f104551-5140-4394-bce7-INVALID";
             var deletedLocationsInitial = await backend.IndexAsync(true); // Deleted records
             var liveLocationsInitial = await backend.IndexAsync(); // Live records
@@ -925,10 +925,10 @@ namespace adminconsoletest
         /// deleted.
         /// </summary>
         [TestMethod]
-        public async Task LocationsContactSpecialQualitiesBackend_RecoverAsync_Live_Id_Should_Pass_Async()
+        public async Task LocationsBackend_RecoverAsync_Live_Id_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
+            var backend = new LocationsBackend(DataSourceEnum.TEST);
             string id = "a91be80e-ed05-4157-bb95-aa3494663d2a";
             var deletedLocationsInitial = await backend.IndexAsync(true); // Deleted records
             var liveLocationsInitial = await backend.IndexAsync(); // Live records
