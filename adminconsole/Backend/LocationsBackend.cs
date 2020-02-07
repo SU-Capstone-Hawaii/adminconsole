@@ -1,5 +1,4 @@
 ﻿using adminconsole.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -303,73 +302,6 @@ namespace adminconsole.Backend
 
 
 
-        /// <summary>
-        /// 
-        /// Soft Deletes a Locations Object.
-        /// 
-        /// </summary>
-        /// 
-        /// <param name="id"> The string ID of the Locations Object the user wants to Delete </param>
-        /// 
-        /// <returns>
-        /// 
-        /// True: If successfully updates SoftDelete field to True
-        /// False: If Database error or if the LocationId does not exist in Database
-        /// 
-        /// </returns>
-        public async Task<bool> DeleteConfirmedAsync(string id)
-        {
-
-            if (id == null)
-            {
-                return false;
-            }
-
-            Locations locations;
-
-            if (dataSourceEnum is DataSourceEnum.LIVE)
-            {
-                locations = await context.Locations.FindAsync(id);
-            } else
-            {
-                var whereList = new List<KeyValuePair<string, string>>();
-                var idPair = new KeyValuePair<string, string>("LocationId", id);
-                whereList.Add(idPair);
-                locations = AllTablesViewModel.GetNewLocation(dataMock.GetOneLocation(whereList));
-            }
-
-            if (locations == null)
-            {
-                return false;
-            }
-
-            locations.SoftDelete = true;
-
-            if (dataSourceEnum is DataSourceEnum.LIVE)
-            {
-                try
-                {
-                    context.Locations.Update(locations);
-                    await context.SaveChangesAsync().ConfigureAwait(false);
-                    return true;
-                } catch (DbUpdateException)
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                var originalNumberOfLocations = dataMock.GetNumberOfLocations();
-                dataMock.Delete(locations);
-                var newNumberOfLocations = dataMock.GetNumberOfLocations();
-
-                return (originalNumberOfLocations - 1) == newNumberOfLocations;
-            }
-            
-            
-        }
-
-
 
         /// <summary>
         /// 
@@ -492,6 +424,86 @@ namespace adminconsole.Backend
             return result;
             
         }
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// 
+        /// Soft Deletes a Locations Object.
+        /// 
+        /// </summary>
+        /// 
+        /// <param name="id"> The string ID of the Locations Object the user wants to Delete </param>
+        /// 
+        /// <returns>
+        /// 
+        /// True: If successfully updates SoftDelete field to True
+        /// False: If Database error or if the LocationId does not exist in Database
+        /// 
+        /// </returns>
+        public async Task<bool> DeleteConfirmedAsync(string id)
+        {
+
+            if (id == null)
+            {
+                return false;
+            }
+
+            Locations locations;
+
+            if (dataSourceEnum is DataSourceEnum.LIVE)
+            {
+                locations = await context.Locations.FindAsync(id);
+            }
+            else
+            {
+                var whereList = new List<KeyValuePair<string, string>>();
+                var idPair = new KeyValuePair<string, string>("LocationId", id);
+                whereList.Add(idPair);
+                locations = AllTablesViewModel.GetNewLocation(dataMock.GetOneLocation(whereList));
+            }
+
+            if (locations == null)
+            {
+                return false;
+            }
+
+            locations.SoftDelete = true;
+
+            if (dataSourceEnum is DataSourceEnum.LIVE)
+            {
+                try
+                {
+                    context.Locations.Update(locations);
+                    await context.SaveChangesAsync().ConfigureAwait(false);
+                    return true;
+                }
+                catch (DbUpdateException)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                var originalNumberOfLocations = dataMock.GetNumberOfLocations();
+                dataMock.Delete(locations);
+                var newNumberOfLocations = dataMock.GetNumberOfLocations();
+
+                return (originalNumberOfLocations - 1) == newNumberOfLocations;
+            }
+
+
+        }
+
+
+
+
+
 
 
 
