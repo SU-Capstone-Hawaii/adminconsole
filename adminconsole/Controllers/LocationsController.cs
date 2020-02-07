@@ -38,24 +38,6 @@ namespace adminconsole.Controllers
 
 
 
-        /// <summary>
-        /// GET:
-        /// 
-        /// Locations objects with joins on Contacts, SpecialQualities, and HoursPerDayOfTheWeek.
-        /// </summary>
-        /// 
-        /// 
-        /// 
-        /// <returns> Deleted View with injected list of Locations objects </returns>
-        public async Task<IActionResult> Deleted()
-        {
-            var results = await backend.IndexAsync(true).ConfigureAwait(false);
-            return View(results);
-        }
-
-
-
-
 
 
         /// <summary>
@@ -467,6 +449,55 @@ namespace adminconsole.Controllers
 
 
 
+        /// <summary>
+        /// GET:
+        /// 
+        /// Locations objects with joins on Contacts, SpecialQualities, and HoursPerDayOfTheWeek.
+        /// </summary>
+        /// 
+        /// 
+        /// 
+        /// <returns> Deleted View with injected list of Locations objects </returns>
+        public async Task<IActionResult> Deleted()
+        {
+            var results = await backend.IndexAsync(true).ConfigureAwait(false);
+            return View(results);
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// GET
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="id"> Location Id</param>
+        /// 
+        /// 
+        /// <returns> Detail view for Deleted locations </returns>
+        [ActionName("DeletedDetails")]
+        public async Task<IActionResult> DeletedDetailsAsync(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return RedirectToAction(nameof(Deleted));
+            }
+
+            Locations location = await backend.DetailsAsync(id).ConfigureAwait(false);
+
+
+            if (location is null)
+            {
+                return RedirectToAction(nameof(Deleted));
+            }
+
+
+            return View(location);
+        }
+
 
 
 
@@ -485,7 +516,7 @@ namespace adminconsole.Controllers
         /// 
         /// <returns> Deleted View if there was a Database error or if the ID is null, otherwise returns the Index View </returns>
         [ActionName("Recover")]
-        public async Task<IActionResult> Recover(string id)
+        public async Task<IActionResult> RecoverAsync(string id)
         {
             if (id == null)
             {
