@@ -118,7 +118,7 @@
                         @Html.DisplayFor(modelItem => item.Hours)
                     </td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
+                        <a asp-action="DeletedDetails" asp-route-id="@item.LocationId" value="@item.LocationId">Details</a> |
                         <a asp-action="Recover" asp-route-id="@item.LocationId">Recover</a>
                     </td>
                 </tr>
@@ -518,8 +518,8 @@
                         @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtsunClose)
                     </td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
-                        <a asp-action="Recover" value="@item.LocationId">Recover</a>
+                        <a asp-action="DeletedDetails" value="@item.LocationId" value="@item.LocationId">Details</a>
+                        <a asp-action="RecoverAsync" value="@item.LocationId">Recover</a>
                     </td>
                 </tr>
             }
