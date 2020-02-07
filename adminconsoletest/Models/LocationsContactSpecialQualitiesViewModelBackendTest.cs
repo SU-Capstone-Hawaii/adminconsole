@@ -352,7 +352,7 @@ namespace adminconsoletest
             location.TakeCoopData = null;
 
             // Act
-            var result = await backend.GetLocationAsync(locationId).ConfigureAwait(false);
+            var result = backend.GetLocation(locationId);
 
 
             // Assert
@@ -390,7 +390,7 @@ namespace adminconsoletest
             string id = "11170401-4112-43c1-aa4e-f73370e1014a";
 
             // Act
-            var result = await backend.GetLocationAsync(id).ConfigureAwait(false);
+            var result = backend.GetLocation(id);
 
 
             // Assert
@@ -415,7 +415,7 @@ namespace adminconsoletest
             string locationId = "INVALID LOCATION ID";
 
             // Act
-            var result = await backend.GetLocationAsync(locationId);
+            var result = backend.GetLocation(locationId);
 
 
             // Assert
@@ -435,7 +435,7 @@ namespace adminconsoletest
             var backend = new LocationsContactSpecialQualitiesBackend(DataSourceEnum.TEST);
 
             // Act
-            var result = await backend.GetLocationAsync(null);
+            var result = backend.GetLocation(null);
 
 
             // Assert
@@ -756,7 +756,7 @@ namespace adminconsoletest
             var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
 
 
-            var location = await backend.GetLocationAsync(id);
+            var location = backend.GetLocation(id);
             var locationAsViewModel = new LocationsContactSpecialQualitiesViewModel();
             Locations locationAfterEdit;
             LocationsContactSpecialQualitiesViewModel locationAfterEditViewModel = new LocationsContactSpecialQualitiesViewModel();
@@ -769,7 +769,7 @@ namespace adminconsoletest
             // Act
             locationAsViewModel.City = "MY EDITED FIELD";
             bool result = await backend.EditPostAsync(locationAsViewModel);
-            locationAfterEdit = await backend.GetLocationAsync(id);
+            locationAfterEdit = backend.GetLocation(id);
             successfullyCreatedPostEditViewModel = locationAfterEditViewModel.InstatiateViewModelPropertiesWithOneLocation(locationAfterEdit);
             
 
@@ -799,7 +799,7 @@ namespace adminconsoletest
             var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
 
 
-            var locationToEdit = await backend.GetLocationAsync(id);
+            var locationToEdit = backend.GetLocation(id);
             var locationToEditAsViewModel = new LocationsContactSpecialQualitiesViewModel();
 
 
@@ -814,7 +814,7 @@ namespace adminconsoletest
             // Act
             locationToEditAsViewModel.LocationId = "59bb3e88-9757-492e-a07c-NOT VALID ID";
             bool result = await backend.EditPostAsync(locationToEditAsViewModel); // Should be null as ID doesn't exist
-            locationAfterEdit = await backend.GetLocationAsync(id); // Should be the same
+            locationAfterEdit = backend.GetLocation(id); // Should be the same
 
 
 
