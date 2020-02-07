@@ -254,7 +254,7 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <returns> If the record doesn't exist returns NULL, otherwise returns the Locations Object </returns>
-        public async Task<Locations> GetLocationAsync(string id)
+        public Locations GetLocation(string id)
         {
             if (id == null)
             {
@@ -265,15 +265,15 @@ namespace adminconsole.Backend
 
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
             {
-                location = await context.Locations.Include(x => x.Contact).Include(x => x.Contact).Where(x => x.LocationId == id).FirstAsync().ConfigureAwait(false);
+                location = context.Locations.Include(x => x.Contact).Include(x => x.Contact).Where(x => x.LocationId == id).First();
             }
             else // Use mock data
             {
                 List<KeyValuePair<string, string>> newList = new List<KeyValuePair<string, string>>();
                 KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
-                
-                
-                
+
+
+
                 newList.Add(idPair);
 
 
@@ -453,6 +453,10 @@ namespace adminconsole.Backend
                 return false;
             }
 
+            if (!CheckLocation(newLocation.LocationId))  // Location does not exist
+            {
+                return false;
+            }
 
             // Get each table's Object
             Locations location = LocationsContactSpecialQualitiesViewModel.GetNewLocation(newLocation);
@@ -603,6 +607,37 @@ namespace adminconsole.Backend
             location.LocationType = locationType.GetType().GetMember(locationType.ToString()).First().GetCustomAttribute<DisplayAttribute>().Name;
           
             return location;
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// Checks to see if Location exists in Database given a LocationId
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="locationId"> LocationId GUID </param>
+        /// 
+        /// 
+        /// <returns>
+        /// 
+        ///     True: If record exists with LocationId
+        ///     False: If record does not exist
+        /// 
+        /// </returns>
+        private bool CheckLocation(string locationId)
+        {
+            var location = context.Locations.Where(x => x.LocationId.Equals(locationId));
+
+            if (location is null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
