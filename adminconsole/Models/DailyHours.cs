@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace adminconsole.Models
 {
-    public class DailyHours
+    public class DailyHours : IMaphawksDatabaseTable
     {
 
         /// <summary>
@@ -130,5 +130,40 @@ namespace adminconsole.Models
         /// Locations Table used by EF Core for Table Joins
         /// </summary>
         public virtual Locations Location { get; set; }
+
+        public bool AllPropertiesAreNull()
+        {
+            var result = HoursDtfriClose ??
+                         HoursDtfriOpen ??
+                         HoursDtmonClose ??
+                         HoursDtmonOpen ??
+                         HoursDtsatClose ??
+                         HoursDtsatOpen ??
+                         HoursDtsunClose ??
+                         HoursDtsunOpen ??
+                         HoursDtthuClose ??
+                         HoursDtthuOpen ??
+                         HoursDttueClose ??
+                         HoursDttueOpen ??
+                         HoursDtwedClose ??
+                         HoursDtwedOpen ??
+                         HoursFriClose ??
+                         HoursFriOpen ??
+                         HoursMonClose ??
+                         HoursMonOpen ??
+                         HoursSatClose ??
+                         HoursSatOpen ??
+                         HoursSunClose ??
+                         HoursSunOpen ??
+                         HoursThuClose ??
+                         HoursThuOpen ??
+                         HoursTueClose ??
+                         HoursTueOpen ??
+                         HoursWedClose ??
+                         HoursWedOpen ??
+                         null;
+
+            return result is null;
+        }
     }
 }
