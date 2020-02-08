@@ -15,7 +15,7 @@
         <input type="radio" name="tables" onclick=selectSpecialQualities() /> Special Qualities
     </div>
     <div class="display-table-option">
-        <input type="radio" name="tables" onclick=selectHoursPerDayOfTheWeek() /> Hours/Day of the Week
+        <input type="radio" name="tables" onclick=selectDailyHours() /> Hours/Day of the Week
     </div>
     <div class="display-table-option">
         <input type="radio" name="tables" onclick=showAll() /> Show All
@@ -366,7 +366,7 @@
     </table>
 </div>
 
-<div class="showHoursPerDayOfTheWeek">
+<div class="showDailyHours">
     <table class="table table-bordered"
            id="table"
            data-toggle="table"
@@ -387,88 +387,88 @@
                     @Html.DisplayNameFor(model => model.LocationType)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursMonOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursMonOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursMonClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursMonClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursTueOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursTueOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursTueClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursTueClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursWedOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursWedOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursWedClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursWedClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursThuOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursThuOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursThuClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursThuClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursFriOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursFriOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursFriClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursFriClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursSatOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursSatOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursSatClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursSatClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursSunOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursSunOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursSunClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursSunClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtmonOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtmonOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtmonClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtmonClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDttueOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDttueOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDttueClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDttueClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtwedOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtwedOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtwedClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtwedClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtthuOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtthuOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtthuClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtthuClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtfriOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtfriOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtfriClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtfriClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtsatOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsatOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtsatClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsatClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtsunOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsunOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtsunClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsunClose)
                 </th>
                 <th>
                     Controls
@@ -478,7 +478,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                if (item.HoursPerDayOfTheWeek != null)
+                if (item.DailyHours != null)
                 {
                     <tr>
                         <td>
@@ -496,88 +496,88 @@
                             @Html.DisplayFor(modelItem => item.LocationType)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursMonOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursMonOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursMonClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursMonClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursTueOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursTueOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursTueClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursTueClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursWedOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursWedOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursWedClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursWedClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursThuOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursThuOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursThuClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursThuClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursFriOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursFriOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursFriClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursFriClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursSatOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursSatOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursSatClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursSatClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursSunOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursSunOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursSunClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursSunClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtmonOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtmonOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtmonClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtmonClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDttueOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDttueOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDttueClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDttueClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtwedOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtwedOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtwedClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtwedClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtthuOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtthuOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtthuClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtthuClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtfriOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtfriOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtfriClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtfriClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtsatOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsatOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtsatClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsatClose)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtsunOpen)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsunOpen)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtsunClose)
+                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsunClose)
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
@@ -702,88 +702,88 @@
                     @Html.DisplayNameFor(model => model.SpecialQualities.AccessNotes)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursMonOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursMonOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursMonClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursMonClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursTueOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursTueOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursTueClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursTueClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursWedOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursWedOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursWedClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursWedClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursThuOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursThuOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursThuClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursThuClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursFriOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursFriOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursFriClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursFriClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursSatOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursSatOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursSatClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursSatClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursSunOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursSunOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursSunClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursSunClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtmonOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtmonOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtmonClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtmonClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDttueOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDttueOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDttueClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDttueClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtwedOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtwedOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtwedClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtwedClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtthuOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtthuOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtthuClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtthuClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtfriOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtfriOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtfriClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtfriClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtsatOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsatOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtsatClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsatClose)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtsunOpen)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsunOpen)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.HoursPerDayOfTheWeek.HoursDtsunClose)
+                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsunClose)
                 <th>
                     Controls
                 </th>
@@ -898,88 +898,88 @@
                         @Html.DisplayFor(modelItem => item.SpecialQualities.AccessNotes)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursMonOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursMonOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursMonClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursMonClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursTueOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursTueOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursTueClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursTueClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursWedOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursWedOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursWedClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursWedClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursThuOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursThuOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursThuClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursThuClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursFriOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursFriOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursFriClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursFriClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursSatOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursSatOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursSatClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursSatClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursSunOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursSunOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursSunClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursSunClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtmonOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtmonOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtmonClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtmonClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDttueOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDttueOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDttueClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDttueClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtwedOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtwedOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtwedClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtwedClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtthuOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtthuOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtthuClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtthuClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtfriOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtfriOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtfriClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtfriClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtsatOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsatOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtsatClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsatClose)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtsunOpen)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsunOpen)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.HoursPerDayOfTheWeek.HoursDtsunClose)
+                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsunClose)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |

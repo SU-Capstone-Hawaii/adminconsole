@@ -34,7 +34,7 @@ namespace adminconsoletest
             Assert.IsNull(result.Country);
             Assert.IsNull(result.County);
             Assert.IsNull(result.Hours);
-            Assert.IsNull(result.HoursPerDayOfTheWeek);
+            Assert.IsNull(result.DailyHours);
             Assert.IsNotNull(result.Latitude);
             Assert.IsNull(result.LocationId);
             Assert.IsNull(result.LocationType);
@@ -62,7 +62,7 @@ namespace adminconsoletest
             result.Country = "US";
             result.County = "King County";
             result.Hours = "24 HOURS ACCESS";
-            result.HoursPerDayOfTheWeek = new HoursPerDayOfTheWeek();
+            result.DailyHours = new DailyHours();
             result.Latitude = 13.3108M;
             result.LocationId = "11170401-4112-43c1-aa4e-f73370e1014a";
             result.LocationType = "A";

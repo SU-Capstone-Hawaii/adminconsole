@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace adminconsole.Models
 {
-    public class HoursPerDayOfTheWeek
+    public class DailyHours
     {
 
         /// <summary>

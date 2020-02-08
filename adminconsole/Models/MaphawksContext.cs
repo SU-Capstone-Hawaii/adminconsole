@@ -16,7 +16,7 @@ namespace adminconsole.Models
         }
 
         public virtual DbSet<Contacts> Contacts { get; set; }
-        public virtual DbSet<HoursPerDayOfTheWeek> HoursPerDayOfTheWeek { get; set; }
+        public virtual DbSet<DailyHours> DailyHours { get; set; }
         public virtual DbSet<Locations> Locations { get; set; }
         public virtual DbSet<SpecialQualities> SpecialQualities { get; set; }
 
@@ -52,7 +52,7 @@ namespace adminconsole.Models
                         .HasConstraintName("FK__Contacts__Locati__5FB337D6");
                 });
 
-                modelBuilder.Entity<HoursPerDayOfTheWeek>(entity =>
+                modelBuilder.Entity<DailyHours>(entity =>
                 {
                     entity.HasKey(e => e.LocationId)
                         .HasName("PK__HoursPer__E7FEA4774ED970AB");
@@ -189,8 +189,8 @@ namespace adminconsole.Models
                         .IsUnicode(false);
 
                     entity.HasOne(d => d.Location)
-                        .WithOne(p => p.HoursPerDayOfTheWeek)
-                        .HasForeignKey<HoursPerDayOfTheWeek>(d => d.LocationId)
+                        .WithOne(p => p.DailyHours)
+                        .HasForeignKey<DailyHours>(d => d.LocationId)
                         .HasConstraintName("FK__HoursPerD__Locat__656C112C");
                 });
 

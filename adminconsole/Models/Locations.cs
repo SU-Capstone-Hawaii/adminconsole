@@ -27,6 +27,7 @@ namespace adminconsole.Models
         /// Indicates if location record gets updated with every 
         /// batch execution
         /// </summary>
+        [Required]
         [DisplayName("Take Co-Op Data")]
         public bool? TakeCoopData { get; set; }
 
@@ -39,6 +40,7 @@ namespace adminconsole.Models
         /// be viewed by System Admins. Also allows System Admin
         /// to recover the location record.
         /// </summary>
+        [Required]
         public bool? SoftDelete { get; set; }
 
 
@@ -49,6 +51,7 @@ namespace adminconsole.Models
         /// <summary>
         /// Institution Name
         /// </summary>
+        [Required]
         [DisplayName("Institution")]
         public string Name { get; set; }
 
@@ -198,7 +201,7 @@ namespace adminconsole.Models
         #region Objects Used for Joins
         public virtual Contacts Contact { get; set; }
         public virtual SpecialQualities SpecialQualities { get; set; }
-        public virtual HoursPerDayOfTheWeek HoursPerDayOfTheWeek { get; set; }
+        public virtual DailyHours DailyHours { get; set; }
         #endregion
     }
 }

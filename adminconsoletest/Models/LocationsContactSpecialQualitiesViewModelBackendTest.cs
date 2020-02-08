@@ -757,29 +757,27 @@ namespace adminconsoletest
 
 
             var location = backend.GetLocation(id);
-            var locationAsViewModel = new AllTablesViewModel();
+            var locationAsViewModel = new AllTablesViewModel(location);
+
+
             Locations locationAfterEdit;
-            AllTablesViewModel locationAfterEditViewModel = new AllTablesViewModel();
-            bool successfullyCreatedPostEditViewModel;
+            AllTablesViewModel locationAfterEditViewModel;
 
 
-            var successfullyCreateViewModel = locationAsViewModel.InstatiateViewModelPropertiesWithOneLocation(location);
 
 
             // Act
             locationAsViewModel.City = "MY EDITED FIELD";
             bool result = await backend.EditPostAsync(locationAsViewModel);
             locationAfterEdit = backend.GetLocation(id);
-            successfullyCreatedPostEditViewModel = locationAfterEditViewModel.InstatiateViewModelPropertiesWithOneLocation(locationAfterEdit);
+            locationAfterEditViewModel = new AllTablesViewModel(locationAfterEdit);
             
 
 
 
 
             // Assert
-            Assert.IsTrue(successfullyCreateViewModel);
             Assert.IsTrue(result);
-            Assert.IsTrue(successfullyCreatedPostEditViewModel);
             Assert.AreEqual(locationAsViewModel.City, locationAfterEdit.City);
         }
 

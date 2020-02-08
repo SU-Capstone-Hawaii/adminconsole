@@ -244,8 +244,5 @@ namespace adminconsole.Models
         #endregion
 
         public List<Locations> locations { get; set;  }
-
-        public DataSourceEnum dataSource { get; set; }
-
     }
 }

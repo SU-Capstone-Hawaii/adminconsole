@@ -82,7 +82,7 @@ namespace adminconsole.Backend
                 locations_list = await context.Locations // Select * join all tables
                     .Include(x => x.Contact)
                     .Include(x => x.SpecialQualities)
-                    .Include(x => x.HoursPerDayOfTheWeek)
+                    .Include(x => x.DailyHours)
                     .Where(x => x.SoftDelete == deleted)
                     .ToListAsync()
                     .ConfigureAwait(false);
@@ -99,7 +99,7 @@ namespace adminconsole.Backend
                         var newLocation = AllTablesViewModel.GetNewLocation(location);
                         newLocation.Contact = AllTablesViewModel.GetNewContact(location);
                         newLocation.SpecialQualities = AllTablesViewModel.GetNewSpecialQualities(location);
-                        newLocation.HoursPerDayOfTheWeek = AllTablesViewModel.GetNewHoursPerDayOfTheWeek(location);
+                        newLocation.DailyHours = AllTablesViewModel.GetNewDailyHours(location);
                         
                         
                         locations_list.Add(newLocation);
@@ -136,7 +136,7 @@ namespace adminconsole.Backend
         {
             if (dataSourceEnum is DataSourceEnum.LIVE)
             {
-                var resultLocation = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.HoursPerDayOfTheWeek).Where(x => x.LocationId == id).FirstAsync().ConfigureAwait(false);
+                var resultLocation = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.DailyHours).Where(x => x.LocationId == id).FirstAsync().ConfigureAwait(false);
                 if (resultLocation == null)
                 {
                     return null;
@@ -173,7 +173,7 @@ namespace adminconsole.Backend
 
         /// <summary>
         /// 
-        /// Creates new Locations, Contacts, SpecialQualities, HoursPerDayOfTheWeek.
+        /// Creates new Locations, Contacts, SpecialQualities, DailyHours.
         /// 
         /// </summary>
         /// 
@@ -207,7 +207,7 @@ namespace adminconsole.Backend
                 Locations location = AllTablesViewModel.GetNewLocation(newLocation);
                 Contacts contact = AllTablesViewModel.GetNewContact(newLocation);
                 SpecialQualities specialQuality = AllTablesViewModel.GetNewSpecialQualities(newLocation);
-                HoursPerDayOfTheWeek hoursPerDayOfTheWeek = AllTablesViewModel.GetNewHoursPerDayOfTheWeek(newLocation);
+                DailyHours DailyHours = AllTablesViewModel.GetNewDailyHours(newLocation);
 
 
 
@@ -284,7 +284,7 @@ namespace adminconsole.Backend
                 {
                     location.Contact = AllTablesViewModel.GetNewContact(locationViewModel);
                     location.SpecialQualities = AllTablesViewModel.GetNewSpecialQualities(locationViewModel);
-                    location.HoursPerDayOfTheWeek = AllTablesViewModel.GetNewHoursPerDayOfTheWeek(locationViewModel);
+                    location.DailyHours = AllTablesViewModel.GetNewDailyHours(locationViewModel);
                 }
 
             }
@@ -325,25 +325,23 @@ namespace adminconsole.Backend
             }
 
 
-            AllTablesViewModel location;
+            AllTablesViewModel locationViewModel = null;
             
 
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
             {
-                location = new AllTablesViewModel();
-
-
-                location.locations = await context.Locations // Get Location from Database 
-                .Include(x => x.Contact)
-                .Include(x => x.SpecialQualities)
-                .Include(x => x.HoursPerDayOfTheWeek)
-                .Where(x => x.LocationId == id)
-                .ToListAsync()
-                .ConfigureAwait(false);
+            
+                var location = await context.Locations // Get Location from Database 
+                                            .Include(x => x.Contact)
+                                            .Include(x => x.SpecialQualities)
+                                            .Include(x => x.DailyHours)
+                                            .Where(x => x.LocationId == id)
+                                            .FirstAsync()
+                                            .ConfigureAwait(false);
 
                 if (location != null)
                 {
-                    location.InstatiateViewModelPropertiesWithOneLocation();
+                    locationViewModel = new AllTablesViewModel(location);
                 }
             } else // Use Mock
             {
@@ -352,15 +350,19 @@ namespace adminconsole.Backend
                 whereList.Add(idPair);
 
 
-                location = dataMock.GetOneLocation(whereList);
+                locationViewModel = dataMock.GetOneLocation(whereList);
             }
 
-            return location;
+            return locationViewModel;
         }
 
 
 
 
+
+        /*CREATE NEW SHARED METHOD FOR DATABASE INTERACTION 
+            ADD, UPDATE
+            DELETE (WHEN UPDATING A TABLE TO ALL NULL VALUES )*/
 
         /// <summary>
         /// 
@@ -385,7 +387,11 @@ namespace adminconsole.Backend
                 return false;
             }
 
-            if (!CheckLocation(newLocation.LocationId))  // Location does not exist
+            
+            var response = CheckLocation(newLocation.LocationId);
+
+
+            if (response is null)  // Location does not exist
             {
                 return false;
             }
@@ -394,7 +400,7 @@ namespace adminconsole.Backend
             Locations location = AllTablesViewModel.GetNewLocation(newLocation);
             Contacts contact = AllTablesViewModel.GetNewContact(newLocation);
             SpecialQualities specialQualities = AllTablesViewModel.GetNewSpecialQualities(newLocation);
-            HoursPerDayOfTheWeek hoursPerDayOfTheWeek = AllTablesViewModel.GetNewHoursPerDayOfTheWeek(newLocation);
+            DailyHours DailyHours = AllTablesViewModel.GetNewDailyHours(newLocation);
 
             bool result; // Value to be returned
 
@@ -403,11 +409,50 @@ namespace adminconsole.Backend
                 try
                 {
                     context.Locations.Update(location);
-                    context.Contacts.Update(contact);
-                    context.SpecialQualities.Update(specialQualities);
-                    if (hoursPerDayOfTheWeek != null)
+
+
+                    
+                    if (response.Contact is null)
                     {
-                        context.HoursPerDayOfTheWeek.Update(hoursPerDayOfTheWeek);
+                        context.Add(contact); // If Contacts record does __NOT__ exist
+                    } 
+                    else
+                    {
+                        context.Contacts.Update(contact);
+                    }
+
+
+
+                    
+                    if (response.SpecialQualities is null) 
+                    {
+                        context.Add(specialQualities); // If SpecialQualities record does __NOT__ exist
+                    }
+                    else
+                    {
+                        context.SpecialQualities.Update(specialQualities);
+                    }
+
+
+
+                    
+                    if (response.DailyHours is null &&
+                        !(DailyHours is null))
+                    {
+
+                        context.Add(DailyHours); // If Hours Per Day Of The Week record does __NOT__ exist
+                                                           // AND we need to insert a record
+                    }
+                    else
+                    {
+                        context.DailyHours.Update(DailyHours);
+                    }
+
+
+                    context.SpecialQualities.Update(specialQualities);
+                    if (DailyHours != null)
+                    {
+                        context.DailyHours.Update(DailyHours);
                     }
                     result = Convert.ToBoolean(await context.SaveChangesAsync().ConfigureAwait(false));
                 }
@@ -417,7 +462,7 @@ namespace adminconsole.Backend
                 }
             } else // Use mock data
             {                
-                result = dataMock.EditPostAsync(location, contact, specialQualities, hoursPerDayOfTheWeek);
+                result = dataMock.EditPostAsync(location, contact, specialQualities, DailyHours);
             }
 
 
@@ -651,16 +696,21 @@ namespace adminconsole.Backend
         ///     False: If record does not exist
         /// 
         /// </returns>
-        private bool CheckLocation(string locationId)
+        private  Locations? CheckLocation(string locationId)
         {
-            var location = context.Locations.Where(x => x.LocationId.Equals(locationId));
+            var location = context.Locations
+                                        .Include(x => x.Contact)
+                                        .Include(x => x.SpecialQualities)
+                                        .Include(x => x.DailyHours)
+                                        .First(x => x.LocationId.Equals(locationId));
+
 
             if (location is null)
             {
-                return false;
+                return null;
             }
 
-            return true;
+            return location;
         }
     }
 }

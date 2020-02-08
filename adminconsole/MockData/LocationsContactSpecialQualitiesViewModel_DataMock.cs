@@ -856,7 +856,7 @@ namespace adminconsole.Models
 
 
 
-        public bool EditPostAsync(Locations location, Contacts contact, SpecialQualities specialQuality, HoursPerDayOfTheWeek hoursPerDayOfTheWeek)
+        public bool EditPostAsync(Locations location, Contacts contact, SpecialQualities specialQuality, DailyHours DailyHours)
         {
             if (location == null) // Cannot have a null Locations object
             {
@@ -867,13 +867,12 @@ namespace adminconsole.Models
             // Assign foreign key tables to Locations object
             location.Contact = contact;
             location.SpecialQualities = specialQuality;
-            if (hoursPerDayOfTheWeek != null)
+            if (DailyHours != null)
             {
-                location.HoursPerDayOfTheWeek = hoursPerDayOfTheWeek;
+                location.DailyHours = DailyHours;
             }
 
-            var viewModel = new AllTablesViewModel();
-            viewModel.InstatiateViewModelPropertiesWithOneLocation(location); // Combine tables into ViewModel
+            var viewModel = new AllTablesViewModel(location); // Combine tables into ViewModel
 
 
             // Find Locations Object in viewModelList

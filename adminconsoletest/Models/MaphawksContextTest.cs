@@ -28,7 +28,7 @@ namespace adminconsoletest
 
             // Assert
             Assert.IsNotNull(result.Contacts);
-            Assert.IsNotNull(result.HoursPerDayOfTheWeek);
+            Assert.IsNotNull(result.DailyHours);
             Assert.IsNotNull(result.Locations);
             Assert.IsNotNull(result.SpecialQualities);
         }

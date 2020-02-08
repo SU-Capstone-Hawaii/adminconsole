@@ -11,7 +11,7 @@ function selectLocations() {
     $(".showLocations").show();
     $(".showContacts").hide();
     $(".showSpecialQualities").hide();
-    $(".showHoursPerDayOfTheWeek").hide();
+    $(".showDailyHours").hide();
     $(".showAll").hide();
 }
 
@@ -19,7 +19,7 @@ function selectContacts() {
     $(".showLocations").hide();
     $(".showContacts").show();
     $(".showSpecialQualities").hide();
-    $(".showHoursPerDayOfTheWeek").hide();
+    $(".showDailyHours").hide();
     $(".showAll").hide();
 }
 
@@ -27,15 +27,15 @@ function selectSpecialQualities() {
     $(".showLocations").hide();
     $(".showContacts").hide();
     $(".showSpecialQualities").show();
-    $(".showHoursPerDayOfTheWeek").hide();
+    $(".showDailyHours").hide();
     $(".showAll").hide();
 }
 
-function selectHoursPerDayOfTheWeek() {
+function selectDailyHours() {
     $(".showLocations").hide();
     $(".showContacts").hide();
     $(".showSpecialQualities").hide();
-    $(".showHoursPerDayOfTheWeek").show();
+    $(".showDailyHours").show();
     $(".showAll").hide();
 }
 
@@ -43,6 +43,6 @@ function showAll() {
     $(".showLocations").hide();
     $(".showContacts").hide();
     $(".showSpecialQualities").hide();
-    $(".showHoursPerDayOfTheWeek").hide();
+    $(".showDailyHours").hide();
     $(".showAll").show();
 }

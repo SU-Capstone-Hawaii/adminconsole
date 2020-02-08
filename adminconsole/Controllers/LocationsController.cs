@@ -22,7 +22,7 @@ namespace adminconsole.Controllers
         /// <summary>
         /// GET:
         /// 
-        /// Locations objects with joins on Contacts, SpecialQualities, and HoursPerDayOfTheWeek.
+        /// Locations objects with joins on Contacts, SpecialQualities, and DailyHours.
         /// </summary>
         /// 
         /// 
@@ -43,7 +43,7 @@ namespace adminconsole.Controllers
         /// <summary>
         /// GET: Locations/Details/5
         /// 
-        /// Singular Locations object joined with Contacts, SpecialQualities, and HoursPerDayOfTheWeek.
+        /// Singular Locations object joined with Contacts, SpecialQualities, and DailyHours.
         /// </summary>
         /// 
         ///
@@ -452,7 +452,7 @@ namespace adminconsole.Controllers
         /// <summary>
         /// GET:
         /// 
-        /// Locations objects with joins on Contacts, SpecialQualities, and HoursPerDayOfTheWeek.
+        /// Locations objects with joins on Contacts, SpecialQualities, and DailyHours.
         /// </summary>
         /// 
         /// 

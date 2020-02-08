@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Reflection;
 
 namespace adminconsole.Models
 {
@@ -15,7 +15,6 @@ namespace adminconsole.Models
         public AllTablesViewModel()
         {
             locations = new List<Locations>();
-            dataSource = DataSourceEnum.LIVE;
         }
 
 
@@ -26,13 +25,115 @@ namespace adminconsole.Models
         /// <summary>
         /// Parameterized constructor
         /// 
-        /// Allows app to use mock data class when unit testing
+        /// 
+        /// Allows app to create a ViewModel object out of a Locations object
+        /// Allows app to use mock data class when unit testing 
         /// </summary>
         /// <param name="dataSource"></param>
-        public AllTablesViewModel(DataSourceEnum dataSource=DataSourceEnum.LIVE)
+        public AllTablesViewModel(Locations location = null)
         {
             locations = new List<Locations>();
-            this.dataSource = dataSource;
+
+            if (location is null)
+            {
+                return;
+            }
+
+
+
+            //Begin translating location properties to ViewModel
+
+
+
+            // Locations Properties
+            Address = location.Address;
+            City = location.City;
+            CoopLocationId = location.CoopLocationId;
+            Country = location.Country;
+            County = location.County;
+            Hours = location.Hours;
+            Latitude = location.Latitude;
+            LocationId = location.LocationId;
+            LocationType = ConvertStringToLocationTypeEnum(location.LocationType);
+            Longitude = location.Longitude;
+            Name = location.Name;
+            PostalCode = location.PostalCode;
+            RetailOutlet = location.RetailOutlet;
+            SoftDelete = ConvertBoolToBooleanEnum(location.SoftDelete);
+            State = ConvertStringToStateEnum(location.State);
+            TakeCoopData = ConvertBoolToBooleanEnum(location.TakeCoopData);
+
+
+
+            // Contacts Properties
+            if (!(location.Contact is null))
+            {
+                Fax = location.Contact.Fax;
+                Phone = location.Contact.Phone;
+                WebAddress = location.Contact.WebAddress;
+            }
+
+
+
+
+            // SpecialQualities Properties 
+            if (!(location.SpecialQualities is null))
+            {
+                AcceptCash = ConvertStringToBooleanEnum(location.SpecialQualities.AcceptCash);
+                AcceptDeposit = ConvertStringToBooleanEnum(location.SpecialQualities.AcceptDeposit);
+                Access = ConvertStringToBooleanEnum(location.SpecialQualities.Access);
+                AccessNotes = location.SpecialQualities.AccessNotes;
+                Cashless = ConvertStringToBooleanEnum(location.SpecialQualities.Cashless);
+                DriveThruOnly = ConvertStringToBooleanEnum(location.SpecialQualities.DriveThruOnly);
+                EnvelopeRequired = ConvertStringToBooleanEnum(location.SpecialQualities.EnvelopeRequired);
+                HandicapAccess = ConvertStringToBooleanEnum(location.SpecialQualities.HandicapAccess);
+                InstallationType = location.SpecialQualities.InstallationType;
+                LimitedTransactions = ConvertStringToBooleanEnum(location.SpecialQualities.LimitedTransactions);
+                MilitaryIdRequired = ConvertStringToBooleanEnum(location.SpecialQualities.MilitaryIdRequired);
+                OnMilitaryBase = ConvertStringToBooleanEnum(location.SpecialQualities.OnMilitaryBase);
+                OnPremise = ConvertStringToBooleanEnum(location.SpecialQualities.OnPremise);
+                RestrictedAccess = ConvertStringToBooleanEnum(location.SpecialQualities.RestrictedAccess);
+                SelfServiceDevice = ConvertStringToBooleanEnum(location.SpecialQualities.SelfServiceDevice);
+                SelfServiceOnly = ConvertStringToBooleanEnum(location.SpecialQualities.SelfServiceOnly);
+                Surcharge = ConvertStringToBooleanEnum(location.SpecialQualities.Surcharge);
+            }
+
+
+
+
+
+            // DailyHours Properties
+            if (location.DailyHours != null)
+            {
+                HoursDtfriClose = location.DailyHours.HoursDtfriClose;
+                HoursDtfriOpen = location.DailyHours.HoursDtfriOpen;
+                HoursDtmonClose = location.DailyHours.HoursDtmonClose;
+                HoursDtmonOpen = location.DailyHours.HoursDtmonOpen;
+                HoursDtsatClose = location.DailyHours.HoursDtsatClose;
+                HoursDtsatOpen = location.DailyHours.HoursDtsatOpen;
+                HoursDtsunClose = location.DailyHours.HoursDtsunClose;
+                HoursDtsunOpen = location.DailyHours.HoursDtsunOpen;
+                HoursDtthuClose = location.DailyHours.HoursDtthuClose;
+                HoursDtthuOpen = location.DailyHours.HoursDtthuOpen;
+                HoursDttueClose = location.DailyHours.HoursDttueClose;
+                HoursDttueOpen = location.DailyHours.HoursDttueOpen;
+                HoursDtwedClose = location.DailyHours.HoursDtwedClose;
+                HoursDtwedOpen = location.DailyHours.HoursDtwedOpen;
+                HoursFriClose = location.DailyHours.HoursFriClose;
+                HoursFriOpen = location.DailyHours.HoursFriOpen;
+                HoursMonClose = location.DailyHours.HoursMonClose;
+                HoursMonOpen = location.DailyHours.HoursMonOpen;
+                HoursSatClose = location.DailyHours.HoursSatClose;
+                HoursSatOpen = location.DailyHours.HoursSatOpen;
+                HoursSunClose = location.DailyHours.HoursSunClose;
+                HoursSunOpen = location.DailyHours.HoursSunOpen;
+                HoursThuClose = location.DailyHours.HoursThuClose;
+                HoursThuOpen = location.DailyHours.HoursThuOpen;
+                HoursTueClose = location.DailyHours.HoursTueClose;
+                HoursTueOpen = location.DailyHours.HoursTueOpen;
+                HoursWedClose = location.DailyHours.HoursWedClose;
+                HoursWedOpen = location.DailyHours.HoursWedOpen;
+            }
         }
 
 
@@ -164,15 +265,15 @@ namespace adminconsole.Models
 
 
         /// <summary>
-        /// Populates a HoursPerDayOfTheWeek Object from a View Model Object's properties.
+        /// Populates a DailyHours Object from a View Model Object's properties.
         /// </summary>
         /// 
         /// 
         /// <param name="newLocation"> A View Model Object from which to extract from </param>
         /// 
         /// 
-        /// <returns> A HoursPerDayOfTheWeek Object or null if all properties are null </returns>
-        public static HoursPerDayOfTheWeek GetNewHoursPerDayOfTheWeek(AllTablesViewModel newLocation)
+        /// <returns> A DailyHours Object or null if all properties are null </returns>
+        public static DailyHours GetNewDailyHours(AllTablesViewModel newLocation)
         {
             if (newLocation is null)
             {
@@ -213,37 +314,37 @@ namespace adminconsole.Models
             }
 
 
-            HoursPerDayOfTheWeek hoursPerDayOfTheWeek = new HoursPerDayOfTheWeek();
-            hoursPerDayOfTheWeek.LocationId = newLocation.LocationId;
-            hoursPerDayOfTheWeek.HoursDtfriClose = newLocation.HoursDtfriClose;
-            hoursPerDayOfTheWeek.HoursDtfriOpen = newLocation.HoursDtfriOpen;
-            hoursPerDayOfTheWeek.HoursDtmonClose = newLocation.HoursDtmonClose;
-            hoursPerDayOfTheWeek.HoursDtmonOpen = newLocation.HoursDtmonOpen;
-            hoursPerDayOfTheWeek.HoursDtsatClose = newLocation.HoursDtsatClose;
-            hoursPerDayOfTheWeek.HoursDtsatOpen = newLocation.HoursDtsatOpen;
-            hoursPerDayOfTheWeek.HoursDtsunClose = newLocation.HoursDtsunClose;
-            hoursPerDayOfTheWeek.HoursDtsunOpen = newLocation.HoursDtsunOpen;
-            hoursPerDayOfTheWeek.HoursDtthuClose = newLocation.HoursDtthuClose;
-            hoursPerDayOfTheWeek.HoursDtthuOpen = newLocation.HoursDtthuOpen;
-            hoursPerDayOfTheWeek.HoursDttueClose = newLocation.HoursDttueClose;
-            hoursPerDayOfTheWeek.HoursDttueOpen =newLocation.HoursDttueOpen;
-            hoursPerDayOfTheWeek.HoursDtwedClose = newLocation.HoursDtwedClose;
-            hoursPerDayOfTheWeek.HoursDtwedOpen = newLocation.HoursDtwedOpen;
-            hoursPerDayOfTheWeek.HoursFriClose = newLocation.HoursFriClose;
-            hoursPerDayOfTheWeek.HoursFriOpen = newLocation.HoursFriOpen;
-            hoursPerDayOfTheWeek.HoursMonClose = newLocation.HoursMonClose;
-            hoursPerDayOfTheWeek.HoursMonOpen = newLocation.HoursMonOpen;
-            hoursPerDayOfTheWeek.HoursSatClose = newLocation.HoursSatClose;
-            hoursPerDayOfTheWeek.HoursSatOpen = newLocation.HoursSatOpen;
-            hoursPerDayOfTheWeek.HoursSunClose = newLocation.HoursSunClose;
-            hoursPerDayOfTheWeek.HoursSunOpen = newLocation.HoursSunOpen;
-            hoursPerDayOfTheWeek.HoursThuClose = newLocation.HoursThuClose;
-            hoursPerDayOfTheWeek.HoursThuOpen = newLocation.HoursThuOpen;
-            hoursPerDayOfTheWeek.HoursTueClose = newLocation.HoursTueClose;
-            hoursPerDayOfTheWeek.HoursTueOpen = newLocation.HoursTueOpen;
-            hoursPerDayOfTheWeek.HoursWedClose = newLocation.HoursWedClose;
-            hoursPerDayOfTheWeek.HoursWedOpen = newLocation.HoursWedOpen;
-            return hoursPerDayOfTheWeek;
+            DailyHours DailyHours = new DailyHours();
+            DailyHours.LocationId = newLocation.LocationId;
+            DailyHours.HoursDtfriClose = newLocation.HoursDtfriClose;
+            DailyHours.HoursDtfriOpen = newLocation.HoursDtfriOpen;
+            DailyHours.HoursDtmonClose = newLocation.HoursDtmonClose;
+            DailyHours.HoursDtmonOpen = newLocation.HoursDtmonOpen;
+            DailyHours.HoursDtsatClose = newLocation.HoursDtsatClose;
+            DailyHours.HoursDtsatOpen = newLocation.HoursDtsatOpen;
+            DailyHours.HoursDtsunClose = newLocation.HoursDtsunClose;
+            DailyHours.HoursDtsunOpen = newLocation.HoursDtsunOpen;
+            DailyHours.HoursDtthuClose = newLocation.HoursDtthuClose;
+            DailyHours.HoursDtthuOpen = newLocation.HoursDtthuOpen;
+            DailyHours.HoursDttueClose = newLocation.HoursDttueClose;
+            DailyHours.HoursDttueOpen =newLocation.HoursDttueOpen;
+            DailyHours.HoursDtwedClose = newLocation.HoursDtwedClose;
+            DailyHours.HoursDtwedOpen = newLocation.HoursDtwedOpen;
+            DailyHours.HoursFriClose = newLocation.HoursFriClose;
+            DailyHours.HoursFriOpen = newLocation.HoursFriOpen;
+            DailyHours.HoursMonClose = newLocation.HoursMonClose;
+            DailyHours.HoursMonOpen = newLocation.HoursMonOpen;
+            DailyHours.HoursSatClose = newLocation.HoursSatClose;
+            DailyHours.HoursSatOpen = newLocation.HoursSatOpen;
+            DailyHours.HoursSunClose = newLocation.HoursSunClose;
+            DailyHours.HoursSunOpen = newLocation.HoursSunOpen;
+            DailyHours.HoursThuClose = newLocation.HoursThuClose;
+            DailyHours.HoursThuOpen = newLocation.HoursThuOpen;
+            DailyHours.HoursTueClose = newLocation.HoursTueClose;
+            DailyHours.HoursTueOpen = newLocation.HoursTueOpen;
+            DailyHours.HoursWedClose = newLocation.HoursWedClose;
+            DailyHours.HoursWedOpen = newLocation.HoursWedOpen;
+            return DailyHours;
         }
 
 
@@ -758,36 +859,36 @@ namespace adminconsole.Models
             Fax = referenceLocation.Contact.Fax;
             HandicapAccess = ConvertStringToBooleanEnum(referenceLocation.SpecialQualities.HandicapAccess);
             Hours = referenceLocation.Hours;
-            if (referenceLocation.HoursPerDayOfTheWeek != null) // if there is an entry in the HoursPerDayOfTheWeek table for this record
+            if (referenceLocation.DailyHours != null) // if there is an entry in the DailyHours table for this record
             {
-                HoursDtfriClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtfriClose;
-                HoursDtfriOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtfriOpen;
-                HoursDtmonClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtmonClose;
-                HoursDtmonOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtmonOpen;
-                HoursDtsatClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtsatClose;
-                HoursDtsatOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtsatOpen;
-                HoursDtsunClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtsunClose;
-                HoursDtsunOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtsunOpen;
-                HoursDtthuClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtthuClose;
-                HoursDtthuOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtthuOpen;
-                HoursDttueClose = referenceLocation.HoursPerDayOfTheWeek.HoursDttueClose;
-                HoursDttueOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDttueOpen;
-                HoursDtwedClose = referenceLocation.HoursPerDayOfTheWeek.HoursDtwedClose;
-                HoursDtwedOpen = referenceLocation.HoursPerDayOfTheWeek.HoursDtwedOpen;
-                HoursFriClose = referenceLocation.HoursPerDayOfTheWeek.HoursFriClose;
-                HoursFriOpen = referenceLocation.HoursPerDayOfTheWeek.HoursFriOpen;
-                HoursMonClose = referenceLocation.HoursPerDayOfTheWeek.HoursMonClose;
-                HoursMonOpen = referenceLocation.HoursPerDayOfTheWeek.HoursMonOpen;
-                HoursSatClose = referenceLocation.HoursPerDayOfTheWeek.HoursSatClose;
-                HoursSatOpen = referenceLocation.HoursPerDayOfTheWeek.HoursSatOpen;
-                HoursSunClose = referenceLocation.HoursPerDayOfTheWeek.HoursSunClose;
-                HoursSunOpen = referenceLocation.HoursPerDayOfTheWeek.HoursSunOpen;
-                HoursThuClose = referenceLocation.HoursPerDayOfTheWeek.HoursThuClose;
-                HoursThuOpen = referenceLocation.HoursPerDayOfTheWeek.HoursThuOpen;
-                HoursTueClose = referenceLocation.HoursPerDayOfTheWeek.HoursTueClose;
-                HoursTueOpen = referenceLocation.HoursPerDayOfTheWeek.HoursTueOpen;
-                HoursWedClose = referenceLocation.HoursPerDayOfTheWeek.HoursWedClose;
-                HoursWedOpen = referenceLocation.HoursPerDayOfTheWeek.HoursWedOpen;
+                HoursDtfriClose = referenceLocation.DailyHours.HoursDtfriClose;
+                HoursDtfriOpen = referenceLocation.DailyHours.HoursDtfriOpen;
+                HoursDtmonClose = referenceLocation.DailyHours.HoursDtmonClose;
+                HoursDtmonOpen = referenceLocation.DailyHours.HoursDtmonOpen;
+                HoursDtsatClose = referenceLocation.DailyHours.HoursDtsatClose;
+                HoursDtsatOpen = referenceLocation.DailyHours.HoursDtsatOpen;
+                HoursDtsunClose = referenceLocation.DailyHours.HoursDtsunClose;
+                HoursDtsunOpen = referenceLocation.DailyHours.HoursDtsunOpen;
+                HoursDtthuClose = referenceLocation.DailyHours.HoursDtthuClose;
+                HoursDtthuOpen = referenceLocation.DailyHours.HoursDtthuOpen;
+                HoursDttueClose = referenceLocation.DailyHours.HoursDttueClose;
+                HoursDttueOpen = referenceLocation.DailyHours.HoursDttueOpen;
+                HoursDtwedClose = referenceLocation.DailyHours.HoursDtwedClose;
+                HoursDtwedOpen = referenceLocation.DailyHours.HoursDtwedOpen;
+                HoursFriClose = referenceLocation.DailyHours.HoursFriClose;
+                HoursFriOpen = referenceLocation.DailyHours.HoursFriOpen;
+                HoursMonClose = referenceLocation.DailyHours.HoursMonClose;
+                HoursMonOpen = referenceLocation.DailyHours.HoursMonOpen;
+                HoursSatClose = referenceLocation.DailyHours.HoursSatClose;
+                HoursSatOpen = referenceLocation.DailyHours.HoursSatOpen;
+                HoursSunClose = referenceLocation.DailyHours.HoursSunClose;
+                HoursSunOpen = referenceLocation.DailyHours.HoursSunOpen;
+                HoursThuClose = referenceLocation.DailyHours.HoursThuClose;
+                HoursThuOpen = referenceLocation.DailyHours.HoursThuOpen;
+                HoursTueClose = referenceLocation.DailyHours.HoursTueClose;
+                HoursTueOpen = referenceLocation.DailyHours.HoursTueOpen;
+                HoursWedClose = referenceLocation.DailyHours.HoursWedClose;
+                HoursWedOpen = referenceLocation.DailyHours.HoursWedOpen;
             }
             InstallationType = referenceLocation.SpecialQualities.InstallationType;
             Latitude = referenceLocation.Latitude;
@@ -811,6 +912,49 @@ namespace adminconsole.Models
             TakeCoopData = ConvertBoolToBooleanEnum(referenceLocation.TakeCoopData);
             WebAddress = referenceLocation.Contact.WebAddress;
             return true;
+        }
+
+
+
+
+
+        private static AllTablesViewModel? CreateTableObjectIfNotAllNulls(Locations referenceLocation, Type tableTypeReference)
+        {
+            // Reference types
+            Contacts contact = new Contacts();
+            SpecialQualities specialQualities = new SpecialQualities();
+            DailyHours DailyHours = new DailyHours();
+
+
+            bool allNulls = false;
+
+
+            Type locationsType = referenceLocation.GetType();
+
+            var properties = locationsType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            foreach (var prop in properties)
+            {
+                var value = prop.GetValue(referenceLocation, null);
+
+                if (value is null) //Check next property if null field in Locations
+                {
+
+                    continue;
+
+                }
+
+                var valueString = value.ToString();
+                if (string.IsNullOrEmpty(valueString) || string.IsNullOrWhiteSpace(valueString)) // Check next property if null field in Locations
+                {
+
+                    continue;
+
+                }
+            }
+
+            return null;
+
         }
     }
 }
