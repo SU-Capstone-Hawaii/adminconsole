@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace adminconsole.Models
 {
-    public partial class SpecialQualities
+    public partial class SpecialQualities : IMaphawksDatabaseTable
     {
         [Required]
         #nullable disable
@@ -64,5 +62,38 @@ namespace adminconsole.Models
         
         // Location Object. Used for joins.
         public virtual Locations Location { get; set; }
+
+
+        /// <summary>
+        /// Determines if all the properties of  a SpecialQualities
+        /// record is null.
+        /// </summary>
+        /// 
+        /// 
+        /// <returns> True if all properties are null, otherwise False </returns>
+        public bool AllPropertiesAreNull()
+        {
+            var result = AcceptCash ??
+                         AcceptDeposit ??
+                         Access ??
+                         AccessNotes ??
+                         Cashless ??
+                         DriveThruOnly ??
+                         EnvelopeRequired ??
+                         InstallationType ??
+                         LimitedTransactions ??
+                         MilitaryIdRequired ??
+                         OnMilitaryBase ??
+                         OnPremise ??
+                         RestrictedAccess ??
+                         SelfServiceDevice ??
+                         SelfServiceOnly ??
+                         Surcharge ?? null;
+
+
+
+            return result is null;
+            
+        }
     }
 }
