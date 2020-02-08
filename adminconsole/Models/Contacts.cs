@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace adminconsole.Models
 {
-    public partial class Contacts
+    public partial class Contacts : IMaphawksDatabaseTable
     {
         [Required]
         #nullable disable
@@ -23,5 +21,25 @@ namespace adminconsole.Models
 
         // Location object used for joins
         public virtual Locations Location { get; set; }
+
+
+
+
+
+        /// <summary>
+        /// Determines if all the properties of  a Contacts
+        /// record is null.
+        /// </summary>
+        /// 
+        /// 
+        /// <returns> True if all properties are null, otherwise False </returns>
+        public bool AllPropertiesAreNull()
+        {
+            var result = Fax ??
+                         Phone ??
+                         WebAddress ?? null;
+
+            return result is null;
+        }
     }
 }
