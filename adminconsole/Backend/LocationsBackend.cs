@@ -27,7 +27,7 @@ namespace adminconsole.Backend
         public LocationsBackend(DataSourceEnum dataSourceEnum = DataSourceEnum.LIVE)
         {
             this.dataSourceEnum = dataSourceEnum;
-            
+
             if (dataSourceEnum is DataSourceEnum.TEST)
             {
                 dataMock = new AllTablesViewModelDataMock();
@@ -75,7 +75,7 @@ namespace adminconsole.Backend
         public async Task<List<Locations>> IndexAsync(bool deleted = false)
         {
             var locations_list = new List<Locations>();
-            
+
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use database
             {
 
@@ -94,14 +94,14 @@ namespace adminconsole.Backend
 
                 if (viewModelList != null) // If there are records
                 {
-                    foreach(var location in viewModelList) // Convert ViewModels into Locations
+                    foreach (var location in viewModelList) // Convert ViewModels into Locations
                     {
                         var newLocation = AllTablesViewModel.GetNewLocation(location);
                         newLocation.Contact = AllTablesViewModel.GetNewContact(location);
                         newLocation.SpecialQualities = AllTablesViewModel.GetNewSpecialQualities(location);
                         newLocation.DailyHours = AllTablesViewModel.GetNewDailyHours(location);
-                        
-                        
+
+
                         locations_list.Add(newLocation);
 
                     }
@@ -150,7 +150,7 @@ namespace adminconsole.Backend
                 List<KeyValuePair<string, string>> keyValueList = new List<KeyValuePair<string, string>>();
                 KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
 
-                
+
                 keyValueList.Add(idPair);
 
 
@@ -326,11 +326,11 @@ namespace adminconsole.Backend
 
 
             AllTablesViewModel locationViewModel = null;
-            
+
 
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
             {
-            
+
                 var location = await context.Locations // Get Location from Database 
                                             .Include(x => x.Contact)
                                             .Include(x => x.SpecialQualities)
@@ -387,8 +387,8 @@ namespace adminconsole.Backend
                 return false;
             }
 
-            
-            var response = CheckLocation(newLocation.LocationId);
+
+            Locations response = null;
 
 
             if (response is null)  // Location does not exist
@@ -411,11 +411,11 @@ namespace adminconsole.Backend
                     context.Locations.Update(location);
 
 
-                    
+
                     if (response.Contact is null)
                     {
                         context.Add(contact); // If Contacts record does __NOT__ exist
-                    } 
+                    }
                     else
                     {
                         context.Contacts.Update(contact);
@@ -423,8 +423,8 @@ namespace adminconsole.Backend
 
 
 
-                    
-                    if (response.SpecialQualities is null) 
+
+                    if (response.SpecialQualities is null)
                     {
                         context.Add(specialQualities); // If SpecialQualities record does __NOT__ exist
                     }
@@ -435,13 +435,13 @@ namespace adminconsole.Backend
 
 
 
-                    
+
                     if (response.DailyHours is null &&
                         !(DailyHours is null))
                     {
 
                         context.Add(DailyHours); // If Hours Per Day Of The Week record does __NOT__ exist
-                                                           // AND we need to insert a record
+                                                 // AND we need to insert a record
                     }
                     else
                     {
@@ -461,13 +461,13 @@ namespace adminconsole.Backend
                     result = false;
                 }
             } else // Use mock data
-            {                
+            {
                 result = dataMock.EditPostAsync(location, contact, specialQualities, DailyHours);
             }
 
 
             return result;
-            
+
         }
 
 
@@ -583,8 +583,8 @@ namespace adminconsole.Backend
 
                 // Get the record
                 location = await context.Locations.FirstAsync(x => x.LocationId == id).ConfigureAwait(false);
-            
-            
+
+
             } else // Use mock data
             {
                 // Mock the SQL statment
@@ -600,16 +600,16 @@ namespace adminconsole.Backend
 
                 if (locationViewModel is null) // Record doesn't exist
                 {
-                    
+
                     location = null;
 
 
                 } else // Mimic the structure that would be received from the Database
                 {
-                    
+
                     location = AllTablesViewModel.GetNewLocation(locationViewModel);
-                
-                
+
+
                 }
             }
 
@@ -646,7 +646,7 @@ namespace adminconsole.Backend
                 return true;
 
             }
-          
+
         }
 
 
@@ -669,11 +669,11 @@ namespace adminconsole.Backend
 
 
 
-           location.State = state.GetType().GetMember(state.ToString()).First().GetCustomAttribute<DisplayAttribute>().Name;
-            
-            
+            location.State = state.GetType().GetMember(state.ToString()).First().GetCustomAttribute<DisplayAttribute>().Name;
+
+
             location.LocationType = locationType.GetType().GetMember(locationType.ToString()).First().GetCustomAttribute<DisplayAttribute>().Name;
-          
+
             return location;
         }
 
@@ -681,36 +681,324 @@ namespace adminconsole.Backend
 
 
 
-
         /// <summary>
-        /// Checks to see if Location exists in Database given a LocationId
+        /// Alters location record information, whether it be through: 
+        ///     CREATING a new record,
+        ///     UPDATING a prexisting record,
+        ///     DELETING a preexisting record, or
+        ///     RECOVERING a delete Locations record
         /// </summary>
         /// 
         /// 
-        /// <param name="locationId"> LocationId GUID </param>
-        /// 
-        /// 
-        /// <returns>
-        /// 
-        ///     True: If record exists with LocationId
-        ///     False: If record does not exist
-        /// 
-        /// </returns>
-        private  Locations? CheckLocation(string locationId)
+        /// <param name="action"></param>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        private bool AlterRecordInfo(AlterRecordInfoEnum action, IMaphawksDatabaseTable table)
         {
-            var location = context.Locations
-                                        .Include(x => x.Contact)
-                                        .Include(x => x.SpecialQualities)
-                                        .Include(x => x.DailyHours)
-                                        .First(x => x.LocationId.Equals(locationId));
-
-
-            if (location is null)
+            if (table is null)
             {
-                return null;
+                return false;
             }
 
-            return location;
+
+            var table_type = GetTable(table);
+
+
+
+            switch (table_type)
+            {
+
+                #region Locations
+                case Table.location:
+
+
+                    var locations_record = (Locations)table;
+
+                    if (action is AlterRecordInfoEnum.Create)
+                    {
+
+                        try
+                        {
+                            context.Add(locations_record);
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+
+                    }
+
+
+                    if (action is AlterRecordInfoEnum.Update)
+                    {
+
+                        try
+                        {
+                            context.Update(locations_record);
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+                    }
+
+
+                    if (action is AlterRecordInfoEnum.Delete)
+                    {
+                        try
+                        {
+                            locations_record.SoftDelete = true;
+                            context.Update(locations_record);
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+                    }
+
+
+
+
+                    if (action is AlterRecordInfoEnum.Recover)
+                    {
+                        try
+                        {
+                            locations_record.SoftDelete = false;
+                            context.Update(locations_record);
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+                    }
+
+
+                    return false;
+
+                #endregion
+
+                
+                    
+                
+                #region Contact
+                case Table.contact:
+
+
+                    var contact_record = (Contacts)table;
+
+                    if (action is AlterRecordInfoEnum.Create)
+                    {
+
+                        try
+                        {
+                            context.Add(contact_record);
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+
+                    }
+
+
+                    if (action is AlterRecordInfoEnum.Update)
+                    {
+
+                        try
+                        {
+                            context.Update(contact_record);
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+                    }
+
+
+                    if (action is AlterRecordInfoEnum.Delete)
+                    {
+                        try
+                        {
+                            context.Remove(context.Contacts.Single(c => c.LocationId.Equals(contact_record.LocationId)));
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+                    }
+
+                    return false;
+
+                #endregion
+
+
+
+                #region Special Qualities
+                case Table.special_qualities:
+
+
+                    var special_qualities_record = (SpecialQualities)table;
+
+                    if (action is AlterRecordInfoEnum.Create)
+                    {
+
+                        try
+                        {
+                            context.Add(special_qualities_record);
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+
+                    }
+
+
+                    if (action is AlterRecordInfoEnum.Update)
+                    {
+
+                        try
+                        {
+                            context.Update(special_qualities_record);
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+                    }
+
+
+                    if (action is AlterRecordInfoEnum.Delete)
+                    {
+                        try
+                        {
+                            context.Remove(context.Contacts.Single(c => c.LocationId.Equals(special_qualities_record.LocationId)));
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+                    }
+
+
+                    return false;
+
+                #endregion
+
+
+
+                #region Daily Hours
+                case Table.daily_hours:
+
+
+                    var daily_hours_record = (DailyHours)table;
+
+                    if (action is AlterRecordInfoEnum.Create)
+                    {
+
+                        try
+                        {
+                            context.Add(daily_hours_record);
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+
+                    }
+
+
+                    if (action is AlterRecordInfoEnum.Update)
+                    {
+
+                        try
+                        {
+                            context.Update(daily_hours_record);
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+                    }
+
+
+                    if (action is AlterRecordInfoEnum.Delete)
+                    {
+                        try
+                        {
+                            context.Remove(context.Contacts.Single(c => c.LocationId.Equals(daily_hours_record.LocationId)));
+                            context.SaveChanges();
+                            return true;
+                        }
+                        catch (DbUpdateException)
+                        {
+                            return false;
+                        }
+                    }
+
+
+                    return false;
+
+                #endregion
+
+
+                default:
+                    return false;
+            }
+        }
+
+
+        private Table GetTable(IMaphawksDatabaseTable record)
+        {
+            if (!(record as Locations is null))
+            {
+                return Table.location;
+            }
+
+
+            if (!(record as Contacts is null))
+            {
+                return Table.contact;
+            }
+
+
+            if (!(record as SpecialQualities is null))
+            {
+                return Table.special_qualities;
+            }
+
+
+            if (!(record as DailyHours is null))
+            {
+                return Table.daily_hours;
+            }
+
+
+            return Table.none;
         }
     }
 }
