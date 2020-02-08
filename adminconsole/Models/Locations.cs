@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace adminconsole.Models
 {
-    public partial class Locations
+    public partial class Locations : IMaphawksDatabaseTable
     {
         /// <summary>
         /// LocationId
@@ -196,6 +196,30 @@ namespace adminconsole.Models
 
 
 
+        /// <summary>
+        /// 
+        /// Locations record can never have all null values as it
+        /// is the main table which requires multiple fields to contain
+        /// values.
+        /// 
+        /// </summary>
+        /// 
+        /// 
+        /// 
+        /// 
+        /// <returns> 
+        /// 
+        /// Always return false as per model definition it will never allow
+        /// a Location record to be created that will have all null values.
+        /// 
+        /// </returns>
+        public bool AllPropertiesAreNull()
+        {
+            return false;
+        }
+
+
+
 
 
         #region Objects Used for Joins
@@ -203,5 +227,7 @@ namespace adminconsole.Models
         public virtual SpecialQualities SpecialQualities { get; set; }
         public virtual DailyHours DailyHours { get; set; }
         #endregion
+
+        
     }
 }
