@@ -352,7 +352,7 @@ namespace adminconsoletest
             location.TakeCoopData = null;
 
             // Act
-            var result = backend.GetLocation(locationId);
+            var result = await backend.GetLocationAsync(locationId);
 
 
             // Assert
@@ -390,7 +390,7 @@ namespace adminconsoletest
             string id = "11170401-4112-43c1-aa4e-f73370e1014a";
 
             // Act
-            var result = backend.GetLocation(id);
+            var result = await backend.GetLocationAsync(id);
 
 
             // Assert
@@ -412,10 +412,10 @@ namespace adminconsoletest
         {
             // Arrange
             var backend = new LocationsBackend(DataSourceEnum.TEST);
-            string locationId = "INVALID LOCATION ID";
+            string id = "INVALID LOCATION ID";
 
             // Act
-            var result = backend.GetLocation(locationId);
+            var result = await backend.GetLocationAsync(id);
 
 
             // Assert
@@ -435,7 +435,7 @@ namespace adminconsoletest
             var backend = new LocationsBackend(DataSourceEnum.TEST);
 
             // Act
-            var result = backend.GetLocation(null);
+            var result = await backend.GetLocationAsync(null);
 
 
             // Assert
@@ -615,7 +615,7 @@ namespace adminconsoletest
             location.RetailOutlet = null;
             location.SelfServiceDevice = BooleanEnum.NULL;
             location.SelfServiceOnly = BooleanEnum.NULL;
-            location.SoftDelete = null;
+            location.SoftDelete = BooleanEnum.Y;
             location.State = StateEnum.OH;
             location.Surcharge = BooleanEnum.NULL;
             location.TakeCoopData = null;
@@ -756,7 +756,7 @@ namespace adminconsoletest
             var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
 
 
-            var location = backend.GetLocation(id);
+            var location = await backend.GetLocationAsync(id);
             var locationAsViewModel = new AllTablesViewModel(location);
 
 
@@ -769,7 +769,7 @@ namespace adminconsoletest
             // Act
             locationAsViewModel.City = "MY EDITED FIELD";
             bool result = await backend.EditPostAsync(locationAsViewModel);
-            locationAfterEdit = backend.GetLocation(id);
+            locationAfterEdit = await backend.GetLocationAsync(id);
             locationAfterEditViewModel = new AllTablesViewModel(locationAfterEdit);
             
 
@@ -797,7 +797,7 @@ namespace adminconsoletest
             var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
 
 
-            var locationToEdit = backend.GetLocation(id);
+            var locationToEdit = await backend.GetLocationAsync(id);
             var locationToEditAsViewModel = new AllTablesViewModel();
 
 
@@ -812,7 +812,7 @@ namespace adminconsoletest
             // Act
             locationToEditAsViewModel.LocationId = "59bb3e88-9757-492e-a07c-NOT VALID ID";
             bool result = await backend.EditPostAsync(locationToEditAsViewModel); // Should be null as ID doesn't exist
-            locationAfterEdit = backend.GetLocation(id); // Should be the same
+            locationAfterEdit = await backend.GetLocationAsync(id); // Should be the same
 
 
 
