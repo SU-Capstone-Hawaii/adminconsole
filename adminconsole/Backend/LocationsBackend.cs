@@ -13,7 +13,7 @@ namespace adminconsole.Backend
     {
         private MaphawksContext context;            // DB Context
         private DataSourceEnum dataSourceEnum;      // Allows for toggling betwen Live/Test data
-        private AllTablesViewModelDataMock dataMock;
+        private LocationsDataMock dataMock;
 
         public Exception errorMessage = null;
 
@@ -32,7 +32,7 @@ namespace adminconsole.Backend
 
             if (dataSourceEnum is DataSourceEnum.TEST)
             {
-                dataMock = new AllTablesViewModelDataMock();
+                dataMock = new LocationsDataMock();
             }
         }
 
@@ -86,22 +86,7 @@ namespace adminconsole.Backend
 
             } else
             {
-                var viewModelList = dataMock.GetAllViewModelList(deleted);
-
-                if (viewModelList != null) // If there are records
-                {
-                    foreach (var location in viewModelList) // Convert ViewModels into Locations
-                    {
-                        var newLocation = AllTablesViewModel.GetNewLocation(location);
-                        newLocation.Contact = AllTablesViewModel.GetNewContact(location);
-                        newLocation.SpecialQualities = AllTablesViewModel.GetNewSpecialQualities(location);
-                        newLocation.DailyHours = AllTablesViewModel.GetNewDailyHours(location);
-
-
-                        locations_list.Add(newLocation);
-
-                    }
-                }
+                locations_list = dataMock.GetAllViewModelList(deleted);
             }
 
 
@@ -150,8 +135,7 @@ namespace adminconsole.Backend
                 keyValueList.Add(idPair);
 
 
-                var resultLocation = AllTablesViewModel.GetNewLocation(
-                    dataMock.GetOneLocation(keyValueList));
+                var resultLocation = dataMock.GetOneLocation(keyValueList);
 
                 if (resultLocation != null)
                 {
@@ -223,9 +207,20 @@ namespace adminconsole.Backend
 
             } else // Use mock data
             {
-                var originalNumberOfLocations = dataMock.GetNumberOfLocations();
-                dataMock.Create(newLocation);
-                var newNumberOfLocations = dataMock.GetNumberOfLocations();
+                var originalNumberOfLocations = dataMock.GetNumberOfLocations(); // Initial number of locations
+
+
+                // Create Locations Object
+                var location = AllTablesViewModel.GetNewLocation(newLocation);
+                location.Contact = AllTablesViewModel.GetNewContact(newLocation);
+                location.SpecialQualities = AllTablesViewModel.GetNewSpecialQualities(newLocation);
+                location.DailyHours = AllTablesViewModel.GetNewDailyHours(newLocation);
+
+
+                dataMock.Create(location);
+
+
+                var newNumberOfLocations = dataMock.GetNumberOfLocations();  // Number of locations after CREATE
 
 
                 return (originalNumberOfLocations + 1) == newNumberOfLocations;
@@ -272,16 +267,7 @@ namespace adminconsole.Backend
                 newList.Add(idPair);
 
 
-                AllTablesViewModel locationViewModel = dataMock.GetOneLocation(newList);
-                location = AllTablesViewModel.GetNewLocation(locationViewModel);
-
-
-                if (location != null) // Then we can fill in other tables' values
-                {
-                    location.Contact = AllTablesViewModel.GetNewContact(locationViewModel);
-                    location.SpecialQualities = AllTablesViewModel.GetNewSpecialQualities(locationViewModel);
-                    location.DailyHours = AllTablesViewModel.GetNewDailyHours(locationViewModel);
-                }
+                location = dataMock.GetOneLocation(newList);
 
             }
 
@@ -333,14 +319,20 @@ namespace adminconsole.Backend
                 {
                     locationViewModel = new AllTablesViewModel(location);
                 }
-            } else // Use Mock
+            } 
+            
+            else // Use Mock
             {
                 var whereList = new List<KeyValuePair<string, string>>();
                 var idPair = new KeyValuePair<string, string>("LocationId", id);
                 whereList.Add(idPair);
 
 
-                locationViewModel = dataMock.GetOneLocation(whereList);
+                // Create ViewModel out of result of query
+                locationViewModel.InstatiateViewModelPropertiesWithOneLocation
+                    (
+                        dataMock.GetOneLocation(whereList)
+                    );
             }
 
             return locationViewModel;
@@ -462,7 +454,7 @@ namespace adminconsole.Backend
                 var whereList = new List<KeyValuePair<string, string>>();
                 var idPair = new KeyValuePair<string, string>("LocationId", id);
                 whereList.Add(idPair);
-                locations = AllTablesViewModel.GetNewLocation(dataMock.GetOneLocation(whereList));
+                locations = dataMock.GetOneLocation(whereList);
             }
 
             if (locations == null) // Record not found
@@ -536,7 +528,10 @@ namespace adminconsole.Backend
                 location = await ReadOneRecordAsync(id).ConfigureAwait(false);
 
 
-            } else // Use mock data
+            } 
+            
+            
+            else // Use mock data
             {
                 // Mock the SQL statment
                 var whereClause = new List<KeyValuePair<string, string>>();
@@ -545,24 +540,11 @@ namespace adminconsole.Backend
 
 
                 // Get the record
-                var locationViewModel = dataMock.GetOneLocation(whereClause);
-
-
-
-                if (locationViewModel is null) // Record doesn't exist
-                {
-
-                    location = null;
-
-
-                } else // Mimic the structure that would be received from the Database
-                {
-
-                    location = AllTablesViewModel.GetNewLocation(locationViewModel);
-
-
-                }
+                location = dataMock.GetOneLocation(whereClause);
             }
+
+
+
 
             if (location is null)  // Location doesn't exist
             {
