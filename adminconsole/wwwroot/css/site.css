@@ -60,6 +60,16 @@ a {
 
 /*#endregion*/
 
+
+
+
+
+
+
+
+
+
+
 /*#region Footer Styling*/
 html {
   font-size: 14px;
@@ -98,14 +108,22 @@ body {
   margin-bottom: 60px;
 }
 .footer-relative {
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    bottom: 0;
+    color: #707070;
+    height: -2em;
+    left: 0;
+    position: relative;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
 
 /*#endregion*/
+
+
+
+
+
+
 
 /*#region Index Styling*/
 .coop-logo-icon{
@@ -114,5 +132,26 @@ body {
 
 .hideThis{
     display: none;
+}
+/*#endregion*/
+
+
+
+
+
+
+
+/*#region Edit Styling*/
+
+#map {
+    height: 40%;
+    display: contents;
+    position: relative;
+    margin: 10%;
+}
+
+#map iframe {
+    height: 20%;
+    width: 20%;
 }
 /*#endregion*/
