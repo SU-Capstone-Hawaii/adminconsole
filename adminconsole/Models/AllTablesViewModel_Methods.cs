@@ -194,7 +194,7 @@ namespace adminconsole.Models
         /// <param name="newLocation"> A View Model Object from which to extract from </param>
         /// 
         /// 
-        /// <returns> A Contacts Object  </returns>
+        /// <returns> Null if all fields are null, otherwise returns a Contacts object </returns>
         public static Contacts GetNewContact(AllTablesViewModel newLocation)
         {
             if (newLocation is null)
@@ -207,6 +207,12 @@ namespace adminconsole.Models
             contact.Phone = newLocation.Phone ?? null;
             contact.Fax = newLocation.Fax ?? null;
             contact.WebAddress = newLocation.WebAddress ?? null;
+
+
+            if (contact.AllPropertiesAreNull())
+            {
+                return null;
+            }
 
             return contact;
         }
@@ -227,7 +233,7 @@ namespace adminconsole.Models
         /// <param name="newLocation"> A View Model Object from which to extract from </param>
         /// 
         /// 
-        /// <returns> A Special Qualities Object  </returns>
+        /// <returns> Null if all fields are empty, otherwise returns a Special Qualities Object  </returns>
         public static SpecialQualities GetNewSpecialQualities(AllTablesViewModel newLocation)
         {
             if (newLocation is null)
@@ -255,6 +261,12 @@ namespace adminconsole.Models
             specialQuality.SelfServiceOnly = ConvertBooleanEnumToString(newLocation.SelfServiceOnly);
             specialQuality.Surcharge = ConvertBooleanEnumToString(newLocation.Surcharge);
 
+
+            if (specialQuality.AllPropertiesAreNull())
+            {
+                return null;
+            }
+
             return specialQuality;
         }
 
@@ -280,71 +292,46 @@ namespace adminconsole.Models
                 return null;
             }
 
-            // If all nulls return null
-            if ((newLocation.HoursDtfriClose) == null &&
-            (newLocation.HoursDtfriOpen) == null &&
-            (newLocation.HoursDtmonClose) == null &&
-            (newLocation.HoursDtmonOpen) == null &&
-            (newLocation.HoursDtsatClose) == null &&
-            (newLocation.HoursDtsatOpen) == null &&
-            (newLocation.HoursDtsunClose) == null &&
-            (newLocation.HoursDtsunOpen) == null &&
-            (newLocation.HoursDtthuClose) == null &&
-            (newLocation.HoursDtthuOpen) == null &&
-            (newLocation.HoursDttueClose) == null &&
-            (newLocation.HoursDttueOpen) == null &&
-            (newLocation.HoursDtwedClose) == null &&
-            (newLocation.HoursDtwedOpen) == null &&
-            (newLocation.HoursFriClose) == null &&
-            (newLocation.HoursFriOpen) == null &&
-            (newLocation.HoursMonClose) == null &&
-            (newLocation.HoursMonOpen) == null &&
-            (newLocation.HoursSatClose) == null &&
-            (newLocation.HoursSatOpen) == null &&
-            (newLocation.HoursSunClose) == null &&
-            (newLocation.HoursSunOpen) == null &&
-            (newLocation.HoursThuClose) == null &&
-            (newLocation.HoursThuOpen) == null &&
-            (newLocation.HoursTueClose) == null &&
-            (newLocation.HoursTueOpen) == null &&
-            (newLocation.HoursWedClose) == null &&
-            (newLocation.HoursWedOpen) == null)
+
+            DailyHours dailyHours = new DailyHours();
+            dailyHours.LocationId = newLocation.LocationId;
+            dailyHours.HoursDtfriClose = newLocation.HoursDtfriClose;
+            dailyHours.HoursDtfriOpen = newLocation.HoursDtfriOpen;
+            dailyHours.HoursDtmonClose = newLocation.HoursDtmonClose;
+            dailyHours.HoursDtmonOpen = newLocation.HoursDtmonOpen;
+            dailyHours.HoursDtsatClose = newLocation.HoursDtsatClose;
+            dailyHours.HoursDtsatOpen = newLocation.HoursDtsatOpen;
+            dailyHours.HoursDtsunClose = newLocation.HoursDtsunClose;
+            dailyHours.HoursDtsunOpen = newLocation.HoursDtsunOpen;
+            dailyHours.HoursDtthuClose = newLocation.HoursDtthuClose;
+            dailyHours.HoursDtthuOpen = newLocation.HoursDtthuOpen;
+            dailyHours.HoursDttueClose = newLocation.HoursDttueClose;
+            dailyHours.HoursDttueOpen =newLocation.HoursDttueOpen;
+            dailyHours.HoursDtwedClose = newLocation.HoursDtwedClose;
+            dailyHours.HoursDtwedOpen = newLocation.HoursDtwedOpen;
+            dailyHours.HoursFriClose = newLocation.HoursFriClose;
+            dailyHours.HoursFriOpen = newLocation.HoursFriOpen;
+            dailyHours.HoursMonClose = newLocation.HoursMonClose;
+            dailyHours.HoursMonOpen = newLocation.HoursMonOpen;
+            dailyHours.HoursSatClose = newLocation.HoursSatClose;
+            dailyHours.HoursSatOpen = newLocation.HoursSatOpen;
+            dailyHours.HoursSunClose = newLocation.HoursSunClose;
+            dailyHours.HoursSunOpen = newLocation.HoursSunOpen;
+            dailyHours.HoursThuClose = newLocation.HoursThuClose;
+            dailyHours.HoursThuOpen = newLocation.HoursThuOpen;
+            dailyHours.HoursTueClose = newLocation.HoursTueClose;
+            dailyHours.HoursTueOpen = newLocation.HoursTueOpen;
+            dailyHours.HoursWedClose = newLocation.HoursWedClose;
+            dailyHours.HoursWedOpen = newLocation.HoursWedOpen;
+
+
+            if (dailyHours.AllPropertiesAreNull())
             {
                 return null;
             }
 
 
-            DailyHours DailyHours = new DailyHours();
-            DailyHours.LocationId = newLocation.LocationId;
-            DailyHours.HoursDtfriClose = newLocation.HoursDtfriClose;
-            DailyHours.HoursDtfriOpen = newLocation.HoursDtfriOpen;
-            DailyHours.HoursDtmonClose = newLocation.HoursDtmonClose;
-            DailyHours.HoursDtmonOpen = newLocation.HoursDtmonOpen;
-            DailyHours.HoursDtsatClose = newLocation.HoursDtsatClose;
-            DailyHours.HoursDtsatOpen = newLocation.HoursDtsatOpen;
-            DailyHours.HoursDtsunClose = newLocation.HoursDtsunClose;
-            DailyHours.HoursDtsunOpen = newLocation.HoursDtsunOpen;
-            DailyHours.HoursDtthuClose = newLocation.HoursDtthuClose;
-            DailyHours.HoursDtthuOpen = newLocation.HoursDtthuOpen;
-            DailyHours.HoursDttueClose = newLocation.HoursDttueClose;
-            DailyHours.HoursDttueOpen =newLocation.HoursDttueOpen;
-            DailyHours.HoursDtwedClose = newLocation.HoursDtwedClose;
-            DailyHours.HoursDtwedOpen = newLocation.HoursDtwedOpen;
-            DailyHours.HoursFriClose = newLocation.HoursFriClose;
-            DailyHours.HoursFriOpen = newLocation.HoursFriOpen;
-            DailyHours.HoursMonClose = newLocation.HoursMonClose;
-            DailyHours.HoursMonOpen = newLocation.HoursMonOpen;
-            DailyHours.HoursSatClose = newLocation.HoursSatClose;
-            DailyHours.HoursSatOpen = newLocation.HoursSatOpen;
-            DailyHours.HoursSunClose = newLocation.HoursSunClose;
-            DailyHours.HoursSunOpen = newLocation.HoursSunOpen;
-            DailyHours.HoursThuClose = newLocation.HoursThuClose;
-            DailyHours.HoursThuOpen = newLocation.HoursThuOpen;
-            DailyHours.HoursTueClose = newLocation.HoursTueClose;
-            DailyHours.HoursTueOpen = newLocation.HoursTueOpen;
-            DailyHours.HoursWedClose = newLocation.HoursWedClose;
-            DailyHours.HoursWedOpen = newLocation.HoursWedOpen;
-            return DailyHours;
+            return dailyHours;
         }
 
 
