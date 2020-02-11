@@ -58,12 +58,11 @@ namespace adminconsole.Models
         {
 
             // Create ViewModel Objects
-            Locations location_1 = new Locations();
-            Locations location_2 = new Locations();
-            Locations location_3 = new Locations();
-            Locations location_4 = new Locations();
-            Locations location_5 = new Locations();
-            Locations location_6 = new Locations();
+            Locations location_1 = InstantiateLocation(new Locations());
+            Locations location_2 = InstantiateLocation(new Locations());
+            Locations location_3 = InstantiateLocation(new Locations());
+            Locations location_4 = InstantiateLocation(new Locations());
+            Locations location_5 = InstantiateLocation(new Locations());
 
 
             // Set each object's properties
@@ -1035,6 +1034,18 @@ namespace adminconsole.Models
             liveLocations.Add(recoveredLocation);
             liveLocations.RemoveAt(index);
 
+        }
+
+
+
+
+
+        private Locations InstantiateLocation(Locations location)
+        {
+            location.Contact = new Contacts();
+            location.SpecialQualities = new SpecialQualities();
+            location.DailyHours = new DailyHours();
+            return location;
         }
     }
 }
