@@ -22,7 +22,7 @@ namespace adminconsole.Models
         [DisplayName("Delete")]
         [EnumDataType(typeof(BooleanEnum))]
         #nullable enable
-        public BooleanEnum? SoftDelete { get; set; }
+        public BooleanEnum SoftDelete { get; set; }
 
         [DisplayName("Institution")]
         #nullable enable
