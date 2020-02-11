@@ -81,7 +81,7 @@ namespace adminconsole.Backend
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use database
             {
 
-                locations_list = await ReadMultipleRecordsAsync().ConfigureAwait(false); // Select * join all tables
+                locations_list = await ReadMultipleRecordsAsync(deleted).ConfigureAwait(false); // Select * join all tables
 
 
             } else
@@ -684,7 +684,7 @@ namespace adminconsole.Backend
                          .Include(s => s.SpecialQualities)
                          .Include(h => h.DailyHours)
                          .AsNoTracking()
-                         .Where(record => record.SoftDelete == isDeleted)
+                         .Where(record => record.SoftDelete == isDeleted && record.SoftDelete == isDeleted)
                          .ToListAsync()
                          .ConfigureAwait(false);
 
