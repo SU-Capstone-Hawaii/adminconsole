@@ -23,13 +23,13 @@
 
 public enum Table
 {
-    none = 0,
+    None = 0,
 
-    location = 1,
+    Locations = 1,
 
-    contact = 2,
+    Contacts = 2,
 
-    special_qualities = 3,
+    Special_Qualities = 3,
 
-    daily_hours = 4
+    Daily_Hours = 4
 }
