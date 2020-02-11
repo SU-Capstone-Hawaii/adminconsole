@@ -132,7 +132,7 @@ namespace adminconsole.Backend
         {
             if (dataSourceEnum is DataSourceEnum.LIVE)
             {
-                var resultLocation = await context.Locations.Include(x => x.Contact).Include(x => x.SpecialQualities).Include(x => x.DailyHours).Where(x => x.LocationId == id).FirstAsync().ConfigureAwait(false);
+                var resultLocation = await ReadOneRecordAsync(id).ConfigureAwait(false);
                 if (resultLocation == null)
                 {
                     return null;
@@ -455,7 +455,7 @@ namespace adminconsole.Backend
 
             if (dataSourceEnum is DataSourceEnum.LIVE)
             {
-                locations = await context.Locations.FindAsync(id);
+                locations = await ReadOneRecordAsync(id).ConfigureAwait(false);
             }
             else
             {
@@ -465,7 +465,7 @@ namespace adminconsole.Backend
                 locations = AllTablesViewModel.GetNewLocation(dataMock.GetOneLocation(whereList));
             }
 
-            if (locations == null)
+            if (locations == null) // Record not found
             {
                 return false;
             }
@@ -476,8 +476,7 @@ namespace adminconsole.Backend
             {
                 try
                 {
-                    context.Locations.Update(locations);
-                    await context.SaveChangesAsync().ConfigureAwait(false);
+                    AlterRecordInfo(AlterRecordInfoEnum.Update, locations);
                     return true;
                 }
                 catch (DbUpdateException)
@@ -534,7 +533,7 @@ namespace adminconsole.Backend
             {
 
                 // Get the record
-                location = await context.Locations.FirstAsync(x => x.LocationId == id).ConfigureAwait(false);
+                location = await ReadOneRecordAsync(id).ConfigureAwait(false);
 
 
             } else // Use mock data
@@ -581,8 +580,7 @@ namespace adminconsole.Backend
 
                 try
                 {
-                    context.Update(location);
-                    context.SaveChanges();
+                    AlterRecordInfo(AlterRecordInfoEnum.Update, location);
                     return true;
                 }
                 catch (DbUpdateException)
