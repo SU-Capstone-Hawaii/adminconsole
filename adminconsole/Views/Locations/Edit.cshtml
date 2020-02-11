@@ -16,15 +16,17 @@
             <input type="hidden" asp-for="CoopLocationId" value ="@Model.CoopLocationId" class="form-control" />
             <div class="form-group">
                 <label asp-for="TakeCoopData" class="control-label"></label>
-                <select asp-for="TakeCoopData" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
+                <select asp-for="TakeCoopData">
                     <option selected="selected" value="">Select</option>
+                    <option value="@BooleanEnum.N">No</option>
+                    <option value="@BooleanEnum.Y">Yes</option>
                 </select>
                 <span asp-validation-for="TakeCoopData" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SoftDelete" class="control-label"></label>
-                <select asp-for="SoftDelete" asp-items="Html.GetEnumSelectList<BooleanEnum>()">
-                    <option selected="selected" value="">Select</option>
+                <select asp-for="SoftDelete">
+                    <option selected="selected" value="@Model.SoftDelete">@BooleanEnumExtensions.GetDisplayName(Model.SoftDelete)</option>
                 </select>
                 <span asp-validation-for="SoftDelete" class="text-danger"></span>
             </div>
