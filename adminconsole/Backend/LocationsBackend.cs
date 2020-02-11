@@ -15,6 +15,8 @@ namespace adminconsole.Backend
         private DataSourceEnum dataSourceEnum;      // Allows for toggling betwen Live/Test data
         private AllTablesViewModelDataMock dataMock;
 
+        public Exception errorMessage = null;
+
 
         /// <summary>
         /// 
@@ -79,13 +81,7 @@ namespace adminconsole.Backend
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use database
             {
 
-                locations_list = await context.Locations // Select * join all tables
-                    .Include(x => x.Contact)
-                    .Include(x => x.SpecialQualities)
-                    .Include(x => x.DailyHours)
-                    .Where(x => x.SoftDelete == deleted)
-                    .ToListAsync()
-                    .ConfigureAwait(false);
+                locations_list = await ReadMultipleRecordsAsync().ConfigureAwait(false); // Select * join all tables
 
 
             } else
@@ -253,7 +249,7 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <returns> If the record doesn't exist returns NULL, otherwise returns the Locations Object </returns>
-        public Locations GetLocation(string id)
+        public async Task<Locations> GetLocationAsync(string id)
         {
             if (id == null)
             {
@@ -264,7 +260,7 @@ namespace adminconsole.Backend
 
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
             {
-                location = context.Locations.Include(x => x.Contact).Include(x => x.Contact).Where(x => x.LocationId == id).First();
+                location = await ReadOneRecordAsync(id).ConfigureAwait(false);
             }
             else // Use mock data
             {
@@ -331,13 +327,7 @@ namespace adminconsole.Backend
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
             {
 
-                var location = await context.Locations // Get Location from Database 
-                                            .Include(x => x.Contact)
-                                            .Include(x => x.SpecialQualities)
-                                            .Include(x => x.DailyHours)
-                                            .Where(x => x.LocationId == id)
-                                            .FirstAsync()
-                                            .ConfigureAwait(false);
+                var location = await ReadOneRecordAsync(id).ConfigureAwait(false); // Get Location from Database
 
                 if (location != null)
                 {
@@ -357,13 +347,11 @@ namespace adminconsole.Backend
         }
 
 
-
-
-
-        /*CREATE NEW SHARED METHOD FOR DATABASE INTERACTION 
-            ADD, UPDATE
-            DELETE (WHEN UPDATING A TABLE TO ALL NULL VALUES )*/
-
+        
+        
+        
+        
+        
         /// <summary>
         /// 
         /// Updates the Location Record in the Database
@@ -388,7 +376,7 @@ namespace adminconsole.Backend
             }
 
 
-            Locations response = null;
+            Locations response = await ReadOneRecordAsync(newLocation.LocationId).ConfigureAwait(true);
 
 
             if (response is null)  // Location does not exist
@@ -396,78 +384,42 @@ namespace adminconsole.Backend
                 return false;
             }
 
+
             // Get each table's Object
             Locations location = AllTablesViewModel.GetNewLocation(newLocation);
-            Contacts contact = AllTablesViewModel.GetNewContact(newLocation);
-            SpecialQualities specialQualities = AllTablesViewModel.GetNewSpecialQualities(newLocation);
-            DailyHours DailyHours = AllTablesViewModel.GetNewDailyHours(newLocation);
+            location.Contact = AllTablesViewModel.GetNewContact(newLocation);
+            location.SpecialQualities = AllTablesViewModel.GetNewSpecialQualities(newLocation);
+            location.DailyHours = AllTablesViewModel.GetNewDailyHours(newLocation);
 
-            bool result; // Value to be returned
+
+            bool result = false; // Value to be returned
 
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
             {
                 try
                 {
-                    context.Locations.Update(location);
+                    _AddDeleteRow(response.Contact, location.Contact);
+                    _AddDeleteRow(response.SpecialQualities, location.SpecialQualities);
+                    _AddDeleteRow(response.DailyHours, location.DailyHours);
 
 
+                    response = location;
 
-                    if (response.Contact is null)
-                    {
-                        context.Add(contact); // If Contacts record does __NOT__ exist
-                    }
-                    else
-                    {
-                        context.Contacts.Update(contact);
-                    }
+                    result = AlterRecordInfo(AlterRecordInfoEnum.Update, response);
 
-
-
-
-                    if (response.SpecialQualities is null)
-                    {
-                        context.Add(specialQualities); // If SpecialQualities record does __NOT__ exist
-                    }
-                    else
-                    {
-                        context.SpecialQualities.Update(specialQualities);
-                    }
-
-
-
-
-                    if (response.DailyHours is null &&
-                        !(DailyHours is null))
-                    {
-
-                        context.Add(DailyHours); // If Hours Per Day Of The Week record does __NOT__ exist
-                                                 // AND we need to insert a record
-                    }
-                    else
-                    {
-                        context.DailyHours.Update(DailyHours);
-                    }
-
-
-                    context.SpecialQualities.Update(specialQualities);
-                    if (DailyHours != null)
-                    {
-                        context.DailyHours.Update(DailyHours);
-                    }
-                    result = Convert.ToBoolean(await context.SaveChangesAsync().ConfigureAwait(false));
+                    return result;
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (Exception e)
                 {
-                    result = false;
+                    errorMessage = e;
+                    return false;
                 }
             } else // Use mock data
             {
-                result = dataMock.EditPostAsync(location, contact, specialQualities, DailyHours);
+                result = dataMock.EditPostAsync(location, location.Contact, location.SpecialQualities, location.DailyHours);
             }
 
-
-            return result;
-
+            return true;
         }
 
 
@@ -681,6 +633,71 @@ namespace adminconsole.Backend
 
 
 
+
+
+        /// <summary>
+        /// Reads one record from the database given its Location ID
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="referenceId"> The LocationId of the record to retrieve from the database </param>
+        /// 
+        /// 
+        /// <returns> A location object if the record exists, otherwise null </returns>
+        private async Task<Locations> ReadOneRecordAsync(string referenceId)
+        {
+            if (string.IsNullOrEmpty(referenceId) &&
+                string.IsNullOrWhiteSpace(referenceId))
+            {
+                return null;
+            }
+
+
+            var result = await context.Locations
+                            .Include(c => c.Contact)
+                            .Include(s => s.SpecialQualities)
+                            .Include(h => h.DailyHours)
+                            .AsNoTracking()
+                            .FirstAsync()
+                            .ConfigureAwait(false);
+
+            return result;
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// Reads all records from database. 
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="isDeleted"> If true, return soft deleted records, otherwise return existing records </param>
+        /// 
+        /// 
+        /// <returns> List<Locations> object if any records in databse, otherwise returns null </returns>
+        private async Task<List<Locations>> ReadMultipleRecordsAsync(bool isDeleted = false)
+        {
+            var result = await context.Locations
+                         .Include(c => c.Contact)
+                         .Include(s => s.SpecialQualities)
+                         .Include(h => h.DailyHours)
+                         .AsNoTracking()
+                         .Where(record => record.SoftDelete == isDeleted)
+                         .ToListAsync()
+                         .ConfigureAwait(false);
+
+            return result;
+        }
+
+
+
+
+
+
+
         /// <summary>
         /// Alters location record information, whether it be through: 
         ///     CREATING a new record,
@@ -709,7 +726,7 @@ namespace adminconsole.Backend
             {
 
                 #region Locations
-                case Table.location:
+                case Table.Locations:
 
 
                     var locations_record = (Locations)table;
@@ -789,7 +806,7 @@ namespace adminconsole.Backend
                     
                 
                 #region Contact
-                case Table.contact:
+                case Table.Contacts:
 
 
                     var contact_record = (Contacts)table;
@@ -848,7 +865,7 @@ namespace adminconsole.Backend
 
 
                 #region Special Qualities
-                case Table.special_qualities:
+                case Table.Special_Qualities:
 
 
                     var special_qualities_record = (SpecialQualities)table;
@@ -890,7 +907,7 @@ namespace adminconsole.Backend
                     {
                         try
                         {
-                            context.Remove(context.Contacts.Single(c => c.LocationId.Equals(special_qualities_record.LocationId)));
+                            context.Remove(context.SpecialQualities.Single(c => c.LocationId.Equals(special_qualities_record.LocationId)));
                             context.SaveChanges();
                             return true;
                         }
@@ -908,7 +925,7 @@ namespace adminconsole.Backend
 
 
                 #region Daily Hours
-                case Table.daily_hours:
+                case Table.Daily_Hours:
 
 
                     var daily_hours_record = (DailyHours)table;
@@ -950,7 +967,7 @@ namespace adminconsole.Backend
                     {
                         try
                         {
-                            context.Remove(context.Contacts.Single(c => c.LocationId.Equals(daily_hours_record.LocationId)));
+                            context.Remove(context.DailyHours.Single(c => c.LocationId.Equals(daily_hours_record.LocationId)));
                             context.SaveChanges();
                             return true;
                         }
@@ -976,29 +993,109 @@ namespace adminconsole.Backend
         {
             if (!(record as Locations is null))
             {
-                return Table.location;
+                return Table.Locations;
             }
 
 
             if (!(record as Contacts is null))
             {
-                return Table.contact;
+                return Table.Contacts;
             }
 
 
             if (!(record as SpecialQualities is null))
             {
-                return Table.special_qualities;
+                return Table.Special_Qualities;
             }
 
 
             if (!(record as DailyHours is null))
             {
-                return Table.daily_hours;
+                return Table.Daily_Hours;
             }
 
 
-            return Table.none;
+            return Table.None;
+        }
+
+
+
+
+        /// <summary>
+        /// Adds a row in Contacts, SpecialQualities, or DailyHours table if one didn't exist before an edit.
+        /// 
+        /// Deletes a row in Contacts, SpecialQualities, or DailyHours table if after an edit an entire row's fields are null.
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="referenceRow"> The row before the edit </param>
+        /// <param name="editedRow"> The row after the edit </param>
+        private void _AddDeleteRow (IMaphawksDatabaseTable referenceRow, IMaphawksDatabaseTable editedRow)
+        {
+            if (referenceRow is null && editedRow is null ||        // Don't need to add a new row
+                !(referenceRow is null) && !(editedRow is null))
+            {
+                return;
+            }
+
+            if (referenceRow is null && !(editedRow is null))       // Add row
+            {
+                var table = GetTable(editedRow);
+
+                switch (table)
+                {
+
+                    case (Table.Contacts):
+                        
+                        AlterRecordInfo(AlterRecordInfoEnum.Create, (Contacts)editedRow);
+                        return;
+
+                    case (Table.Special_Qualities):
+
+                        AlterRecordInfo(AlterRecordInfoEnum.Create, (SpecialQualities)editedRow);
+                        return;
+
+                    case (Table.Daily_Hours):
+
+                        AlterRecordInfo(AlterRecordInfoEnum.Create, (DailyHours)editedRow);
+                        return;
+
+                    default:
+                        return;
+                }
+                
+            }
+
+
+
+            if (!(referenceRow is null) && editedRow is null)       // Delete row
+            {
+                var table = GetTable(referenceRow);
+
+                switch (table)
+                {
+
+                    case (Table.Contacts):
+
+                        AlterRecordInfo(AlterRecordInfoEnum.Delete, (Contacts)referenceRow);
+                        return;
+
+                    case (Table.Special_Qualities):
+
+                        AlterRecordInfo(AlterRecordInfoEnum.Delete, (SpecialQualities)referenceRow);
+                        return;
+
+                    case (Table.Daily_Hours):
+
+                        AlterRecordInfo(AlterRecordInfoEnum.Delete, (DailyHours)referenceRow);
+                        return;
+
+                    default:
+                        return;
+                }
+
+            }
+
         }
     }
 }
