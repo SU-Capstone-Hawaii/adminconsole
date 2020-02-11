@@ -29,7 +29,7 @@ namespace adminconsole.Models
         /// </summary>
         [Required]
         [DisplayName("Take Co-Op Data")]
-        public bool? TakeCoopData { get; set; }
+        public bool TakeCoopData { get; set; }
 
 
 
@@ -41,7 +41,7 @@ namespace adminconsole.Models
         /// to recover the location record.
         /// </summary>
         [Required]
-        public bool? SoftDelete { get; set; }
+        public bool SoftDelete { get; set; }
 
 
 
