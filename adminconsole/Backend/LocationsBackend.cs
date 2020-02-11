@@ -656,6 +656,7 @@ namespace adminconsole.Backend
                             .Include(s => s.SpecialQualities)
                             .Include(h => h.DailyHours)
                             .AsNoTracking()
+                            .Where(record => record.LocationId.Equals(referenceId))
                             .FirstAsync()
                             .ConfigureAwait(false);
 
