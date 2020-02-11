@@ -330,7 +330,7 @@ namespace adminconsole.Models
             location_4.RetailOutlet = null;
             location_4.SelfServiceDevice = BooleanEnum.Y;
             location_4.SelfServiceOnly = BooleanEnum.Y;
-            location_4.SoftDelete = null;
+            location_4.SoftDelete = BooleanEnum.Y;
             location_4.State = StateEnum.MI;
             location_4.Surcharge = BooleanEnum.Y;
             location_4.TakeCoopData = null;
@@ -397,7 +397,7 @@ namespace adminconsole.Models
             location_5.RetailOutlet = null;
             location_5.SelfServiceDevice = BooleanEnum.NULL;
             location_5.SelfServiceOnly = BooleanEnum.NULL;
-            location_5.SoftDelete = null;
+            location_5.SoftDelete = BooleanEnum.N;
             location_5.State = StateEnum.OH;
             location_5.Surcharge = BooleanEnum.NULL;
             location_5.TakeCoopData = null;
