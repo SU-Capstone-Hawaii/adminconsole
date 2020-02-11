@@ -397,7 +397,7 @@ namespace adminconsole.Controllers
                 return NotFound();
             }
 
-            var locations = backend.GetLocation(id);
+            var locations = await backend.GetLocationAsync(id).ConfigureAwait(false);
             if (locations == null)
             {
                 return NotFound();
