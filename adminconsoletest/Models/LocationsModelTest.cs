@@ -42,10 +42,10 @@ namespace adminconsoletest
             Assert.IsNull(result.Name);
             Assert.IsNull(result.PostalCode);
             Assert.IsNull(result.RetailOutlet);
-            Assert.IsNull(result.SoftDelete);
+            Assert.IsFalse(result.SoftDelete);
             Assert.IsNull(result.SpecialQualities);
             Assert.IsNull(result.State);
-            Assert.IsNull(result.TakeCoopData);
+            Assert.IsFalse(result.TakeCoopData);
         }
 
         [TestMethod]
