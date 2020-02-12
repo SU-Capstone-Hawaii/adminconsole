@@ -1,6 +1,7 @@
 using adminconsole.Backend;
 using adminconsole.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace adminconsoletest
             // Arrange
 
             // Act
-            var result = new LocationsBackend();
+            var result = new LocationsBackend(DataSourceEnum.LIVE);
 
             // Assert
             Assert.IsNotNull(result);
@@ -57,7 +58,9 @@ namespace adminconsoletest
         public async Task LocationsBackend_Index_Deleted_Locations_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            Mock<MaphawksContext> mock = new Mock<MaphawksContext>();
+            //mock.Setup(x => x.Locations.In)
+            var backend = new LocationsBackend(mock.Object);
 
 
             // Act
@@ -327,7 +330,7 @@ namespace adminconsoletest
         /// Tests Backend GetLocation with a valid LocationId value
         /// </summary>
         [TestMethod]
-        public async void LocationsBackend_GetLocation_Should_Pass_()
+        public async Task LocationsBackend_GetLocation_Should_Pass_()
         {
             // Arrange
             var backend = new LocationsBackend(DataSourceEnum.TEST);
@@ -383,7 +386,7 @@ namespace adminconsoletest
         /// Tests Backend GetLocation with a null LocationId value
         /// </summary>
         [TestMethod]
-        public async void LocationsBackend_GetLocation_Deleted_Location_Id_Should_Pass_()
+        public async Task LocationsBackend_GetLocation_Deleted_Location_Id_Should_Pass_()
         {
             // Arrange
             var backend = new LocationsBackend(DataSourceEnum.TEST);
@@ -408,7 +411,7 @@ namespace adminconsoletest
         /// Tests Backend GetLocation with an invalid LocationId value
         /// </summary>
         [TestMethod]
-        public async void LocationsBackend_GetLocation_Invalid_Id_Should_Not_Pass_()
+        public async Task LocationsBackend_GetLocation_Invalid_Id_Should_Not_Pass_()
         {
             // Arrange
             var backend = new LocationsBackend(DataSourceEnum.TEST);
@@ -429,7 +432,7 @@ namespace adminconsoletest
         /// Tests Backend GetLocation with a null LocationId value
         /// </summary>
         [TestMethod]
-        public async void LocationsBackend_GetLocation_Null_Id_Should_Not_Pass_()
+        public async Task LocationsBackend_GetLocation_Null_Id_Should_Not_Pass_()
         {
             // Arrange
             var backend = new LocationsBackend(DataSourceEnum.TEST);
@@ -602,7 +605,7 @@ namespace adminconsoletest
             location.Latitude = -20.9110M;
             location.LimitedTransactions = BooleanEnum.NULL;
             location.LocationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
-            location.locations = null;
+            location.locations = new List<Locations>();
             location.LocationType = LocationTypeEnum.A;
             location.Longitude = -84.8988M;
             location.MilitaryIdRequired = BooleanEnum.NULL;
@@ -615,10 +618,10 @@ namespace adminconsoletest
             location.RetailOutlet = null;
             location.SelfServiceDevice = BooleanEnum.NULL;
             location.SelfServiceOnly = BooleanEnum.NULL;
-            location.SoftDelete = BooleanEnum.Y;
+            location.SoftDelete = BooleanEnum.N;
             location.State = StateEnum.OH;
             location.Surcharge = BooleanEnum.NULL;
-            location.TakeCoopData = BooleanEnum.Y;
+            location.TakeCoopData = BooleanEnum.N;
             location.WebAddress = null;
 
 
@@ -674,7 +677,7 @@ namespace adminconsoletest
             Assert.AreEqual(location.Latitude, result.Latitude);
             Assert.AreEqual(location.LimitedTransactions, result.LimitedTransactions);
             Assert.AreEqual(location.LocationId, result.LocationId);
-            Assert.AreEqual(location.locations, result.locations);
+            Assert.AreEqual(location.locations.Count, result.locations.Count);
             Assert.AreEqual(location.LocationType, result.LocationType);
             Assert.AreEqual(location.Longitude, result.Longitude);
             Assert.AreEqual(location.MilitaryIdRequired, result.MilitaryIdRequired);
@@ -862,8 +865,8 @@ namespace adminconsoletest
             // Arrange
             var backend = new LocationsBackend(DataSourceEnum.TEST);
             string id = "2f104551-5140-4394-bce7-11a6a5b53db9";
-            var deletedLocationsInitial = await backend.IndexAsync(true); // Deleted records
-            var liveLocationsInitial = await backend.IndexAsync(); // Live records
+            var deletedLocationsInitial = (await backend.IndexAsync(true)).Count; // Deleted records
+            var liveLocationsInitial = (await backend.IndexAsync()).Count; // Live records
 
 
             // Act
@@ -872,8 +875,8 @@ namespace adminconsoletest
             var liveLocationsResult = await backend.IndexAsync(); // Live records after successful recover
 
 
-            var expectedDeleted = deletedLocationsInitial.Count - 1; // Initial should have one less deleted record
-            var expectedLive = liveLocationsInitial.Count + 1; // Initial should have one more live record after recovery
+            var expectedDeleted = deletedLocationsInitial - 1; // Initial should have one less deleted record
+            var expectedLive = liveLocationsInitial + 1; // Initial should have one more live record after recovery
 
 
 
