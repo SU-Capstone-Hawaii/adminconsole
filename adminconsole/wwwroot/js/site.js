@@ -17,10 +17,16 @@ function initMap() {
             zoom: 15,
             center: uluru
     });
+
+    var image = {
+        url: '/media/pin.png',
+        scaledSize: new google.maps.Size(40, 50),
+    };
     // The marker, positioned at Uluru
     var marker = new google.maps.Marker({
         position: uluru,
         map: map,
+        icon: image,
         draggable: true
     });
     //var marker = new google.maps.Marker({ position: uluru, map: map });
