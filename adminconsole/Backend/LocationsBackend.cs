@@ -13,7 +13,7 @@ namespace adminconsole.Backend
     {
         private MaphawksContext context;            // DB Context
         private DataSourceEnum dataSourceEnum;      // Allows for toggling betwen Live/Test data
-        private LocationsDataMock dataMock;
+        private LocationsDataMock? dataMock;
 
         public Exception errorMessage = null;
 
@@ -26,13 +26,15 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <param name="dataSourceEnum"> Default is for Live (DB) data. Can also set to DataSourceEnum.Test for Unit Testing </param>
-        public LocationsBackend(DataSourceEnum dataSourceEnum = DataSourceEnum.LIVE)
+        public LocationsBackend(DataSourceEnum? dataSourceEnum)
         {
-            this.dataSourceEnum = dataSourceEnum;
-
-            if (dataSourceEnum is DataSourceEnum.TEST)
+            if (dataSourceEnum is null)
             {
+                dataSourceEnum = DataSourceEnum.LIVE;
                 dataMock = new LocationsDataMock();
+            } else
+            {
+                this.dataSourceEnum = (DataSourceEnum)dataSourceEnum;
             }
         }
 
@@ -329,10 +331,12 @@ namespace adminconsole.Backend
 
 
                 // Create ViewModel out of result of query
-                locationViewModel.InstatiateViewModelPropertiesWithOneLocation
-                    (
-                        dataMock.GetOneLocation(whereList)
-                    );
+                var location = dataMock.GetOneLocation(whereList);
+
+                if (location != null)
+                {
+                    locationViewModel = new AllTablesViewModel(location);
+                }
             }
 
             return locationViewModel;
@@ -368,14 +372,6 @@ namespace adminconsole.Backend
             }
 
 
-            Locations response = await ReadOneRecordAsync(newLocation.LocationId).ConfigureAwait(true);
-
-
-            if (response is null)  // Location does not exist
-            {
-                return false;
-            }
-
 
             // Get each table's Object
             Locations location = AllTablesViewModel.GetNewLocation(newLocation);
@@ -390,6 +386,13 @@ namespace adminconsole.Backend
             {
                 try
                 {
+                    Locations response = await ReadOneRecordAsync(newLocation.LocationId).ConfigureAwait(true);
+                    
+                    if (response is null)  // Location does not exist
+                    {
+                        return false;
+                    }
+
                     _AddDeleteRow(response.Contact, location.Contact);
                     _AddDeleteRow(response.SpecialQualities, location.SpecialQualities);
                     _AddDeleteRow(response.DailyHours, location.DailyHours);
@@ -408,7 +411,7 @@ namespace adminconsole.Backend
                 }
             } else // Use mock data
             {
-                result = dataMock.EditPostAsync(location, location.Contact, location.SpecialQualities, location.DailyHours);
+                return dataMock.EditPostAsync(location, location.Contact, location.SpecialQualities, location.DailyHours);
             }
 
             return true;
@@ -669,6 +672,7 @@ namespace adminconsole.Backend
                          .Where(record => record.SoftDelete == isDeleted && record.SoftDelete == isDeleted)
                          .ToListAsync()
                          .ConfigureAwait(false);
+
 
             return result;
         }
