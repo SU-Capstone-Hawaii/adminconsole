@@ -3,10 +3,40 @@
 
 // Write your JavaScript code.
 function initMap() {
-    var center = { lat: 55.92965249, lng: 12.47840507 };
+    // set BECU Headquarters for default map starting location
+    /*var headquarters = {
+        lat: 47.490305,
+        lng: -122.272081
+    }*/
 
-    var map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 12,
-        center: center
+    // The location of Uluru
+    var uluru = { lat: 47.490305, lng: -122.272081};
+    // The map, centered at Uluru
+    var map = new google.maps.Map(
+        document.getElementById('map-wrapper'), {
+            zoom: 15,
+            center: uluru
     });
-}
+    // The marker, positioned at Uluru
+    var marker = new google.maps.Marker({
+        position: uluru,
+        map: map,
+        draggable: true
+    });
+    //var marker = new google.maps.Marker({ position: uluru, map: map });
+
+    // *** set default map parameters *** //  
+    /*var mapOptions = {
+        center: headquarters,
+        gestureHandling: 'cooperative',
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        //streetViewControl: false,
+        zoom: 15,
+    };
+
+    // ***  display the Google map with the default Options  *** //
+    map = new google.maps.Map(document.getElementById('map-wrapper'), mapOptions);*/
+
+
+};
+
