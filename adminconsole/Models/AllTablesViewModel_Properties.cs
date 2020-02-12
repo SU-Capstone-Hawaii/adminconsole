@@ -16,12 +16,12 @@ namespace adminconsole.Models
 
         [DisplayName("Allow Co-Op Overwrite")]
         [EnumDataType(typeof(BooleanEnum))]
-        #nullable enable
-        public BooleanEnum? TakeCoopData { get; set; }
+        [Required]
+        public BooleanEnum TakeCoopData { get; set; }
 
         [DisplayName("Delete")]
         [EnumDataType(typeof(BooleanEnum))]
-        #nullable enable
+        [Required]
         public BooleanEnum SoftDelete { get; set; }
 
         [DisplayName("Institution")]
