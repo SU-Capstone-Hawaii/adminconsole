@@ -173,9 +173,9 @@ namespace adminconsole.Models
             location.Name = newLocation.Name ?? null;
             location.PostalCode = newLocation.PostalCode;
             location.RetailOutlet = newLocation.RetailOutlet ?? null;
-            location.SoftDelete = ConvertBooleanEnumToBool(newLocation.SoftDelete);
+            location.SoftDelete = string.Equals(BooleanEnumExtensions.GetDisplayName(newLocation.SoftDelete), "Yes") ? true : false;
             location.State = newLocation.State.ToString();
-            location.TakeCoopData = ConvertBooleanEnumToBool(newLocation.TakeCoopData);
+            location.TakeCoopData = string.Equals(BooleanEnumExtensions.GetDisplayName(newLocation.TakeCoopData), "Yes") ? true : false;
             return location;
         }
 
