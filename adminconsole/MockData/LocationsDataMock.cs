@@ -325,7 +325,7 @@ namespace adminconsole.Models
             location_4.RetailOutlet = null;
             location_4.SpecialQualities.SelfServiceDevice = BooleanEnum.Y.ToString();
             location_4.SpecialQualities.SelfServiceOnly = BooleanEnum.Y.ToString();
-            location_4.SoftDelete = true;
+            location_4.SoftDelete = false;
             location_4.State = StateEnum.MI.ToString();
             location_4.SpecialQualities.Surcharge = BooleanEnum.Y.ToString();
             location_4.TakeCoopData = true;
@@ -1032,7 +1032,7 @@ namespace adminconsole.Models
 
             // Update lists
             liveLocations.Add(recoveredLocation);
-            liveLocations.RemoveAt(index);
+            deletedLocations.RemoveAt(index);
 
         }
 
