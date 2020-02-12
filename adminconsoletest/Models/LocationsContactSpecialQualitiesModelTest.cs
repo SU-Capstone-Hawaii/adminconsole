@@ -41,7 +41,7 @@ namespace adminconsoletest
             var result = new AllTablesViewModel();
 
             // Act
-
+            var s = result.SoftDelete;
             // Assert
             // Locations
             Assert.IsNull(result.Address);
@@ -57,9 +57,9 @@ namespace adminconsoletest
             Assert.IsNull(result.Name);
             Assert.IsNull(result.PostalCode);
             Assert.IsNull(result.RetailOutlet);
-            Assert.IsNull(result.SoftDelete);
+            Assert.AreEqual(BooleanEnum.N, result.SoftDelete);
             Assert.IsNotNull(result.State);
-            Assert.IsNull(result.TakeCoopData);
+            Assert.AreEqual(BooleanEnum.N, result.TakeCoopData);
 
             // Contacts
             Assert.IsNull(result.Phone);
