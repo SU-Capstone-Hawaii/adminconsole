@@ -32,22 +32,6 @@ function findBootstrapEnvironment() {
  * of Edit and Create views
  */
 function initMap() {
-    var lat;
-    var long;
-    geocoder = new google.maps.Geocoder();
-    var address = '601 E Pike St.';
-    geocoder.geocode({ 'address': address }, function (results, status) {
-        if (status == 'OK') {
-            console.log(results);
-            lat = results[0]['geometry']['location'].lat();
-            long = results[0]['geometry']['location'].lng();
-            console.log("lat: ", results[0]['geometry']['location'].lat());
-            console.log("long: ", results[0]['geometry']['location'].lng());
-        } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-        }
-    });
-
     
     var lat = parseFloat($('#Latitude').attr('value'));
     var long = parseFloat($('#Longitude').attr('value'))
@@ -60,9 +44,6 @@ function initMap() {
         displayMap(lat, long);
 
 
-    } else {                               // Get get lat/long from address
-        var LatLong = document.getElementById("getLatLongBtn")
-            .addEventListener("click", getLatLongFromAddress);
     }
 
 }
@@ -126,46 +107,69 @@ function displayMap(lat, long) {
 
 
 /**
- * To Do: Get latitude and longitude from address 
+ * Gets the Latitude and Longitude from the Address and State fields 
+ * then calls displayMap(lat, long) to drop the pin on the map
  **/
+function getLatLongFromAddress() {
+    console.log("hello");
+    // Get value used for geocoder
+    var street = $("#Address").attr('value');
+    var state = $("#State option:selected").text();
 
 
-/*function getLatLongFromAddress() {
+    var hasValidInput = hasAddress(street, state);
 
-
-    var street = $('#Address').attr('value').trim();
-    var city = $('#City').attr('value').trim();
-
-    if (empty(street) || empty(city)) {
+    if (!hasValidInput) {   // early return
         return;
     }
 
-    var addressArray = street.split() + city.split();
+
+    var formattedAddress = street.concat(', ', state);
+
+    geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ 'address': formattedAddress }, function (results, status) {
+        if (status == 'OK') {
+
+            lat = results[0]['geometry']['location'].lat();
+            long = results[0]['geometry']['location'].lng();
 
 
-    var formattedAddress = addressArray.join('+');
+            // Set Latitude and Longitude on the DOM to calculated values
+            $('input[name="Latitude"]').val(lat);
+            $('input[name="Longitude"]').val(long);
 
 
-
-    if (!empty($address)) {
-        //Formatted address
-        $formattedAddr = str_replace(' ', '+', $address);
-        //Send request and receive json data by address
-        $geocodeFromAddr = file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddr.'&sensor=false');
-        $output = json_decode($geocodeFromAddr);
-        //Get latitude and longitute from json data
-        $data['latitude'] = $output -> results[0] -> geometry -> location -> lat;
-        $data['longitude'] = $output -> results[0] -> geometry -> location -> lng;
-        //Return latitude and longitude of the given address
-        if (!empty($data)) {
-            return $data;
+            displayMap(lat, long);
         } else {
-            return false;
+            alert('Geocode was not successful for the following reason: ' + status);
         }
-    } else {
+    });
+}
+
+
+
+
+
+/**
+ * Checks if there are values in both Address and State fields.
+ * 
+ * @param {any} street : Address field on the DOM
+ * @param {any} state : State field on the DOM
+ * 
+ * @returns {boolean} : true if address is okay for geocoding, otherwise false
+ */
+function hasAddress(street, state) {
+
+    if (street == null || state == null) { // Both null
+
+        alert('Please provide values for both Street and State before attempting to drop pin.');
         return false;
+
     }
-}*/
+
+    return true;
+}
 
 
 /**
