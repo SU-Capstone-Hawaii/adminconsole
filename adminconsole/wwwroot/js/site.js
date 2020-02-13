@@ -5,6 +5,28 @@
 
 
 
+function findBootstrapEnvironment() {
+    let envs = ['xs', 'sm', 'md', 'lg', 'xl'];
+
+    let el = document.createElement('div');
+    document.body.appendChild(el);
+
+    let curEnv = envs.shift();
+
+    for (let env of envs.reverse()) {
+        el.classList.add(`d-${env}-none`);
+
+        if (window.getComputedStyle(el).display === 'none') {
+            curEnv = env;
+            break;
+        }
+    }
+
+    document.body.removeChild(el);
+    return curEnv;
+}
+
+
 /**
  * Itinitalizes Google Map drawing with marker. This function is called on load
  * of Edit and Create views
@@ -14,7 +36,7 @@ function initMap() {
     var lat = parseFloat($('#Latitude').attr('value'));
     var long = parseFloat($('#Longitude').attr('value'))
 
-
+    console.log(findBootstrapEnvironment());
 
     if ((lat != null) && (long != null)) { // If we have a latitude and longitude, display map and drop pin
         displayMap(lat, long);
