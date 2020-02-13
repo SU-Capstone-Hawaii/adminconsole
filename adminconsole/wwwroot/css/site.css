@@ -126,13 +126,39 @@ body {
 
 /*#region Edit Styling*/
 
+#panel1 {
+    border: 1px solid purple;
+    height: 65vh;
+    overflow-y: scroll;
+}
 
+#panel2 {
+    border: 1px solid blue;
+    height: 65vh;
+    overflow-y: scroll;
+}
+
+#panel3 {
+    border: 1px solid pink;
+    height: 65vh;
+    overflow-y: scroll;
+}
+
+#panel4 {
+    border: 1px solid grey;
+    height: 65vh;
+}
+
+#mapBlock {
+    height: 100%;
+    width:100%;
+}
 
 
 
 #map-wrapper {
-    height: 30vh;
-    width: 30vw;
+    width: 100%;
+    height: 40%;
 }
 
 
