@@ -369,6 +369,14 @@
             </div>
         </form>
     </div>
+
+    <div id="mapBlock-create" class="col-md-8">
+
+        <div class="d-block" id="map-wrapper"></div>
+
+        <button type="button" id="getLatLongBtn" onclick="getLatLongFromAddress()">Drop Pin</button>
+
+    </div>
 </div>
 
 <div>
@@ -376,5 +384,17 @@
 </div>
 
 @section Scripts {
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAR_KkOxYdpXhbRLPAvidcUJdfeXHHHAew&" async defer></script>
+
+    <script>
+        $(function () {
+            $(window).on('load', function () {
+                initMap();
+            });
+        });
+    </script>
+
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
