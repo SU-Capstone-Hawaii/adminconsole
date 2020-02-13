@@ -189,15 +189,33 @@ namespace adminconsole.Backend
                 Locations location = AllTablesViewModel.GetNewLocation(newLocation);
                 Contacts contact = AllTablesViewModel.GetNewContact(newLocation);
                 SpecialQualities specialQuality = AllTablesViewModel.GetNewSpecialQualities(newLocation);
-                DailyHours DailyHours = AllTablesViewModel.GetNewDailyHours(newLocation);
+                DailyHours dailyHours = AllTablesViewModel.GetNewDailyHours(newLocation);
 
 
 
                 try
                 {
-                    context.Add(location);
-                    context.Add(contact);
-                    context.Add(specialQuality);
+                    AlterRecordInfo(AlterRecordInfoEnum.Create, location);
+                    
+                    if(contact != null)
+                    {
+                        AlterRecordInfo(AlterRecordInfoEnum.Create, contact);
+                    }
+
+
+                    if (specialQuality != null)
+                    {
+                        AlterRecordInfo(AlterRecordInfoEnum.Create, specialQuality);
+                    }
+
+
+
+                    if (dailyHours != null)
+                    {
+                        AlterRecordInfo(AlterRecordInfoEnum.Create, dailyHours);
+                    }
+
+
                     context.SaveChanges();
                 }
                 catch (DbUpdateException)
