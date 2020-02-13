@@ -32,14 +32,37 @@ function findBootstrapEnvironment() {
  * of Edit and Create views
  */
 function initMap() {
+    var lat;
+    var long;
+    geocoder = new google.maps.Geocoder();
+    var address = '601 E Pike St.';
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == 'OK') {
+            console.log(results);
+            lat = results[0]['geometry']['location'].lat();
+            long = results[0]['geometry']['location'].lng();
+            console.log("lat: ", results[0]['geometry']['location'].lat());
+            console.log("long: ", results[0]['geometry']['location'].lng());
+        } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
 
+    
     var lat = parseFloat($('#Latitude').attr('value'));
     var long = parseFloat($('#Longitude').attr('value'))
 
     console.log(findBootstrapEnvironment());
 
     if ((lat != null) && (long != null)) { // If we have a latitude and longitude, display map and drop pin
+
+
         displayMap(lat, long);
+
+
+    } else {                               // Get get lat/long from address
+        var LatLong = document.getElementById("getLatLongBtn")
+            .addEventListener("click", getLatLongFromAddress);
     }
 
 }
@@ -97,6 +120,52 @@ function displayMap(lat, long) {
 
 }
 
+
+
+
+
+
+/**
+ * To Do: Get latitude and longitude from address 
+ **/
+
+
+/*function getLatLongFromAddress() {
+
+
+    var street = $('#Address').attr('value').trim();
+    var city = $('#City').attr('value').trim();
+
+    if (empty(street) || empty(city)) {
+        return;
+    }
+
+    var addressArray = street.split() + city.split();
+
+
+    var formattedAddress = addressArray.join('+');
+
+
+
+    if (!empty($address)) {
+        //Formatted address
+        $formattedAddr = str_replace(' ', '+', $address);
+        //Send request and receive json data by address
+        $geocodeFromAddr = file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address='.$formattedAddr.'&sensor=false');
+        $output = json_decode($geocodeFromAddr);
+        //Get latitude and longitute from json data
+        $data['latitude'] = $output -> results[0] -> geometry -> location -> lat;
+        $data['longitude'] = $output -> results[0] -> geometry -> location -> lng;
+        //Return latitude and longitude of the given address
+        if (!empty($data)) {
+            return $data;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}*/
 
 
 /**
