@@ -36,9 +36,12 @@ function initMap() {
     var lat = parseFloat($('#Latitude').attr('value'));
     var long = parseFloat($('#Longitude').attr('value'))
 
+    console.log("lat: ", lat);
+    console.log("long: ", long);
+
     console.log(findBootstrapEnvironment());
 
-    if ((lat != null) && (long != null)) { // If we have a latitude and longitude, display map and drop pin
+    if (!isNaN(lat) && !isNaN(long)) { // If we have a latitude and longitude, display map and drop pin
 
 
         displayMap(lat, long);
@@ -85,6 +88,7 @@ function displayMap(lat, long) {
     var marker = new google.maps.Marker({
         position: location,
         map: map,
+        icon: image,
         draggable: true
     });
 
@@ -111,14 +115,13 @@ function displayMap(lat, long) {
  * then calls displayMap(lat, long) to drop the pin on the map
  **/
 function getLatLongFromAddress() {
-    console.log("hello");
     // Get value used for geocoder
-    var street = $("#Address").attr('value');
-    var state = $("#State option:selected").text();
+    var street = getStreet();
+    var state = getState();
 
 
     var hasValidInput = hasAddress(street, state);
-
+    console.log("hasValidInput: ", hasValidInput);
     if (!hasValidInput) {   // early return
         return;
     }
@@ -161,7 +164,10 @@ function getLatLongFromAddress() {
  */
 function hasAddress(street, state) {
 
-    if (street == null || state == null) { // Both null
+    console.log(street)
+    console.log(state);
+
+    if (!street || !state) { // Both null
 
         alert('Please provide values for both Street and State before attempting to drop pin.');
         return false;
@@ -170,6 +176,36 @@ function hasAddress(street, state) {
 
     return true;
 }
+
+
+
+
+/**
+ * Returns value of Street in Create and Edit Forms
+ */
+function getStreet() {
+    var street = $("#Address").attr('value');
+
+    if (street) {  // If on edit page
+        console.log("Street: ", street);
+        return street;
+    }
+
+
+    return $("#Address").val(); // If on create
+}
+
+
+
+
+/**
+ * Returns value of State in Create and Edit Forms
+ */
+function getState() {
+    return $("#State option:selected").text();
+}
+
+
 
 
 /**
