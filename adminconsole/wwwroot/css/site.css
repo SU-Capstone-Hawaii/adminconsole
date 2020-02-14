@@ -169,6 +169,13 @@ required-field {
 
 
 
+#getLatLongBtn {
+    margin-bottom: 2%;
+    margin-top: 1%;
+}
+
+
+
 #mapBlock-create {
     height: 80em;
     width: 100%;
