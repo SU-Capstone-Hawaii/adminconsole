@@ -152,13 +152,6 @@ body {
 
 
 
-#mapBlock-create {
-    height: 80em;
-    width: 100%;
-}
-
-
-
 #map-wrapper {
     width: 100%;
     height: 40%;
@@ -166,6 +159,22 @@ body {
 
 
 
+
+
+/*#region Create Styling*/
+
+required-field {
+    color: red;
+}
+
+
+
+#mapBlock-create {
+    height: 80em;
+    width: 100%;
+}
+
+/*#endregion*/
 
 
 /* Sticky footer styles
