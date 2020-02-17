@@ -187,8 +187,28 @@ namespace adminconsoletest
         public async Task LocationsBackend_DetailsAsync_Invalid_Id_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
             var id = Guid.NewGuid().ToString();
+
+
+            
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();  // Where clause
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+            Mock<DatabaseHelper> mock = new Mock<DatabaseHelper>(mockContext);
+
+
+
+            mock.Setup(db => db.ReadOneRecordAsync(id))
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+
+            var backend = new LocationsBackend(mock.Object);
 
 
             // Act
