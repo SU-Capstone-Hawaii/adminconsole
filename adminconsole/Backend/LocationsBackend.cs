@@ -11,7 +11,7 @@ namespace adminconsole.Backend
 {
     public class LocationsBackend
     {
-        private MaphawksContext context;            // DB Context
+        private DatabaseHelper db;
         private DataSourceEnum dataSourceEnum;      // Allows for toggling betwen Live/Test data
         private LocationsDataMock? dataMock;
 
@@ -54,7 +54,7 @@ namespace adminconsole.Backend
         /// <param name="context"> DB Context Object </param>
         public LocationsBackend(MaphawksContext context)
         {
-            this.context = context;
+            db = new DatabaseHelper(context);
             this.dataSourceEnum = DataSourceEnum.LIVE;
 
         }
@@ -84,7 +84,7 @@ namespace adminconsole.Backend
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use database
             {
 
-                locations_list = await DatabaseHelper.ReadMultipleRecordsAsync(context, deleted).ConfigureAwait(false); // Select * join all tables
+                locations_list = await db.ReadMultipleRecordsAsync(deleted).ConfigureAwait(false); // Select * join all tables
 
 
             }
@@ -121,7 +121,7 @@ namespace adminconsole.Backend
         {
             if (dataSourceEnum is DataSourceEnum.LIVE)
             {
-                var resultLocation = await DatabaseHelper.ReadOneRecordAsync(context, id).ConfigureAwait(false);
+                var resultLocation = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
                 if (resultLocation == null)
                 {
                     return null;
@@ -183,7 +183,7 @@ namespace adminconsole.Backend
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use the Database
             {
                 // Ensures we don't end up with any duplicate LocationIds
-                while (context.Locations.Where(x => x.LocationId == newLocation.LocationId).ToList().Any())
+                while (db.LocationIdNotUnique(newLocation.LocationId))
                 {
                     newLocation.LocationId = Guid.NewGuid().ToString();
                 }
@@ -199,28 +199,28 @@ namespace adminconsole.Backend
 
                 try
                 {
-                    DatabaseHelper.AlterRecordInfo(context, AlterRecordInfoEnum.Create, location);
+                    db.AlterRecordInfo(AlterRecordInfoEnum.Create, location);
 
                     if (contact != null)
                     {
-                        DatabaseHelper.AlterRecordInfo(context, AlterRecordInfoEnum.Create, contact);
+                        db.AlterRecordInfo(AlterRecordInfoEnum.Create, contact);
                     }
 
 
                     if (specialQuality != null)
                     {
-                        DatabaseHelper.AlterRecordInfo(context, AlterRecordInfoEnum.Create, specialQuality);
+                        db.AlterRecordInfo(AlterRecordInfoEnum.Create, specialQuality);
                     }
 
 
 
                     if (dailyHours != null)
                     {
-                        DatabaseHelper.AlterRecordInfo(context, AlterRecordInfoEnum.Create, dailyHours);
+                        db.AlterRecordInfo(AlterRecordInfoEnum.Create, dailyHours);
                     }
 
 
-                    context.SaveChanges();
+                    db.SaveChanges();
                 }
                 catch (DbUpdateException)
                 {
@@ -280,7 +280,7 @@ namespace adminconsole.Backend
 
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
             {
-                location = await DatabaseHelper.ReadOneRecordAsync(context, id).ConfigureAwait(false);
+                location = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
             }
             else // Use mock data
             {
@@ -338,7 +338,7 @@ namespace adminconsole.Backend
             if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
             {
 
-                var location = await DatabaseHelper.ReadOneRecordAsync(context, id).ConfigureAwait(false); // Get Location from Database
+                var location = await db.ReadOneRecordAsync(id).ConfigureAwait(false); // Get Location from Database
 
                 if (location != null)
                 {
@@ -409,21 +409,21 @@ namespace adminconsole.Backend
             {
                 try
                 {
-                    Locations response = await DatabaseHelper.ReadOneRecordAsync(context, newLocation.LocationId).ConfigureAwait(true);
+                    Locations response = await db.ReadOneRecordAsync(newLocation.LocationId).ConfigureAwait(true);
 
                     if (response is null)  // Location does not exist
                     {
                         return false;
                     }
 
-                    DatabaseHelper._AddDeleteRow(context, response.Contact, location.Contact);
-                    DatabaseHelper._AddDeleteRow(context, response.SpecialQualities, location.SpecialQualities);
-                    DatabaseHelper._AddDeleteRow(context, response.DailyHours, location.DailyHours);
+                    db._AddDeleteRow(response.Contact, location.Contact);
+                    db._AddDeleteRow(response.SpecialQualities, location.SpecialQualities);
+                    db._AddDeleteRow(response.DailyHours, location.DailyHours);
 
 
                     response = location;
 
-                    result = DatabaseHelper.AlterRecordInfo(context, AlterRecordInfoEnum.Update, response);
+                    result = db.AlterRecordInfo(AlterRecordInfoEnum.Update, response);
 
                     return result;
                 }
@@ -474,7 +474,7 @@ namespace adminconsole.Backend
 
             if (dataSourceEnum is DataSourceEnum.LIVE)
             {
-                locations = await DatabaseHelper.ReadOneRecordAsync(context, id).ConfigureAwait(false);
+                locations = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
             }
             else
             {
@@ -495,7 +495,7 @@ namespace adminconsole.Backend
             {
                 try
                 {
-                    DatabaseHelper.AlterRecordInfo(context, AlterRecordInfoEnum.Update, locations);
+                    db.AlterRecordInfo(AlterRecordInfoEnum.Update, locations);
                     return true;
                 }
                 catch (DbUpdateException)
@@ -550,7 +550,7 @@ namespace adminconsole.Backend
             {
 
                 // Get the record
-                location = await DatabaseHelper.ReadOneRecordAsync(context, id).ConfigureAwait(false);
+                location = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
 
 
             }
@@ -587,7 +587,7 @@ namespace adminconsole.Backend
 
                 try
                 {
-                    DatabaseHelper.AlterRecordInfo(context, AlterRecordInfoEnum.Update, location);
+                    db.AlterRecordInfo(AlterRecordInfoEnum.Update, location);
                     return true;
                 }
                 catch (DbUpdateException)

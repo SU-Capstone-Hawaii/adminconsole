@@ -1,13 +1,22 @@
 ﻿using adminconsole.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace adminconsole.Backend
 {
-    public static class DatabaseHelper
+    public class DatabaseHelper
     {
+        private MaphawksContext context;
+
+
+        public DatabaseHelper(MaphawksContext context)
+        {
+            this.context = context;
+        }
+
         /// <summary>
         /// Reads one record from the database given its Location ID
         /// </summary>
@@ -17,7 +26,7 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <returns> A location object if the record exists, otherwise null </returns>
-        public static async Task<Locations> ReadOneRecordAsync(MaphawksContext context, string referenceId)
+        public  async Task<Locations> ReadOneRecordAsync(string referenceId)
         {
             if (string.IsNullOrEmpty(referenceId) &&
                 string.IsNullOrWhiteSpace(referenceId))
@@ -44,6 +53,27 @@ namespace adminconsole.Backend
 
 
         /// <summary>
+        /// Determines if a GUID is already associated with a Location record. 
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="id"> Database field LocationId </param>
+        /// 
+        /// 
+        /// <returns> Returns true if the LocationId is already associated with a Location record, false otherwise </returns>
+        public bool LocationIdNotUnique(string id)
+        {
+            var idExists = context.Locations.Where(x => x.LocationId.Equals(id)).Any();
+
+            return idExists;
+        }
+
+
+
+
+
+
+        /// <summary>
         /// Reads all records from database. 
         /// </summary>
         /// 
@@ -52,7 +82,7 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <returns> List<Locations> object if any records in databse, otherwise returns null </returns>
-        public static async Task<List<Locations>> ReadMultipleRecordsAsync(MaphawksContext context, bool isDeleted = false)
+        public  async Task<List<Locations>> ReadMultipleRecordsAsync(bool isDeleted = false)
         {
             var result = await context.Locations
                          .Include(c => c.Contact)
@@ -87,7 +117,7 @@ namespace adminconsole.Backend
         /// <param name="table"> Maphawks Database table (model class) </param>
         /// 
         /// <returns> Returns true on success, otherwise returns false </returns>
-        public static bool AlterRecordInfo(MaphawksContext context, AlterRecordInfoEnum action, IMaphawksDatabaseTable table)
+        public  bool AlterRecordInfo(AlterRecordInfoEnum action, IMaphawksDatabaseTable table)
         {
             if (table is null)
             {
@@ -366,7 +396,7 @@ namespace adminconsole.Backend
         }
 
 
-        public static Table GetTable(IMaphawksDatabaseTable record)
+        public  Table GetTable(IMaphawksDatabaseTable record)
         {
             if (!(record as Locations is null))
             {
@@ -407,7 +437,7 @@ namespace adminconsole.Backend
         /// 
         /// <param name="referenceRow"> The row before the edit </param>
         /// <param name="editedRow"> The row after the edit </param>
-        public static void _AddDeleteRow(MaphawksContext context, IMaphawksDatabaseTable referenceRow, IMaphawksDatabaseTable editedRow)
+        public  void _AddDeleteRow(IMaphawksDatabaseTable referenceRow, IMaphawksDatabaseTable editedRow)
         {
             if (referenceRow is null && editedRow is null ||        // Don't need to add a new row
                 !(referenceRow is null) && !(editedRow is null))
@@ -424,17 +454,17 @@ namespace adminconsole.Backend
 
                     case (Table.Contacts):
 
-                        AlterRecordInfo(context, AlterRecordInfoEnum.Create, (Contacts)editedRow);
+                        AlterRecordInfo(AlterRecordInfoEnum.Create, (Contacts)editedRow);
                         return;
 
                     case (Table.Special_Qualities):
 
-                        AlterRecordInfo(context, AlterRecordInfoEnum.Create, (SpecialQualities)editedRow);
+                        AlterRecordInfo(AlterRecordInfoEnum.Create, (SpecialQualities)editedRow);
                         return;
 
                     case (Table.Daily_Hours):
 
-                        AlterRecordInfo(context, AlterRecordInfoEnum.Create, (DailyHours)editedRow);
+                        AlterRecordInfo(AlterRecordInfoEnum.Create, (DailyHours)editedRow);
                         return;
 
                     default:
@@ -454,17 +484,17 @@ namespace adminconsole.Backend
 
                     case (Table.Contacts):
 
-                        AlterRecordInfo(context, AlterRecordInfoEnum.Delete, (Contacts)referenceRow);
+                        AlterRecordInfo(AlterRecordInfoEnum.Delete, (Contacts)referenceRow);
                         return;
 
                     case (Table.Special_Qualities):
 
-                        AlterRecordInfo(context, AlterRecordInfoEnum.Delete, (SpecialQualities)referenceRow);
+                        AlterRecordInfo(AlterRecordInfoEnum.Delete, (SpecialQualities)referenceRow);
                         return;
 
                     case (Table.Daily_Hours):
 
-                        AlterRecordInfo(context, AlterRecordInfoEnum.Delete, (DailyHours)referenceRow);
+                        AlterRecordInfo(AlterRecordInfoEnum.Delete, (DailyHours)referenceRow);
                         return;
 
                     default:
@@ -473,6 +503,22 @@ namespace adminconsole.Backend
 
             }
 
+        }
+
+
+
+
+
+        public bool SaveChanges()
+        {
+            try
+            {
+                context.SaveChanges();
+                return true;
+            } catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
