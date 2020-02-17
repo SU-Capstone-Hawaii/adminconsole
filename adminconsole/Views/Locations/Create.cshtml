@@ -6,7 +6,6 @@
 
 <h1>Create</h1>
 
-<h4>Locations</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,7 +19,7 @@
             </div>
             <div class="form-group d-flex">
                 <label asp-for="TakeCoopData" class="control-label"></label>
-                <span class="required-field">*</span>
+                <span class="text-danger ml-1">*</span>
                 <select asp-for="TakeCoopData" asp-items="Html.GetEnumSelectList<BooleanEnum>()" class="ml-auto">
                     <option selected="selected" value="">Select</option>
                 </select>
@@ -31,19 +30,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <span class="required-field">*</span>
+                <span class="text-danger">*</span>
                 <input asp-for="Name" class="form-control"/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
-                <span class="required-field">*</span>
+                <span class="text-danger">*</span>
                 <input asp-for="Address" class="form-control" />
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="City" class="control-label"></label>
-                <span class="required-field">*</span>
+                <span class="text-danger">*</span>
                 <input asp-for="City" class="form-control" />
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
@@ -54,7 +53,7 @@
             </div>
             <div class="form-group d-flex">
                 <label asp-for="State" class="control-label"></label>
-                <span class="required-field">*</span>
+                <span class="text-danger ml-1">*</span>
                 <select asp-for="State" asp-items="Html.GetEnumSelectList<StateEnum>()" class="ml-auto">
                     <option selected="selected">State</option>
                 </select>
@@ -62,25 +61,25 @@
             </div>
             <div class="form-group">
                 <label asp-for="PostalCode" class="control-label"></label>
-                <span class="required-field">*</span>
+                <span class="text-danger">*</span>
                 <input asp-for="PostalCode" class="form-control" />
                 <span asp-validation-for="PostalCode" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Country" class="control-label"></label>
-                <span class="required-field">*</span>
+                <span class="text-danger">*</span>
                 <input asp-for="Country" class="form-control" />
                 <span asp-validation-for="Country" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Latitude" class="control-label"></label>
-                <span class="required-field">*</span>
+                <span class="text-danger">*</span>
                 <input asp-for="Latitude" class="form-control" />
                 <span asp-validation-for="Latitude" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Longitude" class="control-label"></label>
-                <span class="required-field">*</span>
+                <span class="text-danger">*</span>
                 <input asp-for="Longitude" class="form-control" />
                 <span asp-validation-for="Longitude" class="text-danger"></span>
             </div>
@@ -96,7 +95,7 @@
             </div>
             <div class="form-group d-flex">
                 <label asp-for="LocationType" class="control-label"></label>
-                <span class="required-field">*</span>
+                <span class="text-danger ml-1">*</span>
                 <select asp-for="LocationType" asp-items="Html.GetEnumSelectList<LocationTypeEnum>()" class="ml-auto">
                     <option selected="selected">Select Location Type</option>
                 </select>
