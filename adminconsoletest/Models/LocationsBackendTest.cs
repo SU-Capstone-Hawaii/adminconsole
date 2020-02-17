@@ -333,7 +333,7 @@ namespace adminconsoletest
 
         /// <summary>
         /// Tests Backend Create which will not create  a new Location record in all tables
-        /// because it has a non-unique LocationId.
+        /// because an exception is thrown when trying to insert into Locations table.
         /// </summary>
         [TestMethod]
         public void LocationsBackend_Create_Create_Location_Throws_Exception_Should_Not_Pass_()
@@ -433,7 +433,7 @@ namespace adminconsoletest
 
         /// <summary>
         /// Tests Backend Create which will not create  a new Location record in all tables
-        /// because it has a non-unique LocationId.
+        /// because an exception is thrown when trying to insert into Contacts table.
         /// </summary>
         [TestMethod]
         public void LocationsBackend_Create_Create_Contact_Throws_Exception_Should_Not_Pass_()
@@ -537,7 +537,7 @@ namespace adminconsoletest
 
         /// <summary>
         /// Tests Backend Create which will not create  a new Location record in all tables
-        /// because it has a non-unique LocationId.
+        /// because an exception is thrown when trying to insert into SpecialQualities table.
         /// </summary>
         [TestMethod]
         public void LocationsBackend_Create_Create_SpecialQualities_Throws_Exception_Should_Not_Pass_()
@@ -643,8 +643,8 @@ namespace adminconsoletest
 
 
         /// <summary>
-        /// Tests Backend Create which will not create  a new Location record in all tables
-        /// because it has a non-unique LocationId.
+        /// Tests Backend Create which will not create a new Location record in all tables
+        /// because an exception is thrown when trying to insert into DailyHours table.
         /// </summary>
         [TestMethod]
         public void LocationsBackend_Create_Create_DailyHours_Throws_Exception_Should_Not_Pass_()
