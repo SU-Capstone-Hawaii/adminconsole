@@ -533,6 +533,114 @@ namespace adminconsoletest
 
 
 
+
+
+        /// <summary>
+        /// Tests Backend Create which will not create  a new Location record in all tables
+        /// because it has a non-unique LocationId.
+        /// </summary>
+        [TestMethod]
+        public void LocationsBackend_Create_Create_SpecialQualities_Throws_Exception_Should_Not_Pass_()
+        {
+            // Arrange
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+
+            var backend = new LocationsBackend(mock.Object);
+            AllTablesViewModel location = new AllTablesViewModel();
+
+            location.AcceptCash = BooleanEnum.Y;
+            location.AcceptDeposit = BooleanEnum.Y;
+            location.Access = BooleanEnum.Y;
+            location.AccessNotes = "Lobby";
+            location.Address = "362 Oxford Dr.";
+            location.Cashless = BooleanEnum.Y;
+            location.City = "Starkville";
+            location.CoopLocationId = "WA9820-174920573";
+            location.Country = "US";
+            location.County = "King County";
+            location.DriveThruOnly = BooleanEnum.Y;
+            location.EnvelopeRequired = BooleanEnum.Y;
+            location.Fax = "8058451931";
+            location.HandicapAccess = BooleanEnum.Y;
+            location.Hours = "24 HOURS ACCESS";
+            location.HoursDtfriClose = "9";
+            location.HoursDtfriOpen = "9";
+            location.HoursDtmonClose = "9";
+            location.HoursDtmonOpen = "9";
+            location.HoursDtsatClose = "9";
+            location.HoursDtsatOpen = "9";
+            location.HoursDtsunClose = "9";
+            location.HoursDtsunOpen = "9";
+            location.HoursDtthuClose = "9";
+            location.HoursDtthuOpen = "9";
+            location.HoursDttueClose = "9";
+            location.HoursDttueOpen = "9";
+            location.HoursDtwedClose = "9";
+            location.HoursDtwedOpen = "9";
+            location.HoursFriClose = "9";
+            location.HoursFriOpen = "9";
+            location.HoursMonClose = "9";
+            location.HoursMonOpen = "9";
+            location.HoursSatClose = "9";
+            location.HoursSatOpen = "9";
+            location.HoursSunClose = "9";
+            location.HoursSunOpen = "9";
+            location.HoursThuClose = "9";
+            location.HoursThuOpen = "9";
+            location.HoursTueClose = "9";
+            location.HoursTueOpen = "9";
+            location.HoursWedClose = "9";
+            location.HoursWedOpen = "9";
+            location.InstallationType = "Walk-Up";
+            location.Latitude = 13.3108M;
+            location.LimitedTransactions = BooleanEnum.Y;
+            location.LocationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+            location.locations = new List<Locations>();
+            location.LocationType = LocationTypeEnum.A;
+            location.Longitude = -132.8851M;
+            location.MilitaryIdRequired = BooleanEnum.Y;
+            location.Name = "BECU";
+            location.OnMilitaryBase = BooleanEnum.Y;
+            location.OnPremise = BooleanEnum.Y;
+            location.Phone = "4896771019";
+            location.PostalCode = "39759";
+            location.RestrictedAccess = BooleanEnum.Y;
+            location.RetailOutlet = "Northgate";
+            location.SelfServiceDevice = BooleanEnum.Y;
+            location.SelfServiceOnly = BooleanEnum.Y;
+            location.SoftDelete = BooleanEnum.Y;
+            location.State = StateEnum.MS;
+            location.Surcharge = BooleanEnum.Y;
+            location.TakeCoopData = BooleanEnum.Y;
+            location.WebAddress = "https://trypap.com/";
+
+
+            mock.Setup(db => db.LocationIdNotUnique(location.LocationId))
+                .Returns(false);
+
+
+            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Create, It.IsAny<Locations>()))
+                .Returns(true);
+
+            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Create, It.IsAny<Contacts>()))
+                .Returns(true);
+
+            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Create, It.IsAny<SpecialQualities>()))
+                .Throws((new Exception()));
+
+            // Act
+            var result = backend.Create(location);
+
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+
+
+
+
         /// <summary>
         /// Tests Backend GetLocation with a valid LocationId value
         /// </summary>
