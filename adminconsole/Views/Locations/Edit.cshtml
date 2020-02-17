@@ -18,33 +18,36 @@
                 <input type="hidden" asp-for="LocationId" value="@Model.LocationId" />
                 <input type="hidden" asp-for="CoopLocationId" value="@Model.CoopLocationId" class="form-control" />
                 <div class="form-group">
-                    <label asp-for="TakeCoopData" class="control-label"></label>
-                    <select asp-for="TakeCoopData">
+                    <label asp-for="TakeCoopData" class="control-label d-flex"></label>
+                    <select asp-for="TakeCoopData" class="ml-auto">
                         <option selected="selected" value="">Select</option>
                         <option value="@BooleanEnum.N">No</option>
                         <option value="@BooleanEnum.Y">Yes</option>
                     </select>
                     <span asp-validation-for="TakeCoopData" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group d-flex">
                     <label asp-for="SoftDelete" class="control-label"></label>
-                    <select asp-for="SoftDelete" disabled>
+                    <select asp-for="SoftDelete" class="ml-auto" disabled>
                         <option selected="selected" value="@Model.SoftDelete">@BooleanEnumExtensions.GetDisplayName(Model.SoftDelete)</option>
                     </select>
                     <span asp-validation-for="SoftDelete" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
+                    <span class="text-danger ml-1">*</span>
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Address" class="control-label"></label>
+                    <span class="text-danger ml-1">*</span>
                     <input asp-for="Address" class="form-control" />
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="City" class="control-label"></label>
+                    <span class="text-danger ml-1">*</span>
                     <input asp-for="City" class="form-control" />
                     <span asp-validation-for="City" class="text-danger"></span>
                 </div>
@@ -53,15 +56,17 @@
                     <input asp-for="County" class="form-control" />
                     <span asp-validation-for="County" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group d-flex">
                     <label asp-for="State" class="control-label"></label>
-                    <select asp-for="State" asp-items="Html.GetEnumSelectList<StateEnum>()">
+                    <span class="text-danger ml-1">*</span>
+                    <select asp-for="State" asp-items="Html.GetEnumSelectList<StateEnum>()" class="ml-auto">
                         <option selected="selected" value="@Model.State">@Html.DisplayFor(model => model.State)</option>
                     </select>
                     <span asp-validation-for="State" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="PostalCode" class="control-label"></label>
+                    <span class="text-danger ml-1">*</span>
                     <input asp-for="PostalCode" class="form-control" />
                     <span asp-validation-for="PostalCode" class="text-danger"></span>
                 </div>
@@ -80,9 +85,10 @@
                     <input asp-for="RetailOutlet" class="form-control" />
                     <span asp-validation-for="RetailOutlet" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group d-flex">
                     <label asp-for="LocationType" class="control-label"></label>
-                    <select asp-for="LocationType" asp-items="Html.GetEnumSelectList<LocationTypeEnum>()">
+                    <span class="text-danger ml-1">*</span>
+                    <select asp-for="LocationType" asp-items="Html.GetEnumSelectList<LocationTypeEnum>()" class="ml-auto">
                         <option selected="selected">Select Location Type</option>
                     </select>
                     <span asp-validation-for="LocationType" class="text-danger"></span>
