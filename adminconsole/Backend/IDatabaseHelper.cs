@@ -51,8 +51,6 @@ namespace adminconsole.Backend
         public bool AlterRecordInfo(AlterRecordInfoEnum action, IMaphawksDatabaseTable table);
 
 
-        public Table GetTable(IMaphawksDatabaseTable record);
-
 
 
 
