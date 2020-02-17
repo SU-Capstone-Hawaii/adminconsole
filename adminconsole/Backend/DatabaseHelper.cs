@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace adminconsole.Backend
 {
-    public class DatabaseHelper
+    public class DatabaseHelper : IDatabaseHelper
     {
         private MaphawksContext context;
 
@@ -26,7 +26,7 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <returns> A location object if the record exists, otherwise null </returns>
-        public  async Task<Locations> ReadOneRecordAsync(string referenceId)
+         public async Task<Locations> ReadOneRecordAsync(string referenceId)
         {
             if (string.IsNullOrEmpty(referenceId) &&
                 string.IsNullOrWhiteSpace(referenceId))
@@ -53,27 +53,6 @@ namespace adminconsole.Backend
 
 
         /// <summary>
-        /// Determines if a GUID is already associated with a Location record. 
-        /// </summary>
-        /// 
-        /// 
-        /// <param name="id"> Database field LocationId </param>
-        /// 
-        /// 
-        /// <returns> Returns true if the LocationId is already associated with a Location record, false otherwise </returns>
-        public bool LocationIdNotUnique(string id)
-        {
-            var idExists = context.Locations.Where(x => x.LocationId.Equals(id)).Any();
-
-            return idExists;
-        }
-
-
-
-
-
-
-        /// <summary>
         /// Reads all records from database. 
         /// </summary>
         /// 
@@ -82,7 +61,7 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <returns> List<Locations> object if any records in databse, otherwise returns null </returns>
-        public  async Task<List<Locations>> ReadMultipleRecordsAsync(bool isDeleted = false)
+        public virtual async Task<List<Locations>> ReadMultipleRecordsAsync(bool isDeleted = false)
         {
             var result = await context.Locations
                          .Include(c => c.Contact)
@@ -117,7 +96,7 @@ namespace adminconsole.Backend
         /// <param name="table"> Maphawks Database table (model class) </param>
         /// 
         /// <returns> Returns true on success, otherwise returns false </returns>
-        public  bool AlterRecordInfo(AlterRecordInfoEnum action, IMaphawksDatabaseTable table)
+        public  virtual bool AlterRecordInfo(AlterRecordInfoEnum action, IMaphawksDatabaseTable table)
         {
             if (table is null)
             {
@@ -437,7 +416,7 @@ namespace adminconsole.Backend
         /// 
         /// <param name="referenceRow"> The row before the edit </param>
         /// <param name="editedRow"> The row after the edit </param>
-        public  void _AddDeleteRow(IMaphawksDatabaseTable referenceRow, IMaphawksDatabaseTable editedRow)
+        public virtual void _AddDeleteRow(IMaphawksDatabaseTable referenceRow, IMaphawksDatabaseTable editedRow)
         {
             if (referenceRow is null && editedRow is null ||        // Don't need to add a new row
                 !(referenceRow is null) && !(editedRow is null))
@@ -509,7 +488,31 @@ namespace adminconsole.Backend
 
 
 
-        public bool SaveChanges()
+
+        
+        /// <summary>
+        /// Determines if a GUID is already associated with a Location record. 
+        /// </summary>
+        /// 
+        /// 
+        /// <param name="id"> Database field LocationId </param>
+        /// 
+        /// 
+        /// <returns> Returns true if the LocationId is already associated with a Location record, false otherwise </returns>
+        public virtual bool LocationIdNotUnique(string id)
+        {
+            var idExists = context.Locations.Where(x => x.LocationId.Equals(id)).Any();
+
+            return idExists;
+        }
+
+
+
+
+
+
+
+        public virtual bool SaveChanges()
         {
             try
             {
