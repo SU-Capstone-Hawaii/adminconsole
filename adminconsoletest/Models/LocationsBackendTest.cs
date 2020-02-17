@@ -14,6 +14,13 @@ namespace adminconsoletest
     [TestClass]
     public class LocationsBackendTest
     {
+        // Mocks data in Database
+        LocationsDataMock mockData = new LocationsDataMock();
+
+
+        //Mocks MaphawksContext class
+        MaphawksContext mockContext = new MaphawksContext();
+
 
         [TestMethod]
         public void LocationsBackend_Default_Should_Pass()
@@ -58,8 +65,19 @@ namespace adminconsoletest
         public async Task LocationsBackend_Index_Deleted_Locations_Should_Pass_Async()
         {
             // Arrange
-            Mock<MaphawksContext> mock = new Mock<MaphawksContext>();
-            //mock.Setup(x => x.Locations.In)
+            Mock<DatabaseHelper> mock = new Mock<DatabaseHelper>(mockContext);
+
+
+
+            mock.Setup(x => x.ReadMultipleRecordsAsync(true))   // Return deleted locations
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetAllViewModelList(true)
+                    )
+                );
+
+
+
             var backend = new LocationsBackend(mock.Object);
 
 
@@ -87,8 +105,20 @@ namespace adminconsoletest
         public async Task LocationsBackend_IndexAsync_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            Mock<DatabaseHelper> mock = new Mock<DatabaseHelper>(mockContext);
 
+
+
+            mock.Setup(x => x.ReadMultipleRecordsAsync(false))  // Return live locations
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetAllViewModelList(false)
+                    )
+                );
+
+
+
+            var backend = new LocationsBackend(mock.Object);
 
             // Act
             var result = await backend.IndexAsync();
