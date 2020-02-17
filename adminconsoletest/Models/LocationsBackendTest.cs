@@ -145,8 +145,29 @@ namespace adminconsoletest
         public async Task LocationsBackend_DetailsAsync_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            Mock<DatabaseHelper> mock = new Mock<DatabaseHelper>(mockContext);
+
+
+
             var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+
+
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+
+            mock.Setup(db => db.ReadOneRecordAsync(id))     // Return mock location
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+
+            var backend = new LocationsBackend(mock.Object);
+            
 
 
             // Act
