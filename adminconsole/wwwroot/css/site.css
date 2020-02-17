@@ -163,12 +163,6 @@ body {
 
 /*#region Create Styling*/
 
-required-field {
-    color: red;
-}
-
-
-
 #getLatLongBtn {
     margin-bottom: 2%;
     margin-top: 1%;
