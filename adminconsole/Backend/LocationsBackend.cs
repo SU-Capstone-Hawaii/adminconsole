@@ -12,6 +12,7 @@ namespace adminconsole.Backend
     public class LocationsBackend
     {
         private DatabaseHelper db;
+        private IDatabaseHelper mockDb;
         private DataSourceEnum dataSourceEnum;      // Allows for toggling betwen Live/Test data
         private LocationsDataMock? dataMock;
 
@@ -41,6 +42,10 @@ namespace adminconsole.Backend
 
 
 
+        public LocationsBackend(IDatabaseHelper mockDb)
+        {
+            db = (DatabaseHelper)mockDb;
+        }
 
 
 
