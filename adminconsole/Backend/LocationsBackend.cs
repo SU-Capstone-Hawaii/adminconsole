@@ -227,7 +227,7 @@ namespace adminconsole.Backend
 
                     db.SaveChanges();
                 }
-                catch (DbUpdateException)
+                catch (Exception)
                 {
                     return false;
                 }
