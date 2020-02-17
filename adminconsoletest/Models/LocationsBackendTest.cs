@@ -1,5 +1,6 @@
 using adminconsole.Backend;
 using adminconsole.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -335,10 +336,13 @@ namespace adminconsoletest
         /// because it has a non-unique LocationId.
         /// </summary>
         [TestMethod]
-        public void LocationsBackend_Create_Should_Not_Pass_()
+        public void LocationsBackend_Create_Create_Location_Throws_Exception_Should_Not_Pass_()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+
+            var backend = new LocationsBackend(mock.Object);
             AllTablesViewModel location = new AllTablesViewModel();
 
             location.AcceptCash = BooleanEnum.Y;
@@ -407,6 +411,13 @@ namespace adminconsoletest
             location.TakeCoopData = BooleanEnum.Y;
             location.WebAddress = "https://trypap.com/";
 
+
+            mock.Setup(db => db.LocationIdNotUnique(location.LocationId))
+                .Returns(false);
+
+
+            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Create, It.IsAny<Locations>()))
+                .Throws(new Exception());
 
             // Act
             var result = backend.Create(location);
