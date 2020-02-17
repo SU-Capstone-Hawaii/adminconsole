@@ -26,7 +26,7 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <returns> A location object if the record exists, otherwise null </returns>
-         public async Task<Locations> ReadOneRecordAsync(string referenceId)
+         public virtual async Task<Locations> ReadOneRecordAsync(string referenceId)
         {
             if (string.IsNullOrEmpty(referenceId) &&
                 string.IsNullOrWhiteSpace(referenceId))
