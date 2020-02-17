@@ -227,7 +227,10 @@ namespace adminconsoletest
         public void LocationsBackend_Create_Should_Pass_()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            var mock = new Mock<DatabaseHelper>(mockContext);
+            var backend = new LocationsBackend(mock.Object);
+
+
             AllTablesViewModel location = new AllTablesViewModel();
 
             location.AcceptCash = BooleanEnum.Y;
@@ -296,6 +299,26 @@ namespace adminconsoletest
             location.TakeCoopData = BooleanEnum.Y;
             location.WebAddress = "https://trypap.com/";
 
+
+            var locationObj = AllTablesViewModel.GetNewLocation(location);
+            var contactObj = AllTablesViewModel.GetNewContact(location);
+            var specialQualitiesObj = AllTablesViewModel.GetNewSpecialQualities(location);
+            var dailyHoursObj = AllTablesViewModel.GetNewDailyHours(location);
+
+
+            mock.Setup(db => db.LocationIdNotUnique(location.LocationId))   // LocationId is unique
+                .Returns(false);
+
+
+            // Mock Insert returns true
+            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Create, locationObj))
+                .Returns(true);
+            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Create, contactObj))
+                .Returns(true);
+            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Create, specialQualitiesObj))
+                .Returns(true);
+            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Create, dailyHoursObj))
+                .Returns(true);
 
             // Act
             var result = backend.Create(location);
