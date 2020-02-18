@@ -1377,12 +1377,13 @@ namespace adminconsoletest
                     )
                 );
 
+                // Mock side-table maintenance
             mock.Setup(db => db._AddDeleteRow(It.IsAny<Contacts>(), It.IsAny<Contacts>()));
             mock.Setup(db => db._AddDeleteRow(It.IsAny<SpecialQualities>(), It.IsAny<SpecialQualities>()));
             mock.Setup(db => db._AddDeleteRow(It.IsAny<DailyHours>(), It.IsAny<DailyHours>()));
 
 
-            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Update, It.IsAny<Locations>()))
+            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Update, It.IsAny<Locations>())) // Mock update
                 .Returns(true);
 
 
@@ -1426,15 +1427,35 @@ namespace adminconsoletest
         public async Task LocationsBackend_EditPostAsync_Invalid_Id_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
             var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+
+
+            // Setup Where Clause
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+
+            // Setup Mock DB Call
+            mock.Setup(db => db.ReadOneRecordAsync(id))     // Get the record
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+
+            var backend = new LocationsBackend(mock.Object);
+            
 
 
             var locationToEdit = await backend.GetLocationAsync(id);
             var locationToEditAsViewModel = new AllTablesViewModel();
 
 
-            Locations locationAfterEdit;
             AllTablesViewModel locationAfterEditViewModel = new AllTablesViewModel();
 
 
@@ -1445,7 +1466,6 @@ namespace adminconsoletest
             // Act
             locationToEditAsViewModel.LocationId = "59bb3e88-9757-492e-a07c-NOT VALID ID";
             bool result = await backend.EditPostAsync(locationToEditAsViewModel); // Should be null as ID doesn't exist
-            locationAfterEdit = await backend.GetLocationAsync(id); // Should be the same
 
 
 
@@ -1453,7 +1473,6 @@ namespace adminconsoletest
 
             // Assert
             Assert.IsFalse(result);
-            Assert.AreEqual(locationToEdit.LocationId, locationAfterEdit.LocationId);
         }
 
 
