@@ -816,8 +816,28 @@ namespace adminconsoletest
         public async Task LocationsBackend_GetLocation_Deleted_Location_Id_Should_Pass_()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+
             string id = "11170401-4112-43c1-aa4e-f73370e1014a";
+
+
+            // Setup Where Clause
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+
+            // Setup Mock DB Call
+            mock.Setup(db => db.ReadOneRecordAsync(id))
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+            var backend = new LocationsBackend(mock.Object);
 
             // Act
             var result = await backend.GetLocationAsync(id);
