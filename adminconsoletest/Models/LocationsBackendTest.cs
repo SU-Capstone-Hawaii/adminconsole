@@ -1834,6 +1834,31 @@ namespace adminconsoletest
 
 
 
+
+        /// <summary>
+        /// Tests Backend RecoverAsync. Should return FALSE when given a null ID
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsBackend_RecoverAsync_Null_Id_Should_Not_Pass_Async()
+        {
+            // Arrange
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+            var backend = new LocationsBackend(mock.Object);
+
+
+            // Act
+            bool result = await backend.RecoverAsync(null);
+
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+
+
+
+
         /// <summary>
         /// Tests Backend RecoverAsync. Should return true if Location record is not
         /// deleted.
