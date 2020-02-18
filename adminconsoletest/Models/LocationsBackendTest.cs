@@ -1558,23 +1558,35 @@ namespace adminconsoletest
         public async Task LocationsBackend_RecoverAsync_Invalid_Id_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
             string id = "2f104551-5140-4394-bce7-INVALID";
-            var deletedLocationsInitial = await backend.IndexAsync(true); // Deleted records
-            var liveLocationsInitial = await backend.IndexAsync(); // Live records
+
+
+            // Setup Where Clause
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+
+            // Setup Mock DB Call
+            mock.Setup(db => db.ReadOneRecordAsync(id))
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+            var backend = new LocationsBackend(mock.Object);
 
 
             // Act
             bool result = await backend.RecoverAsync(id);
-            var deletedLocationsResult = await backend.IndexAsync(true); // Deleted records fter unsuccessful recover
-            var liveLocationsResult = await backend.IndexAsync(); // Live records after unsuccessful recover
-
 
 
             // Assert
             Assert.IsFalse(result);
-            Assert.AreEqual(deletedLocationsInitial.Count, deletedLocationsResult.Count);
-            Assert.AreEqual(liveLocationsInitial.Count, liveLocationsResult.Count);
         }
 
 
