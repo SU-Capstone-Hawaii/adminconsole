@@ -1,5 +1,4 @@
 ﻿using adminconsole.Models;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,23 +11,8 @@ namespace adminconsole.Backend
     public class LocationsBackend
     {
         private DatabaseHelper db;
-        private IDatabaseHelper mockDb;
-        private LocationsDataMock? dataMock;
 
         public Exception errorMessage = null;
-
-
-        /// <summary>
-        /// 
-        /// Constructor without DB Context for Unit Testing
-        /// 
-        /// </summary>
-        /// 
-        /// 
-        /// <param name="dataSourceEnum"> Default is for Live (DB) data. Can also set to DataSourceEnum.Test for Unit Testing </param>
-        public LocationsBackend(DataSourceEnum? dataSourceEnum)
-        {
-        }
 
 
 
@@ -445,7 +429,7 @@ namespace adminconsole.Backend
                     db.AlterRecordInfo(AlterRecordInfoEnum.Update, location);
                     return true;
                 }
-                catch (DbUpdateException)
+                catch (Exception)
                 {
                     return false;
                 }
