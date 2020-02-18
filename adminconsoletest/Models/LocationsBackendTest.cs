@@ -760,8 +760,28 @@ namespace adminconsoletest
         public async Task LocationsBackend_GetLocation_Should_Pass_()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
-            string locationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+
+            string id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+
+
+            // Setup Where Clause
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+            // Setup Mock DB Call
+            mock.Setup(db => db.ReadOneRecordAsync(id))
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+            var backend = new LocationsBackend(mock.Object);
+            
 
             Locations location = new Locations();
             location.Address = "8071 Sunbeam Court";
@@ -782,7 +802,7 @@ namespace adminconsoletest
             location.TakeCoopData = false;
 
             // Act
-            var result = await backend.GetLocationAsync(locationId);
+            var result = await backend.GetLocationAsync(id);
 
 
             // Assert
@@ -813,7 +833,7 @@ namespace adminconsoletest
         /// Tests Backend GetLocation with a null LocationId value
         /// </summary>
         [TestMethod]
-        public async Task LocationsBackend_GetLocation_Deleted_Location_Id_Should_Pass_()
+        public async Task LocationsBackend_GetLocation_Deleted_Location_Id_Should_Pass()
         {
             // Arrange
             var mock = new Mock<DatabaseHelper>(mockContext);
