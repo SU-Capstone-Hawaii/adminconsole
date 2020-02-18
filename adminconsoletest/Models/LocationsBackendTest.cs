@@ -1110,8 +1110,31 @@ namespace adminconsoletest
         public async Task LocationsBackend_EditAsync_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
-            string locationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+
+            string id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+
+
+
+            // Setup Where Clause
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+            // Setup Mock DB Call
+            mock.Setup(db => db.ReadOneRecordAsync(id))
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+
+
+            var backend = new LocationsBackend(mock.Object);
+            
             var location = new AllTablesViewModel();
 
             location.AcceptCash = BooleanEnum.NULL;
@@ -1182,7 +1205,7 @@ namespace adminconsoletest
 
 
             // Act
-            var result = await backend.EditAsync(locationId);
+            var result = await backend.EditAsync(id);
 
 
             // Assert
