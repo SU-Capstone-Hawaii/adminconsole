@@ -841,8 +841,30 @@ namespace adminconsoletest
         public async Task LocationsBackend_GetLocation_Invalid_Id_Should_Not_Pass_()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+
             string id = "INVALID LOCATION ID";
+
+
+
+            // Setup Where Clause
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+
+
+            // Setup Mock DB Call
+            mock.Setup(db => db.ReadOneRecordAsync(id))
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+            var backend = new LocationsBackend(mock.Object);
 
             // Act
             var result = await backend.GetLocationAsync(id);
@@ -883,12 +905,36 @@ namespace adminconsoletest
         public async Task LocationsBackend_DeleteConfirmedAsync_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
-            var locationId = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+
+            var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+
+
+                
+            // Setup Where Clause
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+
+
+            // Setup Mock DB Call
+            mock.Setup(db => db.ReadOneRecordAsync(id))
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+
+            var backend = new LocationsBackend(mock.Object);
+            
 
 
             // Act
-            var result = await backend.DeleteConfirmedAsync(locationId);
+            var result = await backend.DeleteConfirmedAsync(id);
 
 
             // Assert
@@ -909,12 +955,35 @@ namespace adminconsoletest
         public async Task LocationsBackend_DeleteConfirmedAsync_Invalid_Id_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
-            var locationId = "INVALID ID";
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+            var id = "INVALID ID";
+
+
+
+                // Setup Where Clause
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+
+
+                // Setup mock db call
+            mock.Setup(db => db.ReadOneRecordAsync(id))
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+
+
+            var backend = new LocationsBackend(mock.Object);
 
 
             // Act
-            var result = await backend.DeleteConfirmedAsync(locationId);
+            var result = await backend.DeleteConfirmedAsync(id);
 
 
             // Assert
@@ -954,18 +1023,34 @@ namespace adminconsoletest
         /// been deleted
         /// </summary>
         [TestMethod]
-        public async Task LocationsBackend_DeleteConfirmedAsync_Already_Deleted_Id_Should_Not_Pass_Async()
+        public async Task LocationsBackend_DeleteConfirmedAsync_Already_Deleted_Id_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
-            var locationId = "6cc2244b-ff5b-4860-8464-2e5186b7060f";
+
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+            var id = "6cc2244b-ff5b-4860-8464-2e5186b7060f";
+
+
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+            mock.Setup(db => db.ReadOneRecordAsync(id))
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+            var backend = new LocationsBackend(mock.Object);
 
             // Act
-            var result = await backend.DeleteConfirmedAsync(locationId);
+            var result = await backend.DeleteConfirmedAsync(id);
 
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.IsTrue(result);
         }
 
 
