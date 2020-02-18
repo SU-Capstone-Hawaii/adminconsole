@@ -1640,6 +1640,71 @@ namespace adminconsoletest
 
 
 
+
+
+        /// <summary>
+        /// Tests Backend EditPostAsync method with an Exception thrown
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsBackend_EditPostAsync_Exception_Thrown_Should_Not_Pass_Async()
+        {
+            // Arrange
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+            var id = "59bb3e88-9757-492e-a07c-b7efd3f316c3";
+
+
+            // Setup Where Clause
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+
+            // Setup Mock DB Call
+            mock.Setup(db => db.ReadOneRecordAsync(id))     // Get the record
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+            mock.Setup(db => db._AddDeleteRow(It.IsAny<Contacts>(), It.IsAny<Contacts>()))
+                .Throws(new Exception());
+
+
+
+            // Instantiate backend object
+            var backend = new LocationsBackend(mock.Object);
+
+
+            var locationToEdit = mockData.GetOneLocation(whereClause);
+            var locationToEditAsViewModel = new AllTablesViewModel();
+
+
+            AllTablesViewModel locationAfterEditViewModel = new AllTablesViewModel();
+
+
+            // EditPostAsync takes ViewModel object as parameter
+            locationToEditAsViewModel.InstatiateViewModelPropertiesWithOneLocation(locationToEdit);
+
+
+            // Act
+            bool result = await backend.EditPostAsync(locationToEditAsViewModel); // Should be false as exception is thrown
+
+
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+
+
+
+
+
+
+
         /// <summary>
         /// Tests Backend RecoverAsync. Should change SoftDelete to BooleanEnum.N and move
         /// ViewModel record to the 'live' ViewModel list from the 'deleted' ViewModel list.
