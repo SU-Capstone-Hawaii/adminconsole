@@ -1,6 +1,5 @@
 using adminconsole.Backend;
 using adminconsole.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
