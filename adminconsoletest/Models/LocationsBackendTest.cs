@@ -1465,7 +1465,7 @@ namespace adminconsoletest
 
             // Act
             locationToEditAsViewModel.LocationId = "59bb3e88-9757-492e-a07c-NOT VALID ID";
-            bool result = await backend.EditPostAsync(locationToEditAsViewModel); // Should be null as ID doesn't exist
+            bool result = await backend.EditPostAsync(locationToEditAsViewModel); // Should return false as ID doesn't exist
 
 
 
@@ -1512,28 +1512,39 @@ namespace adminconsoletest
         public async Task LocationsBackend_RecoverAsync_Should_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
             string id = "2f104551-5140-4394-bce7-11a6a5b53db9";
-            var deletedLocationsInitial = (await backend.IndexAsync(true)).Count; // Deleted records
-            var liveLocationsInitial = (await backend.IndexAsync()).Count; // Live records
+
+            // Setup Where Clause
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+
+            // Setup Mock DB Call
+            mock.Setup(db => db.ReadOneRecordAsync(id))
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Update, It.IsAny<Locations>()))
+                .Returns(true);
+
+            var backend = new LocationsBackend(mock.Object);
 
 
             // Act
             bool result = await backend.RecoverAsync(id);
-            var deletedLocationsResult = await backend.IndexAsync(true); // Deleted records fter successful recover
-            var liveLocationsResult = await backend.IndexAsync(); // Live records after successful recover
-
-
-            var expectedDeleted = deletedLocationsInitial - 1; // Initial should have one less deleted record
-            var expectedLive = liveLocationsInitial + 1; // Initial should have one more live record after recovery
-
 
 
 
             // Assert
             Assert.IsTrue(result);
-            Assert.AreEqual(expectedDeleted, deletedLocationsResult.Count);
-            Assert.AreEqual(expectedLive, liveLocationsResult.Count);
+
         }
 
 
