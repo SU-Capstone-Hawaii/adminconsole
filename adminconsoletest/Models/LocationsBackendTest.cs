@@ -27,9 +27,9 @@ namespace adminconsoletest
         public void LocationsBackend_Default_Should_Pass()
         {
             // Arrange
-
+            var mock = new Mock<DatabaseHelper>(mockContext);
             // Act
-            var result = new LocationsBackend(DataSourceEnum.LIVE);
+            var result = new LocationsBackend(mock.Object);
 
             // Assert
             Assert.IsNotNull(result);
@@ -1060,7 +1060,8 @@ namespace adminconsoletest
         public async Task LocationsBackend_GetLocation_Null_Id_Should_Not_Pass_()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            var mock = new Mock<DatabaseHelper>(mockContext);
+            var backend = new LocationsBackend(mock.Object);
 
             // Act
             var result = await backend.GetLocationAsync(null);
@@ -1181,7 +1182,8 @@ namespace adminconsoletest
         public async Task LocationsBackend_DeleteConfirmedAsync_Null_Id_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            var mock = new Mock<DatabaseHelper>(mockContext);
+            var backend = new LocationsBackend(mock.Object);
 
 
             // Act
@@ -1508,7 +1510,8 @@ namespace adminconsoletest
         public async Task LocationsBackend_EditAsync_Null_Id_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            var mock = new Mock<DatabaseHelper>(mockContext);
+            var backend = new LocationsBackend(mock.Object);
 
 
             // Act
@@ -1663,7 +1666,8 @@ namespace adminconsoletest
         public async Task LocationsBackend_EditPostAsync_Null_Locations_Object_Should_Not_Pass_Async()
         {
             // Arrange
-            var backend = new LocationsBackend(DataSourceEnum.TEST);
+            var mock = new Mock<DatabaseHelper>(mockContext);
+            var backend = new LocationsBackend(mock.Object);
 
 
             // Act
@@ -1899,6 +1903,52 @@ namespace adminconsoletest
 
             // Assert
             Assert.IsTrue(result);
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// Tests Backend RecoverAsync. Should return false if exception is thrown
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsBackend_RecoverAsync_Exception_Thrown_Should_Not_Pass_Async()
+        {
+            // Arrange
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+            string id = "a91be80e-ed05-4157-bb95-aa3494663d2a";
+
+
+            // Setup Where Clause
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+
+
+            // Setup Mock DB Call
+            mock.Setup(db => db.ReadOneRecordAsync(id))
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Update, It.IsAny<Locations>()))
+                .Throws(new Exception());
+
+            var backend = new LocationsBackend(mock.Object);
+
+            // Act
+            bool result = await backend.RecoverAsync(id);
+
+
+
+            // Assert
+            Assert.IsFalse(result);
         }
     }
 }
