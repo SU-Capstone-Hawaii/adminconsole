@@ -1239,6 +1239,46 @@ namespace adminconsoletest
 
 
         /// <summary>
+        /// Tests Backend DeleteConfirmedAsync with an Exception thrown
+        /// </summary>
+        [TestMethod]
+        public async Task LocationsBackend_DeleteConfirmedAsync_Exception_Thrown_Should_Not_Pass_Async()
+        {
+            // Arrange
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+            var id = "6cc2244b-ff5b-4860-8464-2e5186b7060f";
+
+
+            List<KeyValuePair<string, string>> whereClause = new List<KeyValuePair<string, string>>();
+            KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
+            whereClause.Add(idPair);
+
+            mock.Setup(db => db.ReadOneRecordAsync(id))
+                .Returns(
+                    Task.FromResult(
+                        mockData.GetOneLocation(whereClause)
+                    )
+                );
+
+            mock.Setup(db => db.AlterRecordInfo(AlterRecordInfoEnum.Update, It.IsAny<Locations>()))
+                .Throws(new Exception());
+
+            var backend = new LocationsBackend(mock.Object);
+
+            // Act
+            var result = await backend.DeleteConfirmedAsync(id);
+
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+
+
+
+
+        /// <summary>
         /// Tests Backend EditAsync method. The method should return the Locations record 
         /// with the LocationId it receives. 
         /// </summary>
