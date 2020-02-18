@@ -397,6 +397,11 @@ namespace adminconsole.Models
             location_5.TakeCoopData = false;
             location_5.Contact.WebAddress = null;
 
+
+            deletedLocations = new List<Locations>();
+            liveLocations = new List<Locations>();
+
+
             // Add locations to list
             deletedLocations.Add(location_1);
             deletedLocations.Add(location_2);
