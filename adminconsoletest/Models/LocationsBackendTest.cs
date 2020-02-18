@@ -331,6 +331,30 @@ namespace adminconsoletest
 
 
 
+
+        /// <summary>
+        /// Tests Backend Create in the case of newLocation being null
+        /// </summary>
+        [TestMethod]
+        public void LocationsBackend_Create_newLocation_Is_Null_Should_Not_Pass_()
+        {
+            // Arrange
+            var mock = new Mock<DatabaseHelper>(mockContext);
+
+
+            var backend = new LocationsBackend(mock.Object);
+
+
+            // Act
+            var result = backend.Create(null);
+
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+
+
         /// <summary>
         /// Tests Backend Create which will not create  a new Location record in all tables
         /// because an exception is thrown when trying to insert into Locations table.
