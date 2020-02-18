@@ -383,7 +383,7 @@ namespace adminconsole.Backend
                     db.AlterRecordInfo(AlterRecordInfoEnum.Update, locations);
                     return true;
                 }
-                catch (DbUpdateException)
+                catch (Exception)
                 {
                     return false;
                 }
