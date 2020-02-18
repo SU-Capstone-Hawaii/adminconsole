@@ -977,6 +977,10 @@ namespace adminconsoletest
             var result = await backend.DeleteConfirmedAsync(id);
 
 
+
+            mockData.ResetDefaultValues();
+
+
             // Assert
             Assert.IsTrue(result);
         }
