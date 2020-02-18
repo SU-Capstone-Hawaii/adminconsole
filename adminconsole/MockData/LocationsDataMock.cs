@@ -398,6 +398,8 @@ namespace adminconsole.Models
             location_5.Contact.WebAddress = null;
 
 
+
+            // Re-Instantiate list object
             deletedLocations = new List<Locations>();
             liveLocations = new List<Locations>();
 
