@@ -13,7 +13,6 @@ namespace adminconsole.Backend
     {
         private DatabaseHelper db;
         private IDatabaseHelper mockDb;
-        private DataSourceEnum dataSourceEnum;      // Allows for toggling betwen Live/Test data
         private LocationsDataMock? dataMock;
 
         public Exception errorMessage = null;
@@ -29,15 +28,6 @@ namespace adminconsole.Backend
         /// <param name="dataSourceEnum"> Default is for Live (DB) data. Can also set to DataSourceEnum.Test for Unit Testing </param>
         public LocationsBackend(DataSourceEnum? dataSourceEnum)
         {
-            if (dataSourceEnum is null)
-            {
-                dataSourceEnum = DataSourceEnum.LIVE;
-                dataMock = new LocationsDataMock();
-            }
-            else
-            {
-                this.dataSourceEnum = (DataSourceEnum)dataSourceEnum;
-            }
         }
 
 
@@ -60,8 +50,6 @@ namespace adminconsole.Backend
         public LocationsBackend(MaphawksContext context)
         {
             db = new DatabaseHelper(context);
-            this.dataSourceEnum = DataSourceEnum.LIVE;
-
         }
 
 
@@ -86,17 +74,7 @@ namespace adminconsole.Backend
         {
             var locations_list = new List<Locations>();
 
-            if (dataSourceEnum is DataSourceEnum.LIVE) // Use database
-            {
-
-                locations_list = await db.ReadMultipleRecordsAsync(deleted).ConfigureAwait(false); // Select * join all tables
-
-
-            }
-            else
-            {
-                locations_list = dataMock.GetAllViewModelList(deleted);
-            }
+            locations_list = await db.ReadMultipleRecordsAsync(deleted).ConfigureAwait(false); // Select * join all tables
 
 
             foreach (var location in locations_list)
@@ -124,35 +102,16 @@ namespace adminconsole.Backend
         /// <returns> Returns a single Locations Object </returns>
         public async Task<Locations> DetailsAsync(string id)
         {
-            if (dataSourceEnum is DataSourceEnum.LIVE)
+
+            var resultLocation = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
+            if (resultLocation == null)
             {
-                var resultLocation = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
-                if (resultLocation == null)
-                {
-                    return null;
-                }
-
-                ConvertDbStringsToEnums(resultLocation);
-                return resultLocation;
-
+                return null;
             }
-            else
-            {
-                List<KeyValuePair<string, string>> keyValueList = new List<KeyValuePair<string, string>>();
-                KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
 
+            ConvertDbStringsToEnums(resultLocation);
+            return resultLocation;
 
-                keyValueList.Add(idPair);
-
-
-                var resultLocation = dataMock.GetOneLocation(keyValueList);
-
-                if (resultLocation != null)
-                {
-                    ConvertDbStringsToEnums(resultLocation);
-                }
-                return resultLocation;
-            }
         }
 
 
@@ -184,77 +143,53 @@ namespace adminconsole.Backend
                 return false;
             }
 
-
-            if (dataSourceEnum is DataSourceEnum.LIVE) // Use the Database
+             // Ensures we don't end up with any duplicate LocationIds
+            while (db.LocationIdNotUnique(newLocation.LocationId))
             {
-                // Ensures we don't end up with any duplicate LocationIds
-                while (db.LocationIdNotUnique(newLocation.LocationId))
-                {
-                    newLocation.LocationId = Guid.NewGuid().ToString();
-                }
-
-
-
-                Locations location = AllTablesViewModel.GetNewLocation(newLocation);
-                Contacts contact = AllTablesViewModel.GetNewContact(newLocation);
-                SpecialQualities specialQuality = AllTablesViewModel.GetNewSpecialQualities(newLocation);
-                DailyHours dailyHours = AllTablesViewModel.GetNewDailyHours(newLocation);
-
-
-
-                try
-                {
-                    db.AlterRecordInfo(AlterRecordInfoEnum.Create, location);
-
-                    if (contact != null)
-                    {
-                        db.AlterRecordInfo(AlterRecordInfoEnum.Create, contact);
-                    }
-
-
-                    if (specialQuality != null)
-                    {
-                        db.AlterRecordInfo(AlterRecordInfoEnum.Create, specialQuality);
-                    }
-
-
-
-                    if (dailyHours != null)
-                    {
-                        db.AlterRecordInfo(AlterRecordInfoEnum.Create, dailyHours);
-                    }
-
-
-                    db.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-
-                return true;
-
+                newLocation.LocationId = Guid.NewGuid().ToString();
             }
-            else // Use mock data
+
+
+
+            Locations location = AllTablesViewModel.GetNewLocation(newLocation);
+            Contacts contact = AllTablesViewModel.GetNewContact(newLocation);
+            SpecialQualities specialQuality = AllTablesViewModel.GetNewSpecialQualities(newLocation);
+            DailyHours dailyHours = AllTablesViewModel.GetNewDailyHours(newLocation);
+
+
+
+            try
             {
-                var originalNumberOfLocations = dataMock.GetNumberOfLocations(); // Initial number of locations
+                db.AlterRecordInfo(AlterRecordInfoEnum.Create, location);
+
+                if (contact != null)
+                {
+                    db.AlterRecordInfo(AlterRecordInfoEnum.Create, contact);
+                }
 
 
-                // Create Locations Object
-                var location = AllTablesViewModel.GetNewLocation(newLocation);
-                location.Contact = AllTablesViewModel.GetNewContact(newLocation);
-                location.SpecialQualities = AllTablesViewModel.GetNewSpecialQualities(newLocation);
-                location.DailyHours = AllTablesViewModel.GetNewDailyHours(newLocation);
+                if (specialQuality != null)
+                {
+                    db.AlterRecordInfo(AlterRecordInfoEnum.Create, specialQuality);
+                }
 
 
-                dataMock.Create(location);
+
+                if (dailyHours != null)
+                {
+                    db.AlterRecordInfo(AlterRecordInfoEnum.Create, dailyHours);
+                }
 
 
-                var newNumberOfLocations = dataMock.GetNumberOfLocations();  // Number of locations after CREATE
-
-
-                return (originalNumberOfLocations + 1) == newNumberOfLocations;
+                db.SaveChanges();
             }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+
 
         }
 
@@ -283,23 +218,8 @@ namespace adminconsole.Backend
 
             Locations location;
 
-            if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
-            {
-                location = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
-            }
-            else // Use mock data
-            {
-                List<KeyValuePair<string, string>> newList = new List<KeyValuePair<string, string>>();
-                KeyValuePair<string, string> idPair = new KeyValuePair<string, string>("LocationId", id);
-
-
-
-                newList.Add(idPair);
-
-
-                location = dataMock.GetOneLocation(newList);
-
-            }
+            
+            location = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
 
             if (location != null)
             {
@@ -339,33 +259,13 @@ namespace adminconsole.Backend
 
             AllTablesViewModel locationViewModel = null;
 
+            var location = await db.ReadOneRecordAsync(id).ConfigureAwait(false); // Get Location from Database
 
-            if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
+            if (location != null)
             {
-
-                var location = await db.ReadOneRecordAsync(id).ConfigureAwait(false); // Get Location from Database
-
-                if (location != null)
-                {
-                    locationViewModel = new AllTablesViewModel(location);
-                }
+                locationViewModel = new AllTablesViewModel(location);
             }
 
-            else // Use Mock
-            {
-                var whereList = new List<KeyValuePair<string, string>>();
-                var idPair = new KeyValuePair<string, string>("LocationId", id);
-                whereList.Add(idPair);
-
-
-                // Create ViewModel out of result of query
-                var location = dataMock.GetOneLocation(whereList);
-
-                if (location != null)
-                {
-                    locationViewModel = new AllTablesViewModel(location);
-                }
-            }
 
             return locationViewModel;
         }
@@ -410,9 +310,7 @@ namespace adminconsole.Backend
 
             bool result = false; // Value to be returned
 
-            if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
-            {
-                try
+            try
                 {
                     Locations response = await db.ReadOneRecordAsync(newLocation.LocationId).ConfigureAwait(true);
 
@@ -437,11 +335,6 @@ namespace adminconsole.Backend
                     errorMessage = e;
                     return false;
                 }
-            }
-            else // Use mock data
-            {
-                return dataMock.EditPostAsync(location, location.Contact, location.SpecialQualities, location.DailyHours);
-            }
 
             return true;
         }
@@ -477,17 +370,8 @@ namespace adminconsole.Backend
 
             Locations locations;
 
-            if (dataSourceEnum is DataSourceEnum.LIVE)
-            {
-                locations = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
-            }
-            else
-            {
-                var whereList = new List<KeyValuePair<string, string>>();
-                var idPair = new KeyValuePair<string, string>("LocationId", id);
-                whereList.Add(idPair);
-                locations = dataMock.GetOneLocation(whereList);
-            }
+            locations = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
+           
 
             if (locations == null) // Record not found
             {
@@ -496,9 +380,7 @@ namespace adminconsole.Backend
 
             locations.SoftDelete = true;
 
-            if (dataSourceEnum is DataSourceEnum.LIVE)
-            {
-                try
+            try
                 {
                     db.AlterRecordInfo(AlterRecordInfoEnum.Update, locations);
                     return true;
@@ -507,16 +389,7 @@ namespace adminconsole.Backend
                 {
                     return false;
                 }
-            }
-            else
-            {
-                var originalNumberOfLocations = dataMock.GetNumberOfLocations();
-                dataMock.Delete(locations);
-                var newNumberOfLocations = dataMock.GetNumberOfLocations();
-
-                return (originalNumberOfLocations - 1) == newNumberOfLocations;
-            }
-
+            
 
         }
 
@@ -551,28 +424,11 @@ namespace adminconsole.Backend
 
             Locations location = new Locations();
 
-            if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
-            {
-
-                // Get the record
-                location = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
+            // Get the record
+            location = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
 
 
-            }
-
-
-            else // Use mock data
-            {
-                // Mock the SQL statment
-                var whereClause = new List<KeyValuePair<string, string>>();
-                var idPair = new KeyValuePair<string, string>("LocationId", id);
-                whereClause.Add(idPair);
-
-
-                // Get the record
-                location = dataMock.GetOneLocation(whereClause);
-            }
-
+            
 
 
 
@@ -586,11 +442,7 @@ namespace adminconsole.Backend
             location.SoftDelete = false;
 
 
-            if (dataSourceEnum is DataSourceEnum.LIVE) // Use Database
-            {
-
-
-                try
+            try
                 {
                     db.AlterRecordInfo(AlterRecordInfoEnum.Update, location);
                     return true;
@@ -599,16 +451,6 @@ namespace adminconsole.Backend
                 {
                     return false;
                 }
-
-
-            }
-            else // Use mock data
-            {
-
-                dataMock.Recover(location);
-                return true;
-
-            }
 
         }
 
