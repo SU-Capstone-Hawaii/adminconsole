@@ -311,32 +311,30 @@ namespace adminconsole.Backend
             bool result = false; // Value to be returned
 
             try
+            {
+                Locations response = await db.ReadOneRecordAsync(newLocation.LocationId).ConfigureAwait(true);
+
+                if (response is null)  // Location does not exist
                 {
-                    Locations response = await db.ReadOneRecordAsync(newLocation.LocationId).ConfigureAwait(true);
-
-                    if (response is null)  // Location does not exist
-                    {
-                        return false;
-                    }
-
-                    db._AddDeleteRow(response.Contact, location.Contact);
-                    db._AddDeleteRow(response.SpecialQualities, location.SpecialQualities);
-                    db._AddDeleteRow(response.DailyHours, location.DailyHours);
-
-
-                    response = location;
-
-                    result = db.AlterRecordInfo(AlterRecordInfoEnum.Update, response);
-
-                    return result;
-                }
-                catch (Exception e)
-                {
-                    errorMessage = e;
                     return false;
                 }
 
-            return true;
+                db._AddDeleteRow(response.Contact, location.Contact);
+                db._AddDeleteRow(response.SpecialQualities, location.SpecialQualities);
+                db._AddDeleteRow(response.DailyHours, location.DailyHours);
+
+
+                response = location;
+
+                result = db.AlterRecordInfo(AlterRecordInfoEnum.Update, response);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                errorMessage = e;
+                return false;
+            }
         }
 
 
