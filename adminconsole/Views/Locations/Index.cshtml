@@ -38,6 +38,9 @@
         <thead>
             <tr>
                 <th>
+                    Controls
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
@@ -73,15 +76,17 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Hours)
                 </th>
-                <th>
-                    Controls
-                </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
             <tr>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
+                </td>
                 <td>
                     @if (item.Name == "BECU")
                     {
@@ -126,11 +131,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Hours)
                 </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
-                </td>
             </tr>
             }
         </tbody>
@@ -153,6 +153,9 @@
         <thead>
             <tr>
                 <th>
+                    Controls
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
                 <th>
@@ -167,44 +170,41 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Contact.WebAddress)
                 </th>
-                <th>
-                    Controls
-                </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @if (item.Name == "BECU")
-                        {
-                            <img src="~/media/BEC-Logo-Icon-pms.png" />
-                        }
-                        else
-                        {
-                            <img src="~/media/logo_co-op.png" style="height: 40px;" />
-                        }
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LocationType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Contact.Phone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Contact.Fax)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Contact.WebAddress)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
+                </td>
+                <td>
+                    @if (item.Name == "BECU")
+                    {
+                        <img src="~/media/BEC-Logo-Icon-pms.png" />
+                    }
+                    else
+                    {
+                        <img src="~/media/logo_co-op.png" style="height: 40px;" />
+                    }
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact.Fax)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contact.WebAddress)
+                </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -224,6 +224,9 @@
 
         <thead>
             <tr>
+                <th>
+                    Controls
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
@@ -281,15 +284,17 @@
                 <th>
                     @Html.DisplayNameFor(model => model.SpecialQualities.AccessNotes)
                 </th>
-                <th>
-                    Controls
-                </th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
+                    </td>
                     <td>
                         @if (item.Name == "BECU")
                         {
@@ -355,11 +360,6 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.SpecialQualities.AccessNotes)
                     </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
-                    </td>
                 </tr>
             }
         </tbody>
@@ -380,6 +380,10 @@
 
         <thead>
             <tr>
+
+                <th>
+                    Controls
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
@@ -470,9 +474,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.DailyHours.HoursDtsunClose)
                 </th>
-                <th>
-                    Controls
-                </th>
             </tr>
         </thead>
         <tbody>
@@ -480,6 +481,12 @@
             {
                 if (item.DailyHours != null)
                 {
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
+                    </td>
                     <tr>
                         <td>
                             @if (item.Name == "BECU")
@@ -579,11 +586,6 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsunClose)
                         </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
-                        </td>
                     </tr>
                 }
             }
@@ -605,6 +607,9 @@
 
         <thead>
             <tr>
+                <th>
+                    Controls
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
@@ -784,8 +789,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.DailyHours.HoursDtsunClose)
-                <th>
-                    Controls
                 </th>
             </tr>
         </thead>
@@ -793,6 +796,11 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
+                    </td>
                     <td>
                         @if (item.Name == "BECU")
                         {
@@ -980,11 +988,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsunClose)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
                     </td>
                 </tr>
             }
