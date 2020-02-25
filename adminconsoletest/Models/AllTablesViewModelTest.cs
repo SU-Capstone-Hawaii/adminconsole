@@ -291,5 +291,21 @@ namespace adminconsoletest
             Assert.IsNull(result);
         }
 
+
+
+
+
+
+        [TestMethod]
+        public void AllTablesViewModel_GetNewContact_Null_Parameter_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            var result = AllTablesViewModel.GetNewContact(null);
+            // Assert
+            Assert.IsNull(result);
+        }
+
     }
 }
