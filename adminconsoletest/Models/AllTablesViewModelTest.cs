@@ -1,6 +1,7 @@
 using adminconsole.Backend;
 using adminconsole.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace adminconsoletest
@@ -896,6 +897,28 @@ namespace adminconsoletest
                     Assert.AreEqual(BooleanEnum.Y, property.GetValue(viewModel));
                 }
             }
+        }
+
+
+
+
+
+
+        [TestMethod]
+        public void AllTablesViewModel_ConvertStringToStateEnum_All_States_Should_Pass()
+        {
+            // Arrange
+            var values = Enum.GetValues(typeof(StateEnum));
+
+
+            // Act
+
+            // Assert
+            foreach (var value in values)
+            {
+                Assert.AreEqual(value, AllTablesViewModel.ConvertStringToStateEnum(value.ToString()));
+            }
+            
         }
     }
 }
