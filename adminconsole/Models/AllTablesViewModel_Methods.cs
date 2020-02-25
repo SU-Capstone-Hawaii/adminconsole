@@ -245,7 +245,7 @@ namespace adminconsole.Models
             specialQuality.AcceptCash = ConvertBooleanEnumToString(newLocation.AcceptCash);
             specialQuality.AcceptDeposit = ConvertBooleanEnumToString(newLocation.AcceptDeposit);
             specialQuality.Access = ConvertBooleanEnumToString(newLocation.Access);
-            specialQuality.AccessNotes = newLocation.AccessNotes ?? null;
+            specialQuality.AccessNotes = newLocation.AccessNotes;
             specialQuality.Cashless = ConvertBooleanEnumToString(newLocation.Cashless);
             specialQuality.DriveThruOnly = ConvertBooleanEnumToString(newLocation.DriveThruOnly);
             specialQuality.EnvelopeRequired = ConvertBooleanEnumToString(newLocation.EnvelopeRequired);
