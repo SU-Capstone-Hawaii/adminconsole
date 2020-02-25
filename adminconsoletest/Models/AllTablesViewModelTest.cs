@@ -521,5 +521,111 @@ namespace adminconsoletest
             // Assert
             Assert.IsNull(result);
         }
+
+
+
+
+
+
+
+
+
+        [TestMethod]
+        public void AllTablesViewModel_GetNewSpecialQualities_NonNull_Parameter_Should_Pass()
+        {
+            // Arrange
+            var viewModel = new AllTablesViewModel();
+
+            viewModel.AcceptCash = BooleanEnum.Y;
+            viewModel.AcceptDeposit = BooleanEnum.Y;
+            viewModel.Access = BooleanEnum.Y;
+            viewModel.AccessNotes = "Lobby";
+            viewModel.Address = "362 Oxford Dr.";
+            viewModel.Cashless = BooleanEnum.Y;
+            viewModel.City = "Starkville";
+            viewModel.CoopLocationId = "WA9820-174920573";
+            viewModel.Country = "US";
+            viewModel.County = "King County";
+            viewModel.DriveThruOnly = BooleanEnum.Y;
+            viewModel.EnvelopeRequired = BooleanEnum.Y;
+            viewModel.Fax = "8058451931";
+            viewModel.HandicapAccess = BooleanEnum.Y;
+            viewModel.Hours = "24 HOURS ACCESS";
+            viewModel.HoursDtfriClose = "9";
+            viewModel.HoursDtfriOpen = "9";
+            viewModel.HoursDtmonClose = "9";
+            viewModel.HoursDtmonOpen = "9";
+            viewModel.HoursDtsatClose = "9";
+            viewModel.HoursDtsatOpen = "9";
+            viewModel.HoursDtsunClose = "9";
+            viewModel.HoursDtsunOpen = "9";
+            viewModel.HoursDtthuClose = "9";
+            viewModel.HoursDtthuOpen = "9";
+            viewModel.HoursDttueClose = "9";
+            viewModel.HoursDttueOpen = "9";
+            viewModel.HoursDtwedClose = "9";
+            viewModel.HoursDtwedOpen = "9";
+            viewModel.HoursFriClose = "9";
+            viewModel.HoursFriOpen = "9";
+            viewModel.HoursMonClose = "9";
+            viewModel.HoursMonOpen = "9";
+            viewModel.HoursSatClose = "9";
+            viewModel.HoursSatOpen = "9";
+            viewModel.HoursSunClose = "9";
+            viewModel.HoursSunOpen = "9";
+            viewModel.HoursThuClose = "9";
+            viewModel.HoursThuOpen = "9";
+            viewModel.HoursTueClose = "9";
+            viewModel.HoursTueOpen = "9";
+            viewModel.HoursWedClose = "9";
+            viewModel.HoursWedOpen = "9";
+            viewModel.InstallationType = "Walk-Up";
+            viewModel.Latitude = 13.3108M;
+            viewModel.LimitedTransactions = BooleanEnum.Y;
+            viewModel.LocationId = "11170401-4112-43c1-aa4e-f73370e1014a";
+            viewModel.locations = new List<Locations>();
+            viewModel.LocationType = LocationTypeEnum.A;
+            viewModel.Longitude = -132.8851M;
+            viewModel.MilitaryIdRequired = BooleanEnum.Y;
+            viewModel.Name = "BECU";
+            viewModel.OnMilitaryBase = BooleanEnum.Y;
+            viewModel.OnPremise = BooleanEnum.Y;
+            viewModel.Phone = "4896771019";
+            viewModel.PostalCode = "39759";
+            viewModel.RestrictedAccess = BooleanEnum.Y;
+            viewModel.RetailOutlet = "Northgate";
+            viewModel.SelfServiceDevice = BooleanEnum.Y;
+            viewModel.SelfServiceOnly = BooleanEnum.Y;
+            viewModel.SoftDelete = BooleanEnum.Y;
+            viewModel.State = StateEnum.MS;
+            viewModel.Surcharge = BooleanEnum.Y;
+            viewModel.TakeCoopData = BooleanEnum.Y;
+            viewModel.WebAddress = null;
+
+            // Act
+            var result = AllTablesViewModel.GetNewSpecialQualities(viewModel);
+
+
+            // Assert
+            Assert.AreEqual(viewModel.AcceptCash.ToString(), result.AcceptCash);
+            Assert.AreEqual(viewModel.AcceptDeposit.ToString(), result.AcceptDeposit);
+            Assert.AreEqual(viewModel.Access.ToString(), result.Access);
+            Assert.AreEqual(viewModel.AccessNotes, result.AccessNotes);
+            Assert.AreEqual(viewModel.Cashless.ToString(), result.Cashless);
+            Assert.AreEqual(viewModel.DriveThruOnly.ToString(), result.DriveThruOnly);
+            Assert.AreEqual(viewModel.EnvelopeRequired.ToString(), result.EnvelopeRequired);
+            Assert.AreEqual(viewModel.HandicapAccess.ToString(), result.HandicapAccess);
+            Assert.AreEqual(viewModel.InstallationType.ToString(), result.InstallationType);
+            Assert.AreEqual(viewModel.LimitedTransactions.ToString(), result.LimitedTransactions);
+            Assert.AreEqual(viewModel.LocationId.ToString(), result.LocationId);
+            Assert.AreEqual(viewModel.MilitaryIdRequired.ToString(), result.MilitaryIdRequired);
+            Assert.AreEqual(viewModel.OnMilitaryBase.ToString(), result.OnMilitaryBase);
+            Assert.AreEqual(viewModel.OnPremise.ToString(), result.OnPremise);
+            Assert.AreEqual(viewModel.RestrictedAccess.ToString(), result.RestrictedAccess);
+            Assert.AreEqual(viewModel.SelfServiceDevice.ToString(), result.SelfServiceDevice);
+            Assert.AreEqual(viewModel.SelfServiceOnly.ToString(), result.SelfServiceOnly);
+            Assert.AreEqual(viewModel.Surcharge.ToString(), result.Surcharge);
+            Assert.IsNull(result.Location);
+        }
     }
 }
