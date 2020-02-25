@@ -921,5 +921,30 @@ namespace adminconsoletest
             }
             
         }
+
+
+
+
+
+
+
+
+        // Tests InstantiateViewModelPropertiesWithOneLocation where parameter is null
+        [TestMethod]
+        public void AllTablesViewModel_InstantiateViewModelropertiesWithOneLocation_Null_Parameter_Should_Pass()
+        {
+            // Arrange
+            var viewModel = new AllTablesViewModel();
+            var mockData = new LocationsDataMock();
+            viewModel.locations = mockData.GetAllViewModelList();
+
+
+            // Act
+            var result = viewModel.InstatiateViewModelPropertiesWithOneLocation();
+
+            // Assert
+            Assert.IsTrue(result);
+
+        }
     }
 }
