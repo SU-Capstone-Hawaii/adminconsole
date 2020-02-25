@@ -904,6 +904,7 @@ namespace adminconsoletest
 
 
 
+        // Tests ConvertStringToStateEnum
         [TestMethod]
         public void AllTablesViewModel_ConvertStringToStateEnum_All_States_Should_Pass()
         {
