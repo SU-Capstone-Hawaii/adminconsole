@@ -95,5 +95,22 @@ namespace adminconsoletest
             Assert.AreEqual(StateEnum.MS.ToString(), result.State);
             Assert.AreEqual(true, result.TakeCoopData); ;
         }
+
+
+
+
+
+        [TestMethod]
+        public void LocationsModel_Default_AllPropertiesAreNull_Returns_False_Should_Pass()
+        {
+            // Arrange
+            var result = new Locations();
+
+            // Act
+            
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsFalse(result.AllPropertiesAreNull());
+        }
     }
 }
