@@ -18,6 +18,14 @@ namespace adminconsole.Controllers
 
 
 
+        public LocationsController(MaphawksContext context, LocationsBackend mockBackend)
+        {
+            _context = context;
+            backend = mockBackend;
+        }
+
+
+
 
         /// <summary>
         /// GET:
