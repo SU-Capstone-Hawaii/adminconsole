@@ -5,7 +5,7 @@ using System.Reflection;
 namespace adminconsoletest
 {
     [TestClass]
-    public class DailyHoursTest
+    public class DailyHoursModelTest
     {
 
         // Tests default instantiation of DailyHours
