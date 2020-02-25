@@ -360,7 +360,7 @@ namespace adminconsole.Models
         ///     BooleanEnum.NULL ==> null
         ///     
         /// </returns>
-        private static string ConvertBooleanEnumToString(BooleanEnum? booleanEnum, bool returnEmptyStringInsteadOfNull=false)
+        private static string ConvertBooleanEnumToString(BooleanEnum? booleanEnum)
         {
             switch (booleanEnum)
             {
@@ -369,10 +369,6 @@ namespace adminconsole.Models
                 case BooleanEnum.Y:
                     return "Y";
                 default:
-                    if (returnEmptyStringInsteadOfNull)
-                    {
-                        return "";
-                    }
                     return null;
             }
         }
