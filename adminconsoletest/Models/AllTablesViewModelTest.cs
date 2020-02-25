@@ -34,6 +34,20 @@ namespace adminconsoletest
             Assert.IsNotNull(result.locations);
         }
 
+
+        [TestMethod]
+        public void AllTablesViewModel_Constructor_With_Null_Context_Parameter_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            var result = new AllTablesViewModel(null);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.locations);
+        }
+
         [TestMethod]
         public void AllTablesViewModel_Get_Property_Defaults_Should_Pass()
         {
