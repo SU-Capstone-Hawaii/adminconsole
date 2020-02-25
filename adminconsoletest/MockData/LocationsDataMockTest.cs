@@ -44,5 +44,27 @@ namespace adminconsoletest
             Assert.IsNotNull(result);
             Assert.AreEqual(result.LocationId, "a91be80e-ed05-4157-bb95-aa3494663d2a");
         }
+
+
+
+
+
+
+
+        // Tests null parameters for StringsAreEqual
+        [TestMethod]
+        public void LocationsDataMock_StringsAreEqual_Params_Are_Null_Should_Pass()
+        {
+            // Arrange
+            var dataMock = new LocationsDataMock();
+
+
+            // Act
+            var result = dataMock.StringsAreEqual(null, null);
+
+
+            // Assert
+            Assert.IsTrue(result);
+        }
     }
 }
