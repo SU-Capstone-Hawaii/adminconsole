@@ -378,40 +378,6 @@ namespace adminconsole.Models
 
 
 
-
-        /// <summary>
-        /// Converts a BooleanEnum to a bool 
-        /// </summary>
-        /// 
-        /// 
-        /// <param name="booleanEnum"> The BooleanEnum type to convert </param>
-        /// 
-        /// 
-        /// <returns>
-        /// 
-        ///     BooleanEnum.N    ==> false
-        ///     BooleanEnum.Y    ==> true
-        ///     BooleanEnum.NULL ==> null
-        ///     
-        /// </returns>
-        private static bool? ConvertBooleanEnumToBool(BooleanEnum? booleanEnum)
-        {
-            switch (booleanEnum)
-            {
-                case BooleanEnum.N:
-                    return false;
-                case BooleanEnum.Y:
-                    return true;
-                default:
-                    return null;
-            }
-        }
-
-
-
-
-
-
         /// <summary>
         /// Converts string to BooleanEnum.
         /// </summary>
