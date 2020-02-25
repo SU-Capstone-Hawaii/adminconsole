@@ -66,5 +66,25 @@ namespace adminconsoletest
             // Assert
             Assert.IsTrue(result);
         }
+
+
+
+        // Tests for a null parameter for StringsAreEqual
+        [TestMethod]
+        public void LocationsDataMock_StringsAreEqual_One_Param_Is_Null_Should_Pass()
+        {
+            // Arrange
+            var dataMock = new LocationsDataMock();
+
+
+            // Act
+            var result1 = dataMock.StringsAreEqual(null, "test");
+            var result2 = dataMock.StringsAreEqual("test", null);
+
+
+            // Assert
+            Assert.IsFalse(result1);
+            Assert.IsFalse(result2);
+        }
     }
 }
