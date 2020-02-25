@@ -946,5 +946,67 @@ namespace adminconsoletest
             Assert.IsTrue(result);
 
         }
+
+
+
+
+
+
+        // Tests ConvertBooleanEnumToString via ViewModel's GetNewSpecialQualities
+        [TestMethod]
+        public void AllTablesViewModel_ConvertBooleanEnumToString_Parameter_No_Should_Pass()
+        {
+            // Arrange
+            var mockData = new LocationsDataMock();
+            var location = mockData.GetAllViewModelList()[0];
+            var viewModel = new AllTablesViewModel();
+
+
+            var viewModelProperties = typeof(AllTablesViewModel).GetProperties();
+            var specialQualitiesPropertyNameList = new List<string>();
+
+
+
+
+
+            foreach (var property in typeof(SpecialQualities).GetProperties())
+            {
+                if (property.Name.Equals("LocationId") ||
+                    property.Name.Equals("AccessNotes") ||
+                    property.Name.Equals("InstallationType") ||
+                    property.Name.Equals("Location"))
+                {
+                    continue;
+                }
+
+                specialQualitiesPropertyNameList.Add(property.Name);
+            }
+
+
+
+
+
+            foreach (var property in viewModelProperties)
+            {
+                if (!specialQualitiesPropertyNameList.Contains(property.Name))
+                {
+                    continue;
+                }
+
+                property.SetValue(viewModel, BooleanEnum.N);
+            }
+            // Act
+            var result = AllTablesViewModel.GetNewSpecialQualities(viewModel);
+
+
+            // Assert
+            foreach (var property in typeof(SpecialQualities).GetProperties())
+            {
+                if (specialQualitiesPropertyNameList.Contains(property.Name))
+                {
+                    Assert.AreEqual("N", property.GetValue(result));
+                }
+            }
+        }
     }
 }
