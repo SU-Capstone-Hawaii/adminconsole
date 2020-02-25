@@ -734,7 +734,7 @@ namespace adminconsoletest
             var viewModel = new AllTablesViewModel();
 
             // Act
-            var result = AllTablesViewModel.GetNewSpecialQualities(null);
+            var result = AllTablesViewModel.GetNewDailyHours(null);
 
 
             // Assert
