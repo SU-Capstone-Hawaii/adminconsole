@@ -859,48 +859,5 @@ namespace adminconsole.Models
             WebAddress = referenceLocation.Contact.WebAddress;
             return true;
         }
-
-
-
-
-
-        private static AllTablesViewModel? CreateTableObjectIfNotAllNulls(Locations referenceLocation, Type tableTypeReference)
-        {
-            // Reference types
-            Contacts contact = new Contacts();
-            SpecialQualities specialQualities = new SpecialQualities();
-            DailyHours DailyHours = new DailyHours();
-
-
-            bool allNulls = false;
-
-
-            Type locationsType = referenceLocation.GetType();
-
-            var properties = locationsType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-            foreach (var prop in properties)
-            {
-                var value = prop.GetValue(referenceLocation, null);
-
-                if (value is null) //Check next property if null field in Locations
-                {
-
-                    continue;
-
-                }
-
-                var valueString = value.ToString();
-                if (string.IsNullOrEmpty(valueString) || string.IsNullOrWhiteSpace(valueString)) // Check next property if null field in Locations
-                {
-
-                    continue;
-
-                }
-            }
-
-            return null;
-
-        }
     }
 }
