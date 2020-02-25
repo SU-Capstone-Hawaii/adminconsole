@@ -277,6 +277,19 @@ namespace adminconsoletest
             Assert.AreEqual("https://trypap.com/", result.WebAddress);
         }
 
- 
+
+
+
+        [TestMethod]
+        public void AllTablesViewModel_GetNewLocation_Null_Parameter_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            var result = AllTablesViewModel.GetNewLocation(null);
+            // Assert
+            Assert.IsNull(result);
+        }
+
     }
 }
