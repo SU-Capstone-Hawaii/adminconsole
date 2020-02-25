@@ -844,5 +844,58 @@ namespace adminconsoletest
                 }
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+        // Tests ConvertStringToBooleanEnum via ViewModel's InstantiateViewModelPropertiesWithOneLocation
+        [TestMethod]
+        public void AllTablesViewModel_ConvertStringToBooleanEnum_Parameter_Yes_Should_Pass()
+        {
+            // Arrange
+            var mockData = new LocationsDataMock();
+            var location = mockData.GetAllViewModelList()[0];
+            var viewModel = new AllTablesViewModel();
+
+
+            var properties = typeof(SpecialQualities).GetProperties(); // All properties of DailyHours is null by default
+            var specialQualitiesPropertyNameList = new List<string>();
+            foreach (var property in properties)
+            {
+                if (property.Name.Equals("LocationId") || property.Name.Equals("Location"))
+                {
+                    continue;
+                }
+
+                property.SetValue(location.SpecialQualities, "Y");
+                specialQualitiesPropertyNameList.Add(property.Name);
+            }
+            // Act
+            viewModel.InstatiateViewModelPropertiesWithOneLocation(location);
+
+
+            // Assert
+            properties = typeof(AllTablesViewModel).GetProperties();
+            foreach (var property in properties)
+            {
+                if (specialQualitiesPropertyNameList.Contains(property.Name))
+                {
+                    if (property.Name.Equals("InstallationType") || property.Name.Equals("AccessNotes"))
+                    {
+                        continue;
+                    }
+
+
+                    Assert.AreEqual(BooleanEnum.Y, property.GetValue(viewModel));
+                }
+            }
+        }
     }
 }
