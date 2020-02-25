@@ -494,5 +494,32 @@ namespace adminconsoletest
             // Assert
             Assert.IsNull(result);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [TestMethod]
+        public void AllTablesViewModel_GetNewSpecialQualities_Null_Parameter_Should_Pass()
+        {
+            // Arrange
+            
+
+            // Act
+            var result = AllTablesViewModel.GetNewSpecialQualities(null);
+
+
+            // Assert
+            Assert.IsNull(result);
+        }
     }
 }
