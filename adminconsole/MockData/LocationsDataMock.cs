@@ -454,7 +454,7 @@ namespace adminconsole.Models
         /// 
         /// 
         /// <returns> true if match, else false. </returns>
-        private bool IsMatch(KeyValuePair<string, string> pair, Locations location)
+        public bool IsMatch(KeyValuePair<string, string> pair, Locations location)
         {
             var valueIsNull = pair.Value is null ? true : false;
 
