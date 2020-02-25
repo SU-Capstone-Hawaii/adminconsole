@@ -429,15 +429,12 @@ namespace adminconsole.Models
         /// </returns>
         private static BooleanEnum ConvertBoolToBooleanEnum(bool? booleanValueFromDb)
         {
-            switch (booleanValueFromDb)
+            if ((bool)booleanValueFromDb)
             {
-                case (true):
-                    return BooleanEnum.Y;
-                case (false):
-                    return BooleanEnum.N;
-                default:
-                    return BooleanEnum.NULL;
+                return BooleanEnum.Y;
             }
+
+            return BooleanEnum.N;
         }
 
 
