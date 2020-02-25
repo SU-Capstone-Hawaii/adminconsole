@@ -88,7 +88,7 @@
                     <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
                 </td>
                 <td>
-                    @if (item.Name == "BECU")
+                    @if (item.Name.ToLower().Equals("becu"))
                     {
                         <img src="~/media/BEC-Logo-Icon-pms.png" />
                     }
