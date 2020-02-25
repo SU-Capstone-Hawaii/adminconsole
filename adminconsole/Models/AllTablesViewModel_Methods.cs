@@ -204,9 +204,9 @@ namespace adminconsole.Models
 
             Contacts contact = new Contacts();
             contact.LocationId = newLocation.LocationId;
-            contact.Phone = newLocation.Phone ?? null;
-            contact.Fax = newLocation.Fax ?? null;
-            contact.WebAddress = newLocation.WebAddress ?? null;
+            contact.Phone = newLocation.Phone;
+            contact.Fax = newLocation.Fax;
+            contact.WebAddress = newLocation.WebAddress;
 
 
             if (contact.AllPropertiesAreNull())
