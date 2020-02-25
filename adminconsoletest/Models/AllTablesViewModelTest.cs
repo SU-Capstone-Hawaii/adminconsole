@@ -719,5 +719,26 @@ namespace adminconsoletest
             // Assert
             Assert.IsNull(result);
         }
+
+
+
+
+
+
+
+        // Tests null parameter. Should return null.
+        [TestMethod]
+        public void AllTablesViewModel_GetNewDailyHours_Null_Parameter_Should_Pass()
+        {
+            // Arrange
+            var viewModel = new AllTablesViewModel();
+
+            // Act
+            var result = AllTablesViewModel.GetNewSpecialQualities(null);
+
+
+            // Assert
+            Assert.IsNull(result);
+        }
     }
 }
