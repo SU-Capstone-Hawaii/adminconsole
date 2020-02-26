@@ -10,6 +10,11 @@ namespace adminconsole.Controllers
         private readonly MaphawksContext _context;
         private LocationsBackend backend;
 
+
+        /// <summary>
+        /// Constructor for normal function of application
+        /// </summary>
+        /// <param name="context"></param>
         public LocationsController(MaphawksContext context)
         {
             _context = context;
@@ -17,7 +22,11 @@ namespace adminconsole.Controllers
         }
 
 
-
+        /// <summary>
+        /// Constructor for unit testing controller
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="mockBackend"></param>
         public LocationsController(MaphawksContext context, LocationsBackend mockBackend)
         {
             _context = context;
