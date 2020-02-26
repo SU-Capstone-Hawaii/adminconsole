@@ -135,29 +135,43 @@ namespace adminconsoletest
             Assert.AreEqual("Index", result.ActionName);
         }
 
-        /*
+
+
+
+
+        /// <summary>
+        /// Ensure the Post Create Method on the controller re-returns for edit and is not null
+        /// </summary>
         [TestMethod]
-        public void Clinic_Create_Post_Invalid_Model_Should_Send_Back_For_Edit()
+        public void LocationsController_Create_Post_Invalid_Model_Should_Send_Back_For_Edit()
         {
             // Arrange
-            var controller = new ClinicController(HttpContextHelper.GetHttpContext().Object);
-            var data = new ClinicModel();
+            var mock = new Mock<LocationsBackend>(context);
+            var controller = new LocationsController(context, mock.Object);
 
 
-        
+
+            // Get mock data as view model
+            var dataMock = new LocationsDataMock();
+            var dataRaw = dataMock.GetAllViewModelList()[0];
+            var data = new AllTablesViewModel(dataRaw);
+
+
+
             // Make ModelState Invalid
             controller.ModelState.AddModelError("test", "test");
 
 
 
             // Act
-            var result = controller.Create(data) as RedirectToActionResult;
+            var result = controller.Create(data) as ViewResult;
 
 
 
             // Assert
-            Assert.AreEqual("Error", result.ActionName);
-        }*/
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Create Post", result.ViewName);
+        }
 
 
 
