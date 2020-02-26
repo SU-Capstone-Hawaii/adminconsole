@@ -198,7 +198,9 @@ namespace adminconsole.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(newLocation);
+                var view = View(newLocation);
+                view.ViewName = "Create Post";
+                return view;
             }
 
 
