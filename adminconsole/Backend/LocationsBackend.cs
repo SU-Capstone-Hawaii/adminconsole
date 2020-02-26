@@ -54,7 +54,7 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <returns> Returns List of Locations Objects </returns>
-        public async Task<List<Locations>> IndexAsync(bool deleted = false)
+        public virtual async Task<List<Locations>> IndexAsync(bool deleted = false)
         {
             var locations_list = new List<Locations>();
 
@@ -84,7 +84,7 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <returns> Returns a single Locations Object </returns>
-        public async Task<Locations> DetailsAsync(string id)
+        public virtual async Task<Locations> DetailsAsync(string id)
         {
 
             var resultLocation = await db.ReadOneRecordAsync(id).ConfigureAwait(false);
@@ -120,7 +120,7 @@ namespace adminconsole.Backend
         /// True: It newLocation is successfully inserted into the Database
         /// 
         /// </returns>
-        public bool Create(AllTablesViewModel newLocation)
+        public virtual bool Create(AllTablesViewModel newLocation)
         {
             if (newLocation == null) // Non-valid ViewModel Object
             {
@@ -193,7 +193,7 @@ namespace adminconsole.Backend
         /// 
         /// 
         /// <returns> If the record doesn't exist returns NULL, otherwise returns the Locations Object </returns>
-        public async Task<Locations> GetLocationAsync(string id)
+        public virtual async Task<Locations> GetLocationAsync(string id)
         {
             if (id == null)
             {
@@ -233,7 +233,7 @@ namespace adminconsole.Backend
         /// Locations Object: If the record was found in the Database
         /// 
         /// </returns>
-        public async Task<AllTablesViewModel> EditAsync(string id)
+        public virtual async Task<AllTablesViewModel> EditAsync(string id)
         {
             if (id == null)
             {
@@ -276,7 +276,7 @@ namespace adminconsole.Backend
         /// False: If newLocation is null, of if there was a Database Update error
         /// 
         /// </returns>
-        public async Task<bool> EditPostAsync(AllTablesViewModel newLocation)
+        public virtual async Task<bool> EditPostAsync(AllTablesViewModel newLocation)
         {
             if (newLocation == null)
             {
@@ -342,7 +342,7 @@ namespace adminconsole.Backend
         /// False: If Database error or if the LocationId does not exist in Database
         /// 
         /// </returns>
-        public async Task<bool> DeleteConfirmedAsync(string id)
+        public virtual async Task<bool> DeleteConfirmedAsync(string id)
         {
 
             if (id == null)
@@ -397,7 +397,7 @@ namespace adminconsole.Backend
         /// False: If there was a Database error when trying to Update the Locations record
         /// 
         /// </returns>
-        public async Task<bool> RecoverAsync(string id)
+        public virtual async Task<bool> RecoverAsync(string id)
         {
             if (id == null)
             {
