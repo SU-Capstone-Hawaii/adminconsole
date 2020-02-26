@@ -75,5 +75,92 @@ namespace adminconsoletest
             Assert.IsNotNull(result);
         }
         #endregion IndexTests
+
+
+
+
+
+        #region CreateTests
+
+
+
+        /// <summary>
+        /// Ensure the Get Create Method on the controller returns and is not null
+        /// </summary>
+        [TestMethod]
+        public void Clinic_Create_Get_Default_Should_Fail()
+        {
+            // Arrange
+            var mock = new Mock<LocationsBackend>(context);
+            var dataMock = new LocationsDataMock();
+            var myController = new LocationsController(context, mock.Object);
+
+
+
+            // Act
+            var result = myController.Create();
+
+
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+
+        /*
+        [TestMethod]
+        public void Clinic_Create_Post_Invalid_Model_Should_Send_Back_For_Edit()
+        {
+            // Arrange
+            var controller = new ClinicController(HttpContextHelper.GetHttpContext().Object);
+            var data = new ClinicModel();
+
+
+        
+            // Make ModelState Invalid
+            controller.ModelState.AddModelError("test", "test");
+
+
+
+            // Act
+            var result = controller.Create(data) as RedirectToActionResult;
+
+
+
+            // Assert
+            Assert.AreEqual("Error", result.ActionName);
+        }*/
+
+
+
+        /// <summary>
+        /// Ensure the Create Method Post on the controller returns and is not null
+        /// </summary>
+        /*
+        [TestMethod]
+        public void Clinic_Create_Post_Default_Should_Fail()
+        {
+            // Arrange
+            var myController = new ClinicController(HttpContextHelper.GetHttpContext().Object);
+            var myData = new ClinicModel();
+
+            
+            
+            // Act
+            var result = myController.Create(myData);
+
+
+
+            // Assert
+
+            Assert.IsNotNull(result);
+
+            Assert.IsNull(myData.OrganizationID);
+
+        }
+        */
+
+
+        #endregion CreateTests
     }
 }
