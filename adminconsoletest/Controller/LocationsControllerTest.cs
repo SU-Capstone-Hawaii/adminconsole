@@ -1,6 +1,7 @@
 using adminconsole.Backend;
 using adminconsole.Controllers;
 using adminconsole.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Threading.Tasks;
@@ -106,6 +107,33 @@ namespace adminconsoletest
             Assert.IsNotNull(result);
         }
 
+
+        /// <summary>
+        /// Ensure the Post Create Method on the controller returns and is not null
+        /// </summary>
+        [TestMethod]
+        public void LocationsController_Create_Post_Valid_Model_Should_Pass()
+        {
+            // Arrange
+            var mock = new Mock<LocationsBackend>(context);
+            mock.Setup(backend => backend.Create(It.IsAny<AllTablesViewModel>())).Returns(true);
+            var controller = new LocationsController(context, mock.Object);
+
+            // Get mock data as view model
+            var dataMock = new LocationsDataMock();
+            var dataRaw = dataMock.GetAllViewModelList()[0];
+            var data = new AllTablesViewModel(dataRaw);
+
+
+            // Act
+            var result = controller.Create(data) as RedirectToActionResult;
+
+
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.ActionName);
+        }
 
         /*
         [TestMethod]
