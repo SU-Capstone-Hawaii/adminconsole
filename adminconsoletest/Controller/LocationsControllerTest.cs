@@ -88,7 +88,7 @@ namespace adminconsoletest
         /// Ensure the Get Create Method on the controller returns and is not null
         /// </summary>
         [TestMethod]
-        public void Clinic_Create_Get_Default_Should_Fail()
+        public void Locations_Create_Get_Default_Should_Pass()
         {
             // Arrange
             var mock = new Mock<LocationsBackend>(context);
