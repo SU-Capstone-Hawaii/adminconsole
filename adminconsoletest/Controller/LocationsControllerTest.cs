@@ -14,7 +14,44 @@ namespace adminconsoletest
 
         MaphawksContext context = (new Mock<MaphawksContext>()).Object;
 
+        #region ConstructorTests
+        /// <summary>
+        /// Ensures Constructor called when officially running the application creates a LocationsController object
+        /// </summary>
+        [TestMethod]
+        public void LocationsController_Production_Constructor_Should_Pass()
+        {
+            // Arrange 
+            var result = new LocationsController(context);
 
+            // Act
+
+            // Assert
+            Assert.IsNotNull(result);
+
+        }
+
+
+
+
+        /// <summary>
+        /// Ensures Constructor called when test running the application creates a LocationsController object
+        /// </summary>
+        [TestMethod]
+        public void LocationsController_Testing_Constructor_Should_Pass()
+        {
+            // Arrange 
+            var mockBackend = new Mock<LocationsBackend>(context);
+            var result = new LocationsController(context, mockBackend.Object);
+
+            // Act
+
+            // Assert
+            Assert.IsNotNull(result);
+
+        }
+
+        #endregion
         #region IndexTests
         /// <summary>
         /// Ensure the Default Index page on the controller returns and is not null
