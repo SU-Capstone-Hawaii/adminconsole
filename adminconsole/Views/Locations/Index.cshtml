@@ -55,13 +55,13 @@
             <th class="d-none">
                 @Html.DisplayNameFor(model => model.Hours)
             </th>
-            <th class="d-none">
+            <th>
                 @Html.DisplayNameFor(model => model.Contact.Phone)
             </th>
             <th class="d-none">
                 @Html.DisplayNameFor(model => model.Contact.Fax)
             </th>
-            <th class="d-none">
+            <th>
                 @Html.DisplayNameFor(model => model.Contact.WebAddress)
             </th>
             <th class="d-none">
@@ -254,14 +254,20 @@
                 <td class="d-none">
                     @Html.DisplayFor(modelItem => item.Hours)
                 </td>
-                <td class="d-none">
+                <td>
                     @Html.DisplayFor(modelItem => item.Contact.Phone)
                 </td>
                 <td class="d-none">
                     @Html.DisplayFor(modelItem => item.Contact.Fax)
                 </td>
-                <td class="d-none">
-                    @Html.DisplayFor(modelItem => item.Contact.WebAddress)
+                <td>
+                    @if(item.Contact != null)
+                    {
+                        @if(!string.IsNullOrEmpty(item.Contact.WebAddress))
+                        {
+                            <a href="@item.Contact.WebAddress">@item.Contact.WebAddress</a>
+                        }
+                    }
                 </td>
                 <td class="d-none">
                     @Html.DisplayFor(modelItem => item.SpecialQualities.RestrictedAccess)
