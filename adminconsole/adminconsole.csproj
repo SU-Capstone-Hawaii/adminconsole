@@ -28,4 +28,8 @@
     <Folder Include="wwwroot\media\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseLibrary\DatabaseLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

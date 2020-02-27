@@ -1,4 +1,4 @@
-﻿namespace adminconsole.Models
+﻿namespace DatabaseLibrary.Models
 {
     
     public interface IMaphawksDatabaseTable 

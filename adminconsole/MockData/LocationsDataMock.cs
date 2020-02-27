@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DatabaseLibrary.Models;
+
 
 namespace adminconsole.Models
 {

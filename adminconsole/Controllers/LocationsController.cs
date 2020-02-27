@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using adminconsole.Models;
 using adminconsole.Backend;
+using DatabaseLibrary.Models;
+
 
 namespace adminconsole.Controllers
 {
     public class LocationsController : Controller
     {
+
         private readonly MaphawksContext _context;
         private LocationsBackend backend;
 
@@ -15,23 +18,20 @@ namespace adminconsole.Controllers
         /// Constructor for normal function of application
         /// </summary>
         /// <param name="context"></param>
-        public LocationsController(MaphawksContext context)
+        public LocationsController(MaphawksContext context, LocationsBackend backend=null)
         {
             _context = context;
-            backend = new LocationsBackend(context);
+
+            // Fork to allow for mocking out backend
+            if (backend != null)
+            {
+                this.backend = backend;
+            } else
+            {
+                this.backend = new LocationsBackend(_context);
+            }
         }
 
-
-        /// <summary>
-        /// Constructor for unit testing controller
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="mockBackend"></param>
-        public LocationsController(MaphawksContext context, LocationsBackend mockBackend)
-        {
-            _context = context;
-            backend = mockBackend;
-        }
 
 
 

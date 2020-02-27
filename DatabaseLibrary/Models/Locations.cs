@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace adminconsole.Models
+namespace DatabaseLibrary.Models
 {
     public partial class Locations : IMaphawksDatabaseTable
     {

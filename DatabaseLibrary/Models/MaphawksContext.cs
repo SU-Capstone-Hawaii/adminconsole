@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace adminconsole.Models
+namespace DatabaseLibrary.Models
 {
     public partial class MaphawksContext : DbContext
     {
