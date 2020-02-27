@@ -4,83 +4,205 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="display-table-options">
-    <div class="display-table-option">
-        <input type="radio" name="tables" onclick=selectLocations() checked/> Locations
-    </div>
-    <div class="display-table-option">
-        <input type="radio" name="tables" onclick=selectContacts() /> Contact
-    </div>
-    <div class="display-table-option">
-        <input type="radio" name="tables" onclick=selectSpecialQualities() /> Special Qualities
-    </div>
-    <div class="display-table-option">
-        <input type="radio" name="tables" onclick=selectDailyHours() /> Hours/Day of the Week
-    </div>
-    <div class="display-table-option">
-        <input type="radio" name="tables" onclick=showAll() /> Show All
 
-    </div>
-</div>
+<table class="table table-bordered"
+        id="table"
+        data-search="true"
+        data-show-search-clear-button="true"
+        data-show-export="true"
+        data-sort-stable="true"
+        data-virtual-scroll="true">
 
-<div class="showLocations">
-    <table class="table table-bordered"
-           id="table"
-           data-toggle="table"
-           data-search="true"
-           data-show-search-clear-button="true"
-           data-show-columns="true"
-           data-show-columns-toggle-all="true"
-           data-show-export="true"
-           data-sort-stable="true"
-           data-pagination="true">
-
-        <thead>
-            <tr>
-                <th>
-                    Controls
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LocationType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.City)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostalCode)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.County)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.State)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Country)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Latitude)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Longitude)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RetailOutlet)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Hours)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <thead>
+        <tr>
+            <th>
+                Controls
+            </th>
+            <th data-field="Name" data-sortable="true">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationType)
+            </th>
+            <th data-field="Address" data-sortable="true">
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th data-field="City" data-sortable="true">
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.County)
+            </th>
+            <th data-field="State" data-sortable="true">
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.Latitude)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.Longitude)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.RetailOutlet)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.Hours)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.Contact.Phone)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.Contact.Fax)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.Contact.WebAddress)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.AcceptCash)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.AcceptDeposit)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.Access)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.AccessNotes)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.Cashless)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.DriveThruOnly)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.EnvelopeRequired)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.HandicapAccess)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.InstallationType)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.LimitedTransactions)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.MilitaryIdRequired)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.OnMilitaryBase)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.OnPremise)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.RestrictedAccess)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.SelfServiceDevice)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.SelfServiceOnly)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.SpecialQualities.Surcharge)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursMonOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursMonClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursTueOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursTueClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursWedOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursWedClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursThuOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursThuClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursFriOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursFriClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursSatOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursSatClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursSunOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursSunClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDtmonOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDtmonClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDttueOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDttueClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDtwedOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDtwedClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDtthuOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDtthuClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDtfriOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDtfriClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDtsatOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDtsatClose)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDtsunOpen)
+            </th>
+            <th class="d-none">
+                @Html.DisplayNameFor(model => model.DailyHours.HoursDtsunClose)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
@@ -107,893 +229,180 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.City)
                 </td>
-                <td>
+                <td class="d-none">
                     @Html.DisplayFor(modelItem => item.PostalCode)
                 </td>
-                <td>
+                <td class="d-none">
                     @Html.DisplayFor(modelItem => item.County)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.State)
                 </td>
-                <td>
+                <td class="d-none">
                     @Html.DisplayFor(modelItem => item.Country)
                 </td>
-                <td>
+                <td class="d-none">
                     @item.Latitude
                 </td>
-                <td>
+                <td class="d-none">
                     @item.Longitude
                 </td>
-                <td>
+                <td class="d-none">
                     @Html.DisplayFor(modelItem => item.RetailOutlet)
                 </td>
-                <td>
+                <td class="d-none">
                     @Html.DisplayFor(modelItem => item.Hours)
                 </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
-
-
-<div class="showContacts">
-    <table class="table table-bordered"
-           id="table"
-           data-toggle="table"
-           data-search="true"
-           data-show-search-clear-button="true"
-           data-show-columns="true"
-           data-show-columns-toggle-all="true"
-           data-show-export="true"
-           data-sort-stable="true"
-           data-pagination="true">
-
-        <thead>
-            <tr>
-                <th>
-                    Controls
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LocationType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contact.Phone)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contact.Fax)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contact.WebAddress)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-            <tr>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
-                </td>
-                <td>
-                    @if (item.Name == "BECU")
-                    {
-                        <img src="~/media/BEC-Logo-Icon-pms.png" />
-                    }
-                    else
-                    {
-                        <img src="~/media/logo_co-op.png" style="height: 40px;" />
-                    }
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LocationType)
-                </td>
-                <td>
+                <td class="d-none">
                     @Html.DisplayFor(modelItem => item.Contact.Phone)
                 </td>
-                <td>
+                <td class="d-none">
                     @Html.DisplayFor(modelItem => item.Contact.Fax)
                 </td>
-                <td>
+                <td class="d-none">
                     @Html.DisplayFor(modelItem => item.Contact.WebAddress)
                 </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.RestrictedAccess)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.AcceptDeposit)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.EnvelopeRequired)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.OnPremise)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.Access)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.InstallationType)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.DriveThruOnly)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.LimitedTransactions)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.HandicapAccess)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.AcceptCash)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.Cashless)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.SelfServiceOnly)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.Surcharge)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.OnMilitaryBase)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.MilitaryIdRequired)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.SelfServiceDevice)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.SpecialQualities.AccessNotes)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursMonOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursMonClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursTueOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursTueClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursWedOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursWedClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursThuOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursThuClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursFriOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursFriClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursSatOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursSatClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursSunOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursSunClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDtmonOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDtmonClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDttueOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDttueClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDtwedOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDtwedClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDtthuOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDtthuClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDtfriOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDtfriClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsatOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsatClose)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsunOpen)
+                </td>
+                <td class="d-none">
+                    @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsunClose)
+                </td>
             </tr>
-            }
-        </tbody>
-    </table>
-</div>
+        }
+    </tbody>
+</table>
 
-<div class="showSpecialQualities">
-    <table class="table table-bordered"
-           id="table"
-           data-toggle="table"
-           data-search="true"
-           data-show-search-clear-button="true"
-           data-show-columns="true"
-           data-show-columns-toggle-all="true"
-           data-show-export="true"
-           data-sort-stable="true"
-           data-pagination="true">
 
-        <thead>
-            <tr>
-                <th>
-                    Controls
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LocationType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.RestrictedAccess)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.AcceptDeposit)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.EnvelopeRequired)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.OnPremise)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.Access)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.InstallationType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.DriveThruOnly)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.LimitedTransactions)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.HandicapAccess)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.AcceptCash)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.Cashless)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.SelfServiceOnly)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.Surcharge)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.OnMilitaryBase)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.MilitaryIdRequired)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.SelfServiceDevice)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.AccessNotes)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
-                    </td>
-                    <td>
-                        @if (item.Name == "BECU")
-                        {
-                            <img src="~/media/BEC-Logo-Icon-pms.png" />
-                        }
-                        else
-                        {
-                            <img src="~/media/logo_co-op.png" style="height: 40px;" />
-                        }
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LocationType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.RestrictedAccess)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.AcceptDeposit)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.EnvelopeRequired)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.OnPremise)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.Access)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.InstallationType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.DriveThruOnly)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.LimitedTransactions)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.HandicapAccess)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.AcceptCash)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.Cashless)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.SelfServiceOnly)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.Surcharge)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.OnMilitaryBase)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.MilitaryIdRequired)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.SelfServiceDevice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.AccessNotes)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
-
-<div class="showDailyHours">
-    <table class="table table-bordered"
-           id="table"
-           data-toggle="table"
-           data-search="true"
-           data-show-search-clear-button="true"
-           data-show-columns="true"
-           data-show-columns-toggle-all="true"
-           data-show-export="true"
-           data-sort-stable="true"
-           data-pagination="true">
-
-        <thead>
-            <tr>
-
-                <th>
-                    Controls
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LocationType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursMonOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursMonClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursTueOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursTueClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursWedOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursWedClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursThuOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursThuClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursFriOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursFriClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursSatOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursSatClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursSunOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursSunClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtmonOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtmonClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDttueOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDttueClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtwedOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtwedClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtthuOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtthuClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtfriOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtfriClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsatOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsatClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsunOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsunClose)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                if (item.DailyHours != null)
-                {
-
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
-                    </td>
-                    <tr>
-                        <td>
-                            @if (item.Name == "BECU")
-                            {
-                                <img src="~/media/BEC-Logo-Icon-pms.png" />
-                            }
-                            else
-                            {
-                                <img src="~/media/logo_co-op.png" style="height: 40px;" />
-                            }
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.LocationType)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursMonOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursMonClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursTueOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursTueClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursWedOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursWedClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursThuOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursThuClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursFriOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursFriClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursSatOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursSatClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursSunOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursSunClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtmonOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtmonClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDttueOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDttueClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtwedOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtwedClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtthuOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtthuClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtfriOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtfriClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsatOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsatClose)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsunOpen)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsunClose)
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>
-</div>
-
-<div class="showAll">
-    <table class="table table-bordered"
-           id="table"
-           data-toggle="table"
-           data-search="true"
-           data-show-search-clear-button="true"
-           data-show-columns="true"
-           data-show-columns-toggle-all="true"
-           data-show-export="true"
-           data-sort-stable="true"
-           data-pagination="true">
-
-        <thead>
-            <tr>
-                <th>
-                    Controls
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LocationType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.City)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostalCode)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.County)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.State)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Country)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Latitude)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Longitude)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RetailOutlet)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Hours)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contact.Phone)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contact.Fax)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contact.WebAddress)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.RestrictedAccess)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.AcceptDeposit)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.EnvelopeRequired)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.OnPremise)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.Access)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.InstallationType)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.DriveThruOnly)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.LimitedTransactions)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.HandicapAccess)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.AcceptCash)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.Cashless)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.SelfServiceOnly)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.Surcharge)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.OnMilitaryBase)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.MilitaryIdRequired)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.SelfServiceDevice)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SpecialQualities.AccessNotes)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursMonOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursMonClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursTueOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursTueClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursWedOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursWedClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursThuOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursThuClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursFriOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursFriClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursSatOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursSatClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursSunOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursSunClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtmonOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtmonClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDttueOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDttueClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtwedOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtwedClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtthuOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtthuClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtfriOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtfriClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsatOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsatClose)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsunOpen)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DailyHours.HoursDtsunClose)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.LocationId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.LocationId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.LocationId">Delete</a>
-                    </td>
-                    <td>
-                        @if (item.Name == "BECU")
-                        {
-                            <img src="~/media/BEC-Logo-Icon-pms.png" />
-                        }
-                        else
-                        {
-                            <img src="~/media/logo_co-op.png" style="height: 40px;" />
-                        }
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LocationType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.City)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostalCode)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.County)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.State)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Country)
-                    </td>
-                    <td>
-                        @item.Latitude
-                    </td>
-                    <td>
-                        @item.Longitude
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RetailOutlet)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Hours)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Contact.Phone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Contact.Fax)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Contact.WebAddress)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.RestrictedAccess)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.AcceptDeposit)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.EnvelopeRequired)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.OnPremise)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.Access)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.InstallationType)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.DriveThruOnly)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.LimitedTransactions)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.HandicapAccess)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.AcceptCash)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.Cashless)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.SelfServiceOnly)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.Surcharge)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.OnMilitaryBase)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.MilitaryIdRequired)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.SelfServiceDevice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SpecialQualities.AccessNotes)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursMonOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursMonClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursTueOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursTueClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursWedOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursWedClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursThuOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursThuClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursFriOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursFriClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursSatOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursSatClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursSunOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursSunClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtmonOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtmonClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDttueOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDttueClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtwedOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtwedClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtthuOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtthuClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtfriOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtfriClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsatOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsatClose)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsunOpen)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DailyHours.HoursDtsunClose)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
 
 @section scripts {
     <script src="~/js/TableDataExportHelper.js"></script>
