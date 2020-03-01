@@ -198,6 +198,8 @@ namespace DatabaseLibrary.Models
 
         /// <summary>
         /// Used to return Location query results in sorted order from a given latitude/longitude
+        /// 
+        /// Un-used in this application, but used in externally-facing mapping service
         /// </summary>
         public Geometry Point { get; set; }
 
