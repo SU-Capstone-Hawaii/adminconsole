@@ -244,7 +244,7 @@ namespace DatabaseLibrary.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Point)
-                .HasComputedColumnSql("geometry::Point(Latitude, Longitude, 4326)");
+                .HasComputedColumnSql("([geography]::Point([Latitude],[Longitude], (4326)))");
 
                 entity.Property(e => e.PostalCode)
                     .IsRequired()
