@@ -69,7 +69,7 @@ namespace adminconsole.Backend
                          .Include(s => s.SpecialQualities)
                          .Include(h => h.DailyHours)
                          .AsNoTracking()
-                         .Where(record => record.SoftDelete == isDeleted && record.SoftDelete == isDeleted)
+                         .Where(record => record.SoftDelete == isDeleted)
                          .ToListAsync()
                          .ConfigureAwait(false);
 
