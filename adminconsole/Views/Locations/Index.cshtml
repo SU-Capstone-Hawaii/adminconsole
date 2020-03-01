@@ -6,13 +6,13 @@
 
 
 <table class="table table-bordered table-striped"
-        id="table"
-        data-search="true"
-        data-height="500"
-        data-show-search-clear-button="true"
-        data-show-export="true"
-        data-sort-stable="true"
-        data-virtual-scroll="true">
+       id="table"
+       data-search="true"
+       data-height="500"
+       data-show-search-clear-button="true"
+       data-show-export="true"
+       data-sort-stable="true"
+       data-virtual-scroll="true">
 
     <thead>
         <tr>
@@ -261,9 +261,9 @@
                     @Html.DisplayFor(modelItem => item.Contact.Fax)
                 </td>
                 <td>
-                    @if(item.Contact != null)
+                    @if (item.Contact != null)
                     {
-                        @if(!string.IsNullOrEmpty(item.Contact.WebAddress))
+                        @if (!string.IsNullOrEmpty(item.Contact.WebAddress))
                         {
                             <a href="@item.Contact.WebAddress">@item.Contact.WebAddress</a>
                         }
@@ -413,5 +413,5 @@
 
 @section scripts {
     <script src="~/js/TableDataExportHelper.js"></script>
-    <script src="~/js/TableShowHelper.js"></script>
+    <script src="~/js/ChangeSearchClearIcon.js"></script>
 }
