@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adminconsole", "adminconsol
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adminconsoletest", "..\adminconsoletest\adminconsoletest.csproj", "{8DDC3CC6-DAE3-45C9-98B4-39A89908F8F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseLibrary", "..\DatabaseLibrary\DatabaseLibrary.csproj", "{978A608A-30EB-4C5F-8235-232DB19B6A4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseLibrary", "..\DatabaseLibrary\DatabaseLibrary.csproj", "{978A608A-30EB-4C5F-8235-232DB19B6A4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

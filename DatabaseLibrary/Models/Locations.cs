@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using NetTopologySuite.Geometries;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace DatabaseLibrary.Models
@@ -191,6 +192,12 @@ namespace DatabaseLibrary.Models
         [Required]
         [DisplayName("Location Type")]
         public string LocationType { get; set; }
+
+
+
+
+
+        public Geometry Point { get; set; }
 
 
 

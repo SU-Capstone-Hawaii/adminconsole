@@ -59,7 +59,23 @@ namespace DatabaseLibrary.Models
         
         [DisplayName("Self Service Only")]
         public string SelfServiceOnly { get; set; }
-        
+
+
+
+        // NFC attributes
+        [Display(Name = "CoinStar")]
+        public string CoinStar { get; set; }
+        [Display(Name = "Teller Services")]
+        public string TellerServices { get; set; }
+        [Display(Name = "24 Hour Express Box")]
+        public string _24hourExpressBox { get; set; }
+        [Display(Name = "Partner Credit Union")]
+        public string PartnerCreditUnion { get; set; }
+        [Display(Name = "Member Consultant")]
+        public string MemberConsultant { get; set; }
+        [Display(Name = "Instant Debit Card Replacement")]
+        public string InstantDebitCardReplacement { get; set; }
+
         // Location Object. Used for joins.
         public virtual Locations Location { get; set; }
 
